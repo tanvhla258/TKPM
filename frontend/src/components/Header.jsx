@@ -153,12 +153,12 @@ function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
-        style={{ background: "#fff", color: "#777", boxShadow: "none" }}
+        style={{ boxShadow: "none" }}
       >
         <Toolbar>
           <Typography
             variant="h5"
-            style={{ fontWeight: 700, color: "#007CF0" }}
+            style={{ fontWeight: 700, color: "#fff" }}
             noWrap
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}

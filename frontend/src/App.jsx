@@ -14,7 +14,7 @@ function App() {
         <Header />
         <div
           className="content"
-          style={{ marginTop: "100px", marginLeft: "250px", minHeight: "80vh" }}
+          style={{ marginTop: "100px", marginLeft: "250px", minHeight: "90vh" }}
         >
           <Sidebar />
           <div>

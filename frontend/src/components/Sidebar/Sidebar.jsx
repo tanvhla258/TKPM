@@ -18,10 +18,17 @@ import HomeIcon from "@mui/icons-material/Home";
 import StoreIcon from "@mui/icons-material/Store";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ReceiptIcon from "@mui/icons-material/Receipt";
+import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 const drawerWidth = 240;
-const Icons = [<HomeIcon />, <StoreIcon />, <ReceiptIcon />, <SettingsIcon />];
+const Icons = [
+  <HomeIcon />,
+  <StoreIcon />,
+  <ReceiptIcon />,
+  <PersonIcon />,
+  <SettingsIcon />,
+];
 const drawer = (
   <div>
     <Typography
@@ -41,14 +48,16 @@ const drawer = (
       Book Store Manager
     </Typography>
     <List>
-      {["Dashboard", "Products", "Orders", "Settings"].map((text, index) => (
-        <ListItem key={text} disablePadding>
-          <ListItemButton component={Link} to={`/${text.toLowerCase()}`}>
-            <ListItemIcon>{Icons[index]}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItemButton>
-        </ListItem>
-      ))}
+      {["Dashboard", "Products", "Orders", "User", "Settings"].map(
+        (text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton component={Link} to={`/${text.toLowerCase()}`}>
+              <ListItemIcon>{Icons[index]}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        )
+      )}
     </List>
   </div>
 );

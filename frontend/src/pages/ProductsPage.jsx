@@ -64,9 +64,10 @@ function ProductsPage() {
         <Icon color="primary">add_circle</Icon>
       </Button> */}
       <Icon
-        style={{ position: "absolute", right: 8, bottom: 2 }}
+        style={{ position: "absolute", right: 8, bottom: 2, cursor: "pointer" }}
         onClick={handleOpen}
         color="primary"
+        fontSize="large"
       >
         add_circle
       </Icon>
