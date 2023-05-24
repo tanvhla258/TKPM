@@ -19,15 +19,36 @@ import StoreIcon from "@mui/icons-material/Store";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import PersonIcon from "@mui/icons-material/Person";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import RequestPageIcon from "@mui/icons-material/RequestPage";
+import DescriptionIcon from "@mui/icons-material/Description";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 const drawerWidth = 240;
 const Icons = [
   <HomeIcon />,
-  <StoreIcon />,
+  <ShoppingCartIcon />,
+  <DescriptionIcon />,
   <ReceiptIcon />,
   <PersonIcon />,
+  <RequestPageIcon />,
   <SettingsIcon />,
+];
+const sideBarPages = [
+  { name: "Dashboard", link: "dashboard" },
+  { name: "Sản phẩm", link: "products" },
+  { name: "Phiếu nhập sách", link: "book-entries" },
+  { name: "Hóa đơn", link: "orders" },
+  { name: "User", link: "users" },
+  { name: "Phiếu thu tiền", link: "receipts" },
+  { name: "Quy định", link: "settings" },
+
+  "Sản phẩm",
+  "Phiếu nhập sách",
+  "Hóa đơn",
+  "User",
+  "Phiếu thu tiền",
+  "Quy định",
 ];
 const drawer = (
   <div>
@@ -48,16 +69,14 @@ const drawer = (
       Book Store Manager
     </Typography>
     <List>
-      {["Dashboard", "Products", "Orders", "User", "Settings"].map(
-        (text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton component={Link} to={`/${text.toLowerCase()}`}>
-              <ListItemIcon>{Icons[index]}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        )
-      )}
+      {sideBarPages.map((page, index) => (
+        <ListItem key={index} disablePadding>
+          <ListItemButton component={Link} to={`/${page.link}`}>
+            <ListItemIcon>{Icons[index]}</ListItemIcon>
+            <ListItemText primary={page.name} />
+          </ListItemButton>
+        </ListItem>
+      ))}
     </List>
   </div>
 );
