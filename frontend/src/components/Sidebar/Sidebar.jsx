@@ -35,7 +35,7 @@ const Icons = [
   <SettingsIcon />,
 ];
 const sideBarPages = [
-  { name: "Dashboard", link: "dashboard" },
+  { name: "Dashboard", link: "" },
   { name: "Sản phẩm", link: "products" },
   { name: "Phiếu nhập sách", link: "book-entries" },
   { name: "Hóa đơn", link: "orders" },

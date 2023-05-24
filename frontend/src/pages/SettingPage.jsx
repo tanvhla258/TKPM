@@ -7,7 +7,10 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import WidgetsIcon from "@mui/icons-material/Widgets";
+import Switch from "@mui/material/Switch";
+
 import { Grid } from "@mui/material";
+const label = { inputProps: { "aria-label": "Switch demo" } };
 const bull = (
   <Box
     component="span"
@@ -35,6 +38,7 @@ const SettingCard = () => {
         <Button color="error" startIcon={<DeleteIcon />}>
           Delete
         </Button>
+        <Switch {...label} defaultChecked />
       </CardActions>
     </Card>
   );
