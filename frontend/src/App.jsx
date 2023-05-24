@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DashboardPage from "./pages/DashboardPage";
+import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import ProductsPage from "./pages/ProductsPage";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header";
