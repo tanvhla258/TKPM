@@ -42,13 +42,6 @@ const sideBarPages = [
   { name: "User", link: "users" },
   { name: "Phiếu thu tiền", link: "receipts" },
   { name: "Quy định", link: "settings" },
-
-  "Sản phẩm",
-  "Phiếu nhập sách",
-  "Hóa đơn",
-  "User",
-  "Phiếu thu tiền",
-  "Quy định",
 ];
 const drawer = (
   <div>

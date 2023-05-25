@@ -10,7 +10,7 @@ import ReceiptPage from "./pages/ReceiptPage";
 import BookEntryPage from "./pages/BookEntryPage";
 import UserPage from "./pages/UserPage";
 import LoginPage from "./pages/LoginPage";
-let currentUser = true;
+let currentUser = false;
 function App() {
   return currentUser ? (
     <BrowserRouter>

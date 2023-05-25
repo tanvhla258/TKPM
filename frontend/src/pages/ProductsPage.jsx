@@ -1,6 +1,7 @@
 import React from "react";
 import Book from "../components/Book";
 import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
+import Dropdown from "../components/Dropdown";
 const style = {
   position: "absolute",
   top: "50%",
@@ -18,7 +19,8 @@ function ProductsPage() {
   const handleClose = () => setOpen(false);
   return (
     <div style={{ position: "relative" }}>
-      <Grid container spacing={2}>
+      <Dropdown />
+      <Grid marginTop={2} container spacing={2}>
         <Grid item>
           <Book
             name="Sherlock Homles"
@@ -27,6 +29,7 @@ function ProductsPage() {
             quantity={50}
           ></Book>
         </Grid>
+
         <Grid item>
           <Book
             name="Sherlock Homles"
@@ -60,11 +63,15 @@ function ProductsPage() {
           ></Book>
         </Grid>
       </Grid>
-      {/* <Button onClick={handleOpen}>
-        <Icon color="primary">add_circle</Icon>
-      </Button> */}
+
       <Icon
-        style={{ position: "absolute", right: 8, bottom: 2, cursor: "pointer" }}
+        style={{
+          position: "absolute",
+          // zIndex: "10",
+          cursor: "pointer",
+          right: 0,
+          bottom: 0,
+        }}
         onClick={handleOpen}
         color="primary"
         fontSize="large"

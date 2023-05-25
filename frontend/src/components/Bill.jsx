@@ -18,7 +18,7 @@ const bull = (
     •
   </Box>
 );
-function Book({ category, name, author, quantity, id }) {
+function Bill({ category, name, author, quantity, id }) {
   return (
     <Card sx={{ minWidth: 350 }}>
       <CardContent>
@@ -36,13 +36,13 @@ function Book({ category, name, author, quantity, id }) {
 
       <CardActions>
         <Button size="small">Learn More</Button>
-        <Button startIcon={<WidgetsIcon />}>Update</Button>
+        <Button startIcon={<WidgetsIcon />}> Thanh toan</Button>
         <Button color="error" startIcon={<DeleteIcon />}>
-          Delete
+          Ghi no
         </Button>
       </CardActions>
     </Card>
   );
 }
 
-export default Book;
+export default Bill;
