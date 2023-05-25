@@ -9,15 +9,29 @@ import SettingPage from "./pages/SettingPage";
 import ReceiptPage from "./pages/ReceiptPage";
 import BookEntryPage from "./pages/BookEntryPage";
 import UserPage from "./pages/UserPage";
-
+import LoginPage from "./pages/LoginPage";
+let currentUser = true;
 function App() {
-  return (
+  return currentUser ? (
     <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </BrowserRouter>
+  ) : (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
       <div>
         <Header />
         <div
           className="content"
-          style={{ marginTop: "100px", marginLeft: "250px", minHeight: "90vh" }}
+          style={{
+            marginTop: "100px",
+            marginLeft: "250px",
+            minHeight: "90vh",
+          }}
         >
           <Sidebar />
           <div>

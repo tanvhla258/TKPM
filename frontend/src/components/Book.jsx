@@ -5,6 +5,10 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import WidgetsIcon from "@mui/icons-material/Widgets";
+import Switch from "@mui/material/Switch";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 const bull = (
   <Box
     component="span"
@@ -15,7 +19,7 @@ const bull = (
 );
 function Book({ category, name, author, quantity, id }) {
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ minWidth: 350 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {category}
@@ -31,6 +35,10 @@ function Book({ category, name, author, quantity, id }) {
 
       <CardActions>
         <Button size="small">Learn More</Button>
+        <Button startIcon={<WidgetsIcon />}>Update</Button>
+        <Button color="error" startIcon={<DeleteIcon />}>
+          Delete
+        </Button>
       </CardActions>
     </Card>
   );
