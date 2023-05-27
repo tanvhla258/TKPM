@@ -12,7 +12,7 @@ const state = {
   },
   series: [
     {
-      name: "series-1",
+      name: "Hóa đơn",
       data: [30, 40, 45, 50, 49, 60, 70],
     },
   ],

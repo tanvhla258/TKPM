@@ -22,8 +22,10 @@ const warning = theme.palette.warning;
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: "30px",
-  backgroundColor: "rgba(10,10,10,0.06)",
-
+  backgroundColor: "rgba(255,255,255)",
+  "& input::placeholder": {
+    color: "#000", // Replace "red" with your desired placeholder color
+  },
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
@@ -98,7 +100,7 @@ function Header() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Log out</MenuItem>
     </Menu>
   );
 

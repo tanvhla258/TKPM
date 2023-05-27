@@ -59,7 +59,8 @@ const drawer = (
       component="div"
       sx={{ display: { xs: "none", sm: "block" } }}
     >
-      Book Store Manager
+      Book Store
+      <br /> Management
     </Typography>
     <List>
       {sideBarPages.map((page, index) => (

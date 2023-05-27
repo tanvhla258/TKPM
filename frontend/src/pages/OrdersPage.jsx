@@ -2,17 +2,7 @@ import React from "react";
 import Bill from "../components/Bill";
 import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
 import Dropdown from "../components/Dropdown";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import { boxstyle } from "../constants/boxstyle";
 function OrdersPage() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -22,45 +12,17 @@ function OrdersPage() {
       <Dropdown />
       <Grid marginTop={2} container spacing={2}>
         <Grid item>
-          <Bill
-            name="Sherlock Homles"
-            author={"conan doley"}
-            category="detective"
-            quantity={50}
-          ></Bill>
+          <Bill cost={200} date={Date.now()} user={{ name: "Tan" }}></Bill>
         </Grid>
 
         <Grid item>
-          <Bill
-            name="Sherlock Homles"
-            author={"conan doley"}
-            category="detective"
-            quantity={50}
-          ></Bill>
+          <Bill cost={200} date={Date.now()} user={{ name: "Truong" }}></Bill>
         </Grid>
         <Grid item>
-          <Bill
-            name="Sherlock Homles"
-            author={"conan doley"}
-            category="detective"
-            quantity={50}
-          ></Bill>
+          <Bill cost={100} date={Date.now()} user={{ name: "Trinh" }}></Bill>
         </Grid>
         <Grid item>
-          <Bill
-            name="Sherlock Homles"
-            author={"conan doley"}
-            category="detective"
-            quantity={50}
-          ></Bill>
-        </Grid>
-        <Grid item>
-          <Bill
-            name="Sherlock Homles"
-            author={"conan doley"}
-            category="detective"
-            quantity={50}
-          ></Bill>
+          <Bill cost={300} date={Date.now()} user={{ name: "Tien" }}></Bill>
         </Grid>
       </Grid>
 
@@ -85,7 +47,7 @@ function OrdersPage() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={boxstyle}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Text in a modal
           </Typography>
