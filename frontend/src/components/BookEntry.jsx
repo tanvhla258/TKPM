@@ -31,7 +31,7 @@ function BookEntry({ date, book, id, cost }) {
             Nhap kho
           </Button>
           <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
-            Ghi no
+            Xoa
           </Button>
         </CardActions>
       </Card>

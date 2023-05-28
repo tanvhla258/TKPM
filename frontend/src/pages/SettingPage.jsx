@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import Switch from "@mui/material/Switch";
+import AddIcon from "../components/AddIcon";
 
 import { Grid } from "@mui/material";
 const label = { inputProps: { "aria-label": "Switch demo" } };
@@ -21,7 +22,7 @@ const bull = (
 );
 const SettingCard = () => {
   return (
-    <Card sx={{ minWidth: 400 }}>
+    <Card sx={{ minWidth: 400, position: "relative" }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Quy dinh 1
@@ -38,7 +39,9 @@ const SettingCard = () => {
         <Button color="error" startIcon={<DeleteIcon />}>
           Delete
         </Button>
-        <Switch {...label} defaultChecked />
+        <CardActions sx={{ right: 2, position: "absolute" }}>
+          <Switch {...label} defaultChecked />
+        </CardActions>
       </CardActions>
     </Card>
   );
@@ -58,6 +61,7 @@ function SettingPage() {
       <Grid item>
         <SettingCard />
       </Grid>
+      {/* <AddIcon handleOpen={handleOpen} /> */}
     </Grid>
   );
 }

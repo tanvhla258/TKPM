@@ -20,7 +20,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "Catamaran, Arial, sans-serif", // Customize the font-family here
+    fontFamily: "Open sans, sans-serif", // Customize the font-family here
   },
 });
 

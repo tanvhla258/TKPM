@@ -16,8 +16,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import SearchIcon from "@mui/icons-material/Search";
 import Badge from "@mui/material/Badge";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
@@ -31,6 +29,7 @@ import RequestPageIcon from "@mui/icons-material/RequestPage";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
+import girl from "../assets/girl.svg";
 
 import {
   StyledInputBase,
@@ -224,16 +223,11 @@ export default function TopAndSide() {
                     justifyContent: "center",
                   }}
                 >
-                  <Tooltip
-                    sx={{
-                      display: { xs: "none", sm: "block" },
-                    }}
-                    placement="right"
-                    title={page.name}
-                  >
+                  <Tooltip placement="right" title={page.name}>
                     {Icons[index]}
                   </Tooltip>
                 </ListItemIcon>
+
                 <ListItemText
                   primary={page.name}
                   sx={{ opacity: open ? 1 : 0 }}
@@ -242,6 +236,16 @@ export default function TopAndSide() {
             </ListItem>
           ))}
         </List>
+        <Box
+          component="img"
+          sx={{
+            opacity: open ? 1 : 0,
+            maxHeight: { xs: 167, md: 233 },
+            maxWidth: { xs: 250, md: 350 },
+            margin: "50px auto 0 auto",
+          }}
+          src={girl}
+        ></Box>
       </Drawer>
     </>
   );

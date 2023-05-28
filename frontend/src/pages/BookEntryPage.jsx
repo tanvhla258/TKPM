@@ -4,6 +4,7 @@ import BookEntry from "../components/BookEntry";
 import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
 import Dropdown from "../components/Dropdown";
 import { boxstyle } from "../constants/boxstyle";
+import AddIcon from "../components/AddIcon";
 function BookEntryPage() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -43,20 +44,7 @@ function BookEntryPage() {
         </Grid>
       </Grid>
 
-      <Icon
-        style={{
-          position: "absolute",
-          // zIndex: "10",
-          cursor: "pointer",
-          right: 0,
-          bottom: 0,
-        }}
-        onClick={handleOpen}
-        color="primary"
-        fontSize="large"
-      >
-        add_circle
-      </Icon>
+      <AddIcon handleOpen={handleOpen} />
 
       <Modal
         open={open}
