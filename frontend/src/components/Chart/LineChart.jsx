@@ -18,7 +18,7 @@ const state = {
   ],
 };
 
-function PercentCircle() {
+function LineChart() {
   return (
     <Chart
       options={state.options}
@@ -28,4 +28,4 @@ function PercentCircle() {
     />
   );
 }
-export default PercentCircle;
+export default LineChart;

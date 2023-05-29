@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PaidIcon from "@mui/icons-material/Paid";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 // import CardHeader from "@mui/material/CardHeader";
 
 const bull = (
@@ -39,7 +40,11 @@ function Bill({ date, user, id, cost }) {
         <Button variant="outlined" color="success" startIcon={<PaidIcon />}>
           Thanh toan
         </Button>
-        <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
+        <Button
+          variant="outlined"
+          color="error"
+          startIcon={<DriveFileRenameOutlineIcon />}
+        >
           Ghi no
         </Button>
       </CardActions>
