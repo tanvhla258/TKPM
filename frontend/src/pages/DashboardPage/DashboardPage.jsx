@@ -9,10 +9,13 @@ import LineChart from "../../components/Chart/LineChart";
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 2a522ee (dashboard)
 =======
 >>>>>>> 5128ced5cbf3d37ce2d15d69c12338f84b612e4e
+=======
+>>>>>>> parent of 2a522ee (dashboard)
 =======
 >>>>>>> parent of 2a522ee (dashboard)
 =======
@@ -22,6 +25,7 @@ import LineChart from "../../components/Chart/LineChart";
 
 // const VISIBLE_FIELDS = ["name", "rating", "country", "dateCreated", "isAdmin"];
 import { Card, Typography, CardContent, Grid } from "@mui/material";
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -74,6 +78,10 @@ import TodayCard from "../../components/TodayCard";
 import CircleChart from "../../components/Chart/CircleChart";
 import TodayCard from "../../components/TodayCard";
 >>>>>>> parent of 2a522ee (dashboard)
+=======
+import CircleChart from "../../components/Chart/CircleChart";
+import TodayCard from "../../components/TodayCard";
+>>>>>>> parent of 2a522ee (dashboard)
 // export function BasicExampleDataGridPro() {
 //   const { data } = useDemoData({
 //     dataSet: "Employee",
@@ -83,9 +91,12 @@ import TodayCard from "../../components/TodayCard";
 // }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of 2a522ee (dashboard)
 =======
 >>>>>>> 5128ced5cbf3d37ce2d15d69c12338f84b612e4e
+=======
+>>>>>>> parent of 2a522ee (dashboard)
 =======
 >>>>>>> parent of 2a522ee (dashboard)
 =======
@@ -110,10 +121,13 @@ function DashboardPage() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 2a522ee (dashboard)
 =======
 >>>>>>> 5128ced5cbf3d37ce2d15d69c12338f84b612e4e
+=======
+>>>>>>> parent of 2a522ee (dashboard)
 =======
 >>>>>>> parent of 2a522ee (dashboard)
 =======
@@ -124,6 +138,7 @@ function DashboardPage() {
           <TodayCard />
           <TodayCard />
           <TodayCard />
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -244,6 +259,9 @@ function DashboardPage() {
 =======
         </Grid>
 >>>>>>> parent of 2a522ee (dashboard)
+=======
+        </Grid>
+>>>>>>> parent of 2a522ee (dashboard)
         <Grid item>
           <DashboardCard />
         </Grid>
@@ -259,9 +277,12 @@ function DashboardPage() {
           <CircleChart />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of 2a522ee (dashboard)
 =======
 >>>>>>> 5128ced5cbf3d37ce2d15d69c12338f84b612e4e
+=======
+>>>>>>> parent of 2a522ee (dashboard)
 =======
 >>>>>>> parent of 2a522ee (dashboard)
 =======
