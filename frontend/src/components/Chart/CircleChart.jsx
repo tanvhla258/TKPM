@@ -5,13 +5,14 @@ import ReactApexChart from "react-apexcharts";
 const state = {
   options: {
     chart: {
-      height: 350,
+      height: 200,
+      width: 200,
       type: "radialBar",
     },
     plotOptions: {
       radialBar: {},
     },
-    labels: [""],
+    labels: ["Phiếu nợ"],
   },
   series: [70],
 };
@@ -20,9 +21,9 @@ function CircleChart() {
   return (
     <ReactApexChart
       type="radialBar"
-      width="370"
       options={state.options}
       series={state.series}
+      width={230}
     ></ReactApexChart>
   );
 }

@@ -16,6 +16,7 @@ function TodayCard() {
         backgroundColor: green[100],
         padding: "10px",
         width: " 150px",
+        height: "125px",
       }}
     >
       <PaidIcon sx={{ color: green[400] }} />
