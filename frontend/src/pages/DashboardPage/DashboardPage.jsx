@@ -3,6 +3,7 @@ import "./DashboardPage.css";
 import LineChart from "../../components/Chart/LineChart";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // import { DataGridPro } from "@mui/x-data-grid-pro";
 // import { useDemoData } from "@mui/x-data-grid-generator";
 
@@ -20,6 +21,8 @@ import TodayCard from "../../components/TodayCard";
 =======
 =======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
+=======
+>>>>>>> parent of 4381f84 (Delete frontend directory)
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { Card, Typography, CardContent, Grid, Chip } from "@mui/material";
 import CircleChart from "../../components/Chart/CircleChart";
@@ -29,6 +32,9 @@ import TodayIcon from "@mui/icons-material/Today";
 import WysiwygIcon from "@mui/icons-material/Wysiwyg";
 import TopBook from "../../components/TopBook";
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 4381f84 (Delete frontend directory)
+=======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
@@ -44,6 +50,7 @@ const DashboardCard = () => (
 function DashboardPage() {
   return (
     <div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
       <Grid sx={{ background: "#fff" }} container spacing={2}>
@@ -67,6 +74,8 @@ function DashboardPage() {
         <Grid item>
           <CircleChart />
 =======
+=======
+>>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
       <Grid
@@ -144,6 +153,9 @@ function DashboardPage() {
             <DashboardCard />
           </Grid>
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 4381f84 (Delete frontend directory)
+=======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
