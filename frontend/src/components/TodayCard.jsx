@@ -20,6 +20,7 @@ function TodayCard() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         height: "125px",
 >>>>>>> parent of 4381f84 (Delete frontend directory)
@@ -32,6 +33,8 @@ function TodayCard() {
 =======
         height: "125px",
 >>>>>>> parent of 4381f84 (Delete frontend directory)
+=======
+>>>>>>> parent of 2a522ee (dashboard)
       }}
     >
       <PaidIcon sx={{ color: green[400] }} />

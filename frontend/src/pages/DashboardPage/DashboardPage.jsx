@@ -5,11 +5,15 @@ import LineChart from "../../components/Chart/LineChart";
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 2a522ee (dashboard)
 // import { DataGridPro } from "@mui/x-data-grid-pro";
 // import { useDemoData } from "@mui/x-data-grid-generator";
 
 // const VISIBLE_FIELDS = ["name", "rating", "country", "dateCreated", "isAdmin"];
 import { Card, Typography, CardContent, Grid } from "@mui/material";
+<<<<<<< HEAD
 import CircleChart from "../../components/Chart/CircleChart";
 import TodayCard from "../../components/TodayCard";
 // export function BasicExampleDataGridPro() {
@@ -44,6 +48,17 @@ import TopBook from "../../components/TopBook";
 >>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
+=======
+import CircleChart from "../../components/Chart/CircleChart";
+import TodayCard from "../../components/TodayCard";
+// export function BasicExampleDataGridPro() {
+//   const { data } = useDemoData({
+//     dataSet: "Employee",
+//     visibleFields: VISIBLE_FIELDS,
+//     rowLength: 100,
+//   });
+// }
+>>>>>>> parent of 2a522ee (dashboard)
 const DashboardCard = () => (
   <Card sx={{ minWidth: 225 }}>
     <CardContent>
@@ -60,12 +75,16 @@ function DashboardPage() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 2a522ee (dashboard)
       <Grid sx={{ background: "#fff" }} container spacing={2}>
         <Grid item>
           <TodayCard />
           <TodayCard />
           <TodayCard />
           <TodayCard />
+<<<<<<< HEAD
         </Grid>
         <Grid item>
           <DashboardCard />
@@ -171,6 +190,22 @@ function DashboardPage() {
 >>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
+=======
+        </Grid>
+        <Grid item>
+          <DashboardCard />
+        </Grid>
+        {/* <Grid item>
+          <div style={{ height: 400, width: "100%" }}>
+            <DataGridPro {...data} />
+          </div>
+        </Grid> */}
+        <Grid item>
+          <DashboardCard />
+        </Grid>
+        <Grid item>
+          <CircleChart />
+>>>>>>> parent of 2a522ee (dashboard)
         </Grid>
       </Grid>
     </div>
