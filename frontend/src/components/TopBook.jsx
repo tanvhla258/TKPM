@@ -13,7 +13,7 @@ function createData(id, name, author, sell) {
 
 const rows = [
   createData("1", "Người trong làng", "Làng", 24),
-  createData("2", "Người trong làng", "Làng", 24),
+  createData("2", "Đi qua mùa hạ", "Nguyễn Nhật Ánh", 24),
   createData("3", "Người trong làng", "Làng", 24),
   createData("4", "Người trong làng", "Làng", 24),
 ];
