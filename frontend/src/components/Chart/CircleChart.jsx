@@ -10,6 +10,7 @@ const state = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       height: 350,
 =======
       height: 200,
@@ -30,6 +31,9 @@ const state = {
 =======
       height: 350,
 >>>>>>> parent of 2a522ee (dashboard)
+=======
+      height: 350,
+>>>>>>> 5128ced5cbf3d37ce2d15d69c12338f84b612e4e
       type: "radialBar",
     },
     plotOptions: {
@@ -40,6 +44,7 @@ const state = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     labels: [""],
 =======
     labels: ["Phiếu nợ"],
@@ -56,6 +61,9 @@ const state = {
 =======
     labels: [""],
 >>>>>>> parent of 2a522ee (dashboard)
+=======
+    labels: [""],
+>>>>>>> 5128ced5cbf3d37ce2d15d69c12338f84b612e4e
   },
   series: [70],
 };
@@ -69,6 +77,7 @@ function CircleChart() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       width="370"
       options={state.options}
       series={state.series}
@@ -97,6 +106,11 @@ function CircleChart() {
       options={state.options}
       series={state.series}
 >>>>>>> parent of 2a522ee (dashboard)
+=======
+      width="370"
+      options={state.options}
+      series={state.series}
+>>>>>>> 5128ced5cbf3d37ce2d15d69c12338f84b612e4e
     ></ReactApexChart>
   );
 }

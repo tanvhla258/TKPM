@@ -6,14 +6,20 @@ import LineChart from "../../components/Chart/LineChart";
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 2a522ee (dashboard)
+=======
+>>>>>>> 5128ced5cbf3d37ce2d15d69c12338f84b612e4e
 // import { DataGridPro } from "@mui/x-data-grid-pro";
 // import { useDemoData } from "@mui/x-data-grid-generator";
 
 // const VISIBLE_FIELDS = ["name", "rating", "country", "dateCreated", "isAdmin"];
 import { Card, Typography, CardContent, Grid } from "@mui/material";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5128ced5cbf3d37ce2d15d69c12338f84b612e4e
 import CircleChart from "../../components/Chart/CircleChart";
 import TodayCard from "../../components/TodayCard";
 // export function BasicExampleDataGridPro() {
@@ -23,6 +29,7 @@ import TodayCard from "../../components/TodayCard";
 //     rowLength: 100,
 //   });
 // }
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
@@ -59,6 +66,8 @@ import TodayCard from "../../components/TodayCard";
 //   });
 // }
 >>>>>>> parent of 2a522ee (dashboard)
+=======
+>>>>>>> 5128ced5cbf3d37ce2d15d69c12338f84b612e4e
 const DashboardCard = () => (
   <Card sx={{ minWidth: 225 }}>
     <CardContent>
@@ -76,8 +85,11 @@ function DashboardPage() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 2a522ee (dashboard)
+=======
+>>>>>>> 5128ced5cbf3d37ce2d15d69c12338f84b612e4e
       <Grid sx={{ background: "#fff" }} container spacing={2}>
         <Grid item>
           <TodayCard />
@@ -85,6 +97,9 @@ function DashboardPage() {
           <TodayCard />
           <TodayCard />
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5128ced5cbf3d37ce2d15d69c12338f84b612e4e
         </Grid>
         <Grid item>
           <DashboardCard />
@@ -99,6 +114,7 @@ function DashboardPage() {
         </Grid>
         <Grid item>
           <CircleChart />
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
@@ -206,6 +222,8 @@ function DashboardPage() {
         <Grid item>
           <CircleChart />
 >>>>>>> parent of 2a522ee (dashboard)
+=======
+>>>>>>> 5128ced5cbf3d37ce2d15d69c12338f84b612e4e
         </Grid>
       </Grid>
     </div>
