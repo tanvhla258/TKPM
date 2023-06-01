@@ -16,6 +16,10 @@ function TodayCard() {
         backgroundColor: green[100],
         padding: "10px",
         width: " 150px",
+<<<<<<< HEAD
+=======
+        height: "125px",
+>>>>>>> parent of 4381f84 (Delete frontend directory)
       }}
     >
       <PaidIcon sx={{ color: green[400] }} />
