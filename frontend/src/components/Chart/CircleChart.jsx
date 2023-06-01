@@ -8,7 +8,12 @@ const state = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       height: 350,
+=======
+      height: 200,
+      width: 200,
+>>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
       height: 200,
       width: 200,
@@ -29,7 +34,11 @@ const state = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     labels: [""],
+=======
+    labels: ["Phiếu nợ"],
+>>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
     labels: ["Phiếu nợ"],
 >>>>>>> parent of 4381f84 (Delete frontend directory)
@@ -50,9 +59,15 @@ function CircleChart() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       width="370"
       options={state.options}
       series={state.series}
+=======
+      options={state.options}
+      series={state.series}
+      width={230}
+>>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
       options={state.options}
       series={state.series}

@@ -4,6 +4,7 @@ import LineChart from "../../components/Chart/LineChart";
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // import { DataGridPro } from "@mui/x-data-grid-pro";
 // import { useDemoData } from "@mui/x-data-grid-generator";
 
@@ -23,6 +24,8 @@ import TodayCard from "../../components/TodayCard";
 >>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
+=======
+>>>>>>> parent of 4381f84 (Delete frontend directory)
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { Card, Typography, CardContent, Grid, Chip } from "@mui/material";
 import CircleChart from "../../components/Chart/CircleChart";
@@ -33,6 +36,9 @@ import WysiwygIcon from "@mui/icons-material/Wysiwyg";
 import TopBook from "../../components/TopBook";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 4381f84 (Delete frontend directory)
+=======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
@@ -50,6 +56,7 @@ const DashboardCard = () => (
 function DashboardPage() {
   return (
     <div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -74,6 +81,8 @@ function DashboardPage() {
         <Grid item>
           <CircleChart />
 =======
+=======
+>>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
@@ -154,6 +163,9 @@ function DashboardPage() {
           </Grid>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 4381f84 (Delete frontend directory)
+=======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
 >>>>>>> parent of 4381f84 (Delete frontend directory)
