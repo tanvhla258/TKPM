@@ -17,6 +17,10 @@ function TodayCard() {
         padding: "10px",
         width: " 150px",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        height: "125px",
+>>>>>>> parent of 4381f84 (Delete frontend directory)
 =======
         height: "125px",
 >>>>>>> parent of 4381f84 (Delete frontend directory)
