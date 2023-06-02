@@ -1,9 +1,6 @@
 package com.example.bookstoremanagement.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,8 +17,9 @@ import java.time.LocalDateTime;
 public class Invoice {
     @Id
     private Long id;
-    @Column(name = "customer_id")
-    private Long customerId;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
 }
