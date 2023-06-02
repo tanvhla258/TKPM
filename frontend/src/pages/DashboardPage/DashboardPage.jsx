@@ -1,14 +1,24 @@
 import React from "react";
 import "./DashboardPage.css";
 import LineChart from "../../components/Chart/LineChart";
+import { blue, green, purple, red, yellow } from "@mui/material/colors";
+
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import { Card, Typography, CardContent, Grid, Chip } from "@mui/material";
+import {
+  Card,
+  Typography,
+  CardContent,
+  Grid,
+  Chip,
+  Divider,
+} from "@mui/material";
 import CircleChart from "../../components/Chart/CircleChart";
 import TodayCard from "../../components/TodayCard";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import TodayIcon from "@mui/icons-material/Today";
 import WysiwygIcon from "@mui/icons-material/Wysiwyg";
 import TopBook from "../../components/TopBook";
+
 const DashboardCard = () => (
   <Card sx={{ minWidth: 225 }}>
     <CardContent>
@@ -43,10 +53,10 @@ function DashboardPage() {
                 gap: "20px",
               }}
             >
-              <TodayCard />
-              <TodayCard />
-              <TodayCard />
-              <TodayCard />
+              <TodayCard color={green} />
+              <TodayCard color={yellow} />
+              <TodayCard color={red} />
+              <TodayCard color={purple} />
             </div>
           </Grid>
           <Grid item>
@@ -70,7 +80,9 @@ function DashboardPage() {
             </div>
           </Grid>
         </Grid>
-        <Grid lg={2}></Grid>
+        <Grid container justifyContent="center" lg={2}>
+          <Divider orientation="vertical" flexItem />
+        </Grid>
         <Grid container alignItems="flex-start" xs={12} lg={4} item>
           <Chip
             icon={<WysiwygIcon />}
@@ -79,12 +91,6 @@ function DashboardPage() {
             color="primary"
           />
           <Grid container item>
-            <Grid xs={6} item>
-              <CircleChart />
-            </Grid>
-            <Grid xs={6} item>
-              <CircleChart />
-            </Grid>
             <Grid xs={6} item>
               <CircleChart />
             </Grid>

@@ -8,18 +8,19 @@ import Typography from "@mui/material/Typography";
 import PaidIcon from "@mui/icons-material/Paid";
 import { blue, green, red, yellow } from "@mui/material/colors";
 
-function TodayCard() {
+function TodayCard({ color }) {
+  console.log(color);
   return (
     <Card
       sx={{
         // backgroundImage: radial-gradient( circle farthest-corner at 10% 20%,  rgba(176,229,208,1) 42%, rgba(92,202,238,0.41) 93.6% )
-        backgroundColor: green[100],
+        backgroundColor: color?.[100],
         padding: "10px",
         width: " 150px",
         height: "125px",
       }}
     >
-      <PaidIcon sx={{ color: green[400] }} />
+      <PaidIcon sx={{ color: color?.[400] }} />
       <Typography fontWeight={700} variant="h6">
         120000 VND
       </Typography>
