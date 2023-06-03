@@ -13,14 +13,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BockTicketBook {
+public class BockDeliveryNoteBook {
 
     @EmbeddedId
-    private BookTicketBookId id;
+    private BookDeliveryNoteBookId id;
     @ManyToOne
     @MapsId("ticketId")
-    @JoinColumn(name = "ticket_id")
-    private Ticket ticket;
+    @JoinColumn(name = "note_id")
+    private Note ticket;
     @ManyToOne
     @MapsId("bookId")
     @JoinColumn(name = "book_id")

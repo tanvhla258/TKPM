@@ -5,11 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "book_ticket")
-@PrimaryKeyJoinColumn(name = "ticket_id")
+@Table
+@PrimaryKeyJoinColumn(name = "note_id")
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookTicket extends Ticket{
+public class BookDeliveryNote extends Note {
     @Column(name = "shipper_name")
     private String shipperName;
 }

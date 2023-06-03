@@ -6,12 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Table(name = "receipt_ticket")
+@Table(name = "receipt_notes")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@PrimaryKeyJoinColumn(name = "ticket_id")
-public class ReceiptTicket extends Ticket{
+@PrimaryKeyJoinColumn(name = "note_id")
+public class ReceiptNote extends Note {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

@@ -7,9 +7,9 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@Table
+@Table(name = "notes")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Ticket {
+public abstract class Note {
     @Id
     protected Long id;
     @Column(name="creation_name")
