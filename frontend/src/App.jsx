@@ -2,14 +2,14 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import ProductsPage from "./pages/ProductsPage";
-import OrdersPage from "./pages/OrdersPage";
-import SettingPage from "./pages/SettingPage";
 import ReceiptPage from "./pages/ReceiptPage";
 import BookEntryPage from "./pages/BookEntryPage";
 import UserPage from "./pages/UserPage";
 import LoginPage from "./pages/LoginPage";
 import TopAndSide from "./components/TopAndSide";
 import { Box } from "@mui/material";
+import InvoicePage from "./pages/InvoicePage";
+import RegulationPage from "./pages/RegulationPage";
 let currentUser = true;
 function App() {
   return (
@@ -25,8 +25,8 @@ function App() {
               <Routes>
                 <Route exact path="/" element={<DashboardPage />} />
                 <Route path="/products" element={<ProductsPage />} />
-                <Route path="/orders" element={<OrdersPage />} />
-                <Route path="/settings" element={<SettingPage />} />
+                <Route path="/invoices" element={<InvoicePage />} />
+                <Route path="/regulations" element={<RegulationPage />} />
                 <Route path="/receipts" element={<ReceiptPage />} />
                 <Route path="/book-entries" element={<BookEntryPage />} />
                 <Route path="/users" element={<UserPage />} />

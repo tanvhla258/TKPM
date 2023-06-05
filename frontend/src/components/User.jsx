@@ -8,9 +8,10 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import WidgetsIcon from "@mui/icons-material/Widgets";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+import { Button } from "@mui/material";
 function User() {
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -29,12 +30,23 @@ function User() {
           color="text.secondary"
           gutterBottom
         ></Typography>
-        <Typography fontWeight={600} variant="h5" component="div"></Typography>
+
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          phamtan@gmail.com
+          Email: phamtan@gmail.com
         </Typography>
-        {/* <Typography variant="body2">Don gia: {cost} </Typography> */}
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          Phone: 0998751123
+        </Typography>
+        <Typography color="text.secondary">Address: Ho Chi Minh</Typography>
       </CardContent>
+      <CardActions sx={{ marginLeft: 0 }}>
+        <Button color="success" startIcon={<WidgetsIcon />}>
+          Update
+        </Button>
+        <Button color="error" startIcon={<DeleteIcon />}>
+          Delete
+        </Button>
+      </CardActions>
     </Card>
   );
 }

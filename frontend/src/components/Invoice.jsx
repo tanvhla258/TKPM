@@ -19,7 +19,7 @@ const bull = (
     •
   </Box>
 );
-function Bill({ date, user, id, cost }) {
+function Invoice({ date, user, id, cost }) {
   return (
     <Card sx={{ minWidth: 350 }}>
       <CardContent>
@@ -32,7 +32,7 @@ function Bill({ date, user, id, cost }) {
         {/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {author}
         </Typography> */}
-        <Typography variant="body2">Gia tri no: {cost}</Typography>
+        <Typography variant="body2">Thành tiền: {cost}</Typography>
       </CardContent>
 
       <CardActions>
@@ -52,4 +52,4 @@ function Bill({ date, user, id, cost }) {
   );
 }
 
-export default Bill;
+export default Invoice;

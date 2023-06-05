@@ -14,11 +14,10 @@ import {
 } from "@mui/material";
 import CircleChart from "../../components/Chart/CircleChart";
 import TodayCard from "../../components/TodayCard";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import TodayIcon from "@mui/icons-material/Today";
 import WysiwygIcon from "@mui/icons-material/Wysiwyg";
 import TopBook from "../../components/TopBook";
-
+import BarChartIcon from "@mui/icons-material/BarChart";
 const DashboardCard = () => (
   <Card sx={{ minWidth: 225 }}>
     <CardContent>
@@ -90,7 +89,7 @@ function DashboardPage() {
             size="large"
             color="primary"
           />
-          <Grid container item>
+          <Grid sx={{ marginBottom: "55px" }} container item>
             <Grid xs={6} item>
               <CircleChart />
             </Grid>
@@ -98,7 +97,14 @@ function DashboardPage() {
               <CircleChart />
             </Grid>
           </Grid>
-          <Grid item>
+          <Chip
+            icon={<BarChartIcon />}
+            label="Biểu đồ"
+            size="large"
+            color="primary"
+            sx={{ marginBottom: "10px" }}
+          />
+          <Grid container item>
             <DashboardCard />
           </Grid>
         </Grid>

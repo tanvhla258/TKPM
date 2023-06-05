@@ -35,8 +35,10 @@ function Book({ category, name, author, quantity, id }) {
       </CardContent>
 
       <CardActions>
-        <Button size="small">Learn More</Button>
-        <Button startIcon={<WidgetsIcon />}>Update</Button>
+        {/* <Button size="small">Learn More</Button> */}
+        <Button color="success" startIcon={<WidgetsIcon />}>
+          Update
+        </Button>
         <Button color="error" startIcon={<DeleteIcon />}>
           Delete
         </Button>

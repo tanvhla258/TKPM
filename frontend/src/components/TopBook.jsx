@@ -16,6 +16,7 @@ const rows = [
   createData("2", "Đi qua mùa hạ", "Nguyễn Nhật Ánh", 24),
   createData("3", "Người trong làng", "Làng", 24),
   createData("4", "Người trong làng", "Làng", 24),
+  createData("5", "Người trong làng", "Làng", 24),
 ];
 
 export default function TopBook() {

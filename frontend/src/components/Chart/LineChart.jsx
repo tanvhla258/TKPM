@@ -8,11 +8,11 @@ const LineChart = () => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 1180 && window.innerWidth > 766) {
-        setChartWidth("700px");
+        setChartWidth("650px");
       } else if (window.innerWidth <= 766) {
         setChartWidth("400px");
       } else {
-        setChartWidth("380px");
+        setChartWidth("410px");
       }
     };
 

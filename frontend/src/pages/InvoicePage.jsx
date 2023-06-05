@@ -1,11 +1,11 @@
 import React from "react";
-import Bill from "../components/Bill";
+import Invoice from "../components/Invoice";
 import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
 import Dropdown from "../components/Dropdown";
 import { boxstyle } from "../constants/boxstyle";
 import AddIcon from "../components/AddIcon";
 
-function OrdersPage() {
+function InvoicePage() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -14,29 +14,61 @@ function OrdersPage() {
       <Dropdown />
       <Grid marginTop={2} container spacing={2}>
         <Grid item>
-          <Bill cost={200} date={Date.now()} user={{ name: "Tan" }}></Bill>
+          <Invoice
+            cost={200}
+            date={Date.now()}
+            user={{ name: "Tan" }}
+          ></Invoice>
         </Grid>
 
         <Grid item>
-          <Bill cost={200} date={Date.now()} user={{ name: "Truong" }}></Bill>
+          <Invoice
+            cost={200}
+            date={Date.now()}
+            user={{ name: "Truong" }}
+          ></Invoice>
         </Grid>
         <Grid item>
-          <Bill cost={100} date={Date.now()} user={{ name: "Trinh" }}></Bill>
+          <Invoice
+            cost={100}
+            date={Date.now()}
+            user={{ name: "Trinh" }}
+          ></Invoice>
         </Grid>
         <Grid item>
-          <Bill cost={300} date={Date.now()} user={{ name: "Tien" }}></Bill>
+          <Invoice
+            cost={300}
+            date={Date.now()}
+            user={{ name: "Tien" }}
+          ></Invoice>
         </Grid>
         <Grid item>
-          <Bill cost={300} date={Date.now()} user={{ name: "Tien" }}></Bill>
+          <Invoice
+            cost={300}
+            date={Date.now()}
+            user={{ name: "Tien" }}
+          ></Invoice>
         </Grid>
         <Grid item>
-          <Bill cost={300} date={Date.now()} user={{ name: "Tien" }}></Bill>
+          <Invoice
+            cost={300}
+            date={Date.now()}
+            user={{ name: "Tien" }}
+          ></Invoice>
         </Grid>
         <Grid item>
-          <Bill cost={300} date={Date.now()} user={{ name: "Tien" }}></Bill>
+          <Invoice
+            cost={300}
+            date={Date.now()}
+            user={{ name: "Tien" }}
+          ></Invoice>
         </Grid>
         <Grid item>
-          <Bill cost={300} date={Date.now()} user={{ name: "Tien" }}></Bill>
+          <Invoice
+            cost={300}
+            date={Date.now()}
+            user={{ name: "Tien" }}
+          ></Invoice>
         </Grid>
       </Grid>
 
@@ -61,4 +93,4 @@ function OrdersPage() {
   );
 }
 
-export default OrdersPage;
+export default InvoicePage;

@@ -46,7 +46,7 @@ const SettingCard = () => {
     </Card>
   );
 };
-function SettingPage() {
+function RegulationPage() {
   return (
     <Grid container spacing={2}>
       <Grid item>
@@ -66,4 +66,4 @@ function SettingPage() {
   );
 }
 
-export default SettingPage;
+export default RegulationPage;

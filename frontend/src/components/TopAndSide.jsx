@@ -118,10 +118,10 @@ export default function TopAndSide() {
     { name: "Dashboard", link: "" },
     { name: "Sản phẩm", link: "products" },
     { name: "Phiếu nhập sách", link: "book-entries" },
-    { name: "Hóa đơn", link: "orders" },
+    { name: "Hóa đơn", link: "invoices" },
     { name: "User", link: "users" },
     { name: "Phiếu thu tiền", link: "receipts" },
-    { name: "Quy định", link: "settings" },
+    { name: "Quy định", link: "regulations" },
   ];
   const Icons = [
     <HomeIcon />,
