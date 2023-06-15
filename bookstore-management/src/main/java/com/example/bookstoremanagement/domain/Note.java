@@ -11,7 +11,8 @@ import java.time.LocalDate;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Note {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     protected Long id;
-    @Column(name="creation_name")
+    @Column(name="creation_date")
     protected LocalDate creationDate;
 }

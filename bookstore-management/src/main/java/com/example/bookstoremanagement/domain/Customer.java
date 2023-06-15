@@ -1,9 +1,6 @@
 package com.example.bookstoremanagement.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "customers")
 public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="fullname")
     private String fullName;
@@ -26,6 +24,6 @@ public class Customer {
     private String address;
     @Column
     private String email;
-    @Column
-    private Double dept;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
+    private DeptByMonth dept;
 }

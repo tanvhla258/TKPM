@@ -1,25 +1,25 @@
 package com.example.bookstoremanagement.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data
+@PrimaryKeyJoinColumn(name = "note_id")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table (name = "invoices")
 @Builder
-public class Invoice {
-    @Id
-    private Long id;
+@Setter
+@Getter
+public class Invoice extends Note{
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
-    @Column(name = "creation_date")
-    private LocalDateTime creationDate;
+
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
+    private Set<BookInvoice> bookInvoices;
 }

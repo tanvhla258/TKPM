@@ -1,13 +1,14 @@
 package com.example.bookstoremanagement.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -17,13 +18,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Book {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column
     private String title;
-    @Column
-    private String category;
+    @JoinColumn(name = "category_id")
+    @ManyToOne
+    private Category category;
+//    @Column
+//    private String category;
     @Column
     private String author;
-    @Column
-    private Integer quantity;
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private Set<InventoryByMonth> inventoryByMonthSet;
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.MERGE}, mappedBy = "books")
+//    @JsonIgnore
+//    private Set<BookDeliveryNote> deliveryNotes = new HashSet<>();
+    @OneToMany(mappedBy = "book")
+    private Set<BookDeliveryNoteBook> deliveryNoteBooks;
+    @OneToMany(mappedBy = "book")
+    private Set<BookInvoice> bookInvoices;
 }
