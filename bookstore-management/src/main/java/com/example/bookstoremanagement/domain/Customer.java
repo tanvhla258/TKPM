@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -24,6 +26,6 @@ public class Customer {
     private String address;
     @Column
     private String email;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
-    private DeptByMonth dept;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<DeptByMonth> dept;
 }

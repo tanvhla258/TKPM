@@ -18,8 +18,9 @@ import java.util.Objects;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "deliveries", consumes = "application/json;charset=UTF-8")
-public class BookDeliveryNoteController {
+public class BookDeliveryNoteController{
     private static final String DELIVERY_NOTE_DETAILS_MISSING_MSG = "Book delivery's details must be specified";
+    private static final String DELIVERY_NOTE_ID_MISSING_MSG = "Book delivery note's id must be specified";
     private final BookDeliveryNoteService service;
     private final BookDeliveryNoteMapper mapper;
     @PostMapping("add")
@@ -28,9 +29,18 @@ public class BookDeliveryNoteController {
         BookDeliveryNote bookDeliveryNote = mapper.toEntity(bookDeliveryNoteDTO);
         return ResponseAPI.positiveResponse(service.addBookDeliveryNote(bookDeliveryNote));
     }
-//    @PostMapping("update")
-//    public Response updateBookDeliveryNote(@RequestParam Long id,
-//                                           @RequestBody BookDeliveryNoteDTO bookDeliveryNoteDTO){
-//
-//    }
+    @PostMapping("update")
+    public Response updateBookDeliveryNote(@RequestParam(value = "id") Long id,
+                                           @RequestBody BookDeliveryNoteDTO bookDeliveryNoteDTO){
+        Preconditions.checkState(Objects.nonNull(id), DELIVERY_NOTE_ID_MISSING_MSG);
+        Preconditions.checkState(Objects.nonNull(bookDeliveryNoteDTO), DELIVERY_NOTE_DETAILS_MISSING_MSG);
+        BookDeliveryNote bookDeliveryNote = mapper.toEntity(bookDeliveryNoteDTO);
+        return ResponseAPI.positiveResponse(service.updateBookDeliveryNote(id, bookDeliveryNote));
+    }
+    @PostMapping("remove/{id}")
+    public Response removeBookDeliveryNote(@PathVariable("id") Long id){
+        Preconditions.checkState(Objects.nonNull(id), DELIVERY_NOTE_ID_MISSING_MSG);
+        service.deleteBookDeliveryNote(id);
+        return ResponseAPI.emptyPositiveResponse();
+    }
 }

@@ -43,12 +43,16 @@ public class BookDeliveryNoteServiceImpl implements BookDeliveryNoteService{
     @Override
     public BookDeliveryNote updateBookDeliveryNote(Long id, BookDeliveryNote bookDeliveryNote) {
         BookDeliveryNote foundNote = getBookDeliveryNoteById(id);
-        for(BookDeliveryNoteBook book: foundNote.getDeliveryNoteBooks()){
-            Book foundBook = bookRepository.findBookByFields(book.getBook());
+        for(BookDeliveryNoteBook bookDeliveryNoteBook: foundNote.getDeliveryNoteBooks()){
+            Book book  = bookDeliveryNoteBook.getBook();
+            Book foundBook = bookRepository.findBookByFields(book.getTitle(), book.getCategory().getId(), book.getAuthor());
+            if(foundBook == null){
+                continue;
+            }
             List<InventoryByMonth> inventories = bookRepository
                     .getInventoryFromYearMonth(foundBook.getId(), bookDeliveryNote.getCreationDate());
             for(InventoryByMonth i: inventories){
-                i.setQuantity(i.getQuantity() - book.getQuantity());
+                i.setQuantity(i.getQuantity() - bookDeliveryNoteBook.getQuantity());
             }
         }
         updateBookInventoryByMonth(bookDeliveryNote);

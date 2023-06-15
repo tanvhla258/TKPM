@@ -15,10 +15,12 @@ import lombok.Setter;
 public class DeptByMonth {
     @EmbeddedId
     private DeptByMonthId id;
-    @JoinColumns({
-            @JoinColumn(name = "customer_id", referencedColumnName = "id", insertable = false, updatable = false)
-    })
-    @OneToOne
+//    @JoinColumns({
+//            @JoinColumn(name = "customer_id", referencedColumnName = "id", insertable = false, updatable = false)
+//    })
+    @ManyToOne
+    @MapsId("customerId")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
     @Column
     private Double dept;

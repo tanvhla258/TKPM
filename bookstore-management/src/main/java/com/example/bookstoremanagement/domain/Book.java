@@ -25,8 +25,6 @@ public class Book {
     @JoinColumn(name = "category_id")
     @ManyToOne
     private Category category;
-//    @Column
-//    private String category;
     @Column
     private String author;
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)

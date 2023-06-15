@@ -26,9 +26,9 @@ public class BookDeliveryNoteBook {
     @JsonIgnore
     private BookDeliveryNote deliveryNote;
     @ManyToOne
-    @JsonIgnore
     @MapsId("bookId")
     @JoinColumn(name = "book_id")
+    @JsonIgnore
     private Book book;
     @Column
     private Integer quantity;
