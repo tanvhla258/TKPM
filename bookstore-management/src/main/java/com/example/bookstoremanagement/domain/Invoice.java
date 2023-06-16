@@ -16,7 +16,7 @@ import java.util.Set;
 @Setter
 @Getter
 public class Invoice extends Note{
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 

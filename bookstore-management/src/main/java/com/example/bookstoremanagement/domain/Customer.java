@@ -26,6 +26,6 @@ public class Customer {
     private String address;
     @Column
     private String email;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.EAGER)
     private Set<DeptByMonth> dept;
 }

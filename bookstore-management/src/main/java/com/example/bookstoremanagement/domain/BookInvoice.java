@@ -1,5 +1,6 @@
 package com.example.bookstoremanagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,16 +15,17 @@ public class BookInvoice {
     @EmbeddedId
     private BookInvoiceId id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("bookId")
     @JoinColumn(name = "book_id")
+    @JsonIgnore
     private Book book;
 
     @ManyToOne
     @MapsId("invoiceId")
+    @JsonIgnore
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;
-
     @Column
     private Integer quantity;
 

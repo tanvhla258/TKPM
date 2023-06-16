@@ -9,11 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     @Query(value = "select * from dept_by_month as dbm" +
             "join customer as c on dbm.customer_id = c.id" +
-            "where c.id = ?1 and dbm.year_month >= ?2", nativeQuery = true)
-    List<DeptByMonth> getDeptByMonthFromDate(Long id, LocalDate from);
+            "where c.id = ?1 and dbm.month >= ?2 and dbm.year >= ?3", nativeQuery = true)
+    Set<DeptByMonth> getDeptByMonthFromDate(Long id, Integer fromMonth, Integer fromYear);
 }

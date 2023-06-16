@@ -25,7 +25,7 @@ public class BookDeliveryNoteBook {
     @JoinColumn(name = "note_id")
     @JsonIgnore
     private BookDeliveryNote deliveryNote;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("bookId")
     @JoinColumn(name = "book_id")
     @JsonIgnore

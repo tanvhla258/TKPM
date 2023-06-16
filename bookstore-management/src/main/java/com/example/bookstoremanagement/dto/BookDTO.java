@@ -19,5 +19,5 @@ public class BookDTO {
     @NotNull(message = "Book's author cannot be null")
     private String author;
     @NotNull(message = "Book's quantity cannot be null")
-    private InventoryByMonth quantity;
+    private InventoryByMonthDTO quantity;
 }

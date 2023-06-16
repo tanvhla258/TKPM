@@ -27,7 +27,7 @@ public class Book {
     private Category category;
     @Column
     private String author;
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<InventoryByMonth> inventoryByMonthSet;
 //    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.MERGE}, mappedBy = "books")
 //    @JsonIgnore

@@ -49,9 +49,7 @@ public class BookDeliveryNoteServiceImpl implements BookDeliveryNoteService{
             if(foundBook == null){
                 continue;
             }
-            List<InventoryByMonth> inventories = bookRepository
-                    .getInventoryFromYearMonth(foundBook.getId(), bookDeliveryNote.getCreationDate());
-            for(InventoryByMonth i: inventories){
+            for(InventoryByMonth i: InventoryByMonth.filterByMonthYear(foundBook.getInventoryByMonthSet(), bookDeliveryNote.getCreationDate().getMonthValue(), bookDeliveryNote.getCreationDate().getYear())){
                 i.setQuantity(i.getQuantity() - bookDeliveryNoteBook.getQuantity());
             }
         }
@@ -75,10 +73,10 @@ public class BookDeliveryNoteServiceImpl implements BookDeliveryNoteService{
             book.setCategory(foundCategory);
 //            Book foundBook = bookRepository.findBookByFields(book.getBook());
             Book foundBook = bookRepository.findBookByFields(book.getTitle(), book.getCategory().getId(), book.getAuthor());
+            int fromMonth = creationDate.getMonthValue();
+            int fromYear = creationDate.getYear();
             if(foundBook == null){
                 book = bookRepository.saveAndFlush(book);
-                int fromMonth = creationDate.getMonthValue();
-                int fromYear = creationDate.getYear();
                 LocalDate currentDate = LocalDate.now();
                 int toMonth = currentDate.getMonthValue();
                 int toYear = currentDate.getYear();
@@ -106,7 +104,7 @@ public class BookDeliveryNoteServiceImpl implements BookDeliveryNoteService{
             }
             else{
                 book = foundBook;
-                for(InventoryByMonth i: foundBook.getInventoryByMonthSet()){
+                for(InventoryByMonth i: InventoryByMonth.filterByMonthYear(foundBook.getInventoryByMonthSet(), fromMonth, fromYear)){
                     i.setQuantity(i.getQuantity() + bookDeliveryNoteBook.getQuantity());
                 }
             }
@@ -123,11 +121,10 @@ public class BookDeliveryNoteServiceImpl implements BookDeliveryNoteService{
         for(BookDeliveryNoteBook book: foundNote.getDeliveryNoteBooks()){
             Book foundBook = bookRepository.findBookByFields(book.getBook());
             if(foundBook != null){
-                List<InventoryByMonth> inventories = bookRepository
-                        .getInventoryFromYearMonth(foundBook.getId(), foundNote.getCreationDate());
-                for(InventoryByMonth i: inventories){
+                for(InventoryByMonth i: InventoryByMonth.filterByMonthYear(foundBook.getInventoryByMonthSet(), foundNote.getCreationDate().getMonthValue(), foundNote.getCreationDate().getYear())){
                     i.setQuantity(i.getQuantity() - book.getQuantity());
                 }
+                bookRepository.save(foundBook);
             }
         }
         deliveryNoteRepository.delete(foundNote);

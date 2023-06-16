@@ -1,5 +1,6 @@
 package com.example.bookstoremanagement.service;
 
+import com.example.bookstoremanagement.domain.Customer;
 import com.example.bookstoremanagement.domain.DeptByMonth;
 import com.example.bookstoremanagement.domain.ReceiptNote;
 import com.example.bookstoremanagement.exception.ReceiptNoteNotFoundException;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -31,42 +34,65 @@ public class ReceiptNoteServiceImpl implements ReceiptNoteService{
 
     @Override
     public ReceiptNote addReceiptNote(ReceiptNote receiptNote) {
-        List<DeptByMonth> deptByMonthOfCustomer = customerRepository
-                .getDeptByMonthFromDate(receiptNote.getCustomer().getId(), receiptNote.getCreationDate());
-        for(DeptByMonth month: deptByMonthOfCustomer){
-            month.setDept(month.getDept() + receiptNote.getTotalCost());
-        }
+//        List<DeptByMonth> deptByMonthOfCustomer = customerRepository
+//                .getDeptByMonthFromDate(receiptNote.getCustomer().getId(), receiptNote.getCreationDate());
+//        Customer customer = receiptNote.getCustomer();
+//        LocalDate creationDate = receiptNote.getCreationDate();
+//        if(customer.getId() == null){
+//            int fromMonth = creationDate.getMonthValue();
+//            int fromYear = creationDate.getYear();
+//            LocalDate currentDate = LocalDate.now();
+//            int toMonth = currentDate.getMonthValue();
+//            int toYear = currentDate.getYear();
+//            customer.setDept(new HashSet<>());
+//            while (fromYear < toYear || (fromYear == toYear && fromMonth <= toMonth)){
+//
+//                if (fromMonth == 12) {
+//                    fromMonth = 1;
+//                    fromYear++;
+//                } else {
+//                    fromMonth++;
+//                }
+//            }
+//            customer = customerRepository.save(customer);
+//
+//        }
+//        for(DeptByMonth month: deptByMonthOfCustomer){
+//            month.setDept(month.getDept() + receiptNote.getTotalCost());
+//        }
+
         return receiptNoteRepository.save(receiptNote);
     }
 
     @Override
     public ReceiptNote updateReceiptNote(Long id, ReceiptNote receiptNote) {
-        ReceiptNote foundReceiptNote = getReceiptNoteById(id);
-        List<DeptByMonth> foundDept = customerRepository
-                .getDeptByMonthFromDate(foundReceiptNote.getCustomer().getId(), foundReceiptNote.getCreationDate());
-        for(DeptByMonth month: foundDept){
-            month.setDept(month.getDept() - foundReceiptNote.getTotalCost());
-        }
-        foundReceiptNote.setCustomer(receiptNote.getCustomer());
-        foundReceiptNote.setCreationDate(receiptNote.getCreationDate());
-        foundReceiptNote.setTotalCost(receiptNote.getTotalCost());
-        List<DeptByMonth> newDepth = customerRepository
-                .getDeptByMonthFromDate(receiptNote.getCustomer().getId(), receiptNote.getCreationDate());
-        for(DeptByMonth month: newDepth){
-            month.setDept(month.getDept() + receiptNote.getTotalCost());
-        }
-        return receiptNoteRepository.save(foundReceiptNote);
+//        ReceiptNote foundReceiptNote = getReceiptNoteById(id);
+//        List<DeptByMonth> foundDept = customerRepository
+//                .getDeptByMonthFromDate(foundReceiptNote.getCustomer().getId(), foundReceiptNote.getCreationDate());
+//        for(DeptByMonth month: foundDept){
+//            month.setDept(month.getDept() - foundReceiptNote.getTotalCost());
+//        }
+//        foundReceiptNote.setCustomer(receiptNote.getCustomer());
+//        foundReceiptNote.setCreationDate(receiptNote.getCreationDate());
+//        foundReceiptNote.setTotalCost(receiptNote.getTotalCost());
+//        List<DeptByMonth> newDepth = customerRepository
+//                .getDeptByMonthFromDate(receiptNote.getCustomer().getId(), receiptNote.getCreationDate());
+//        for(DeptByMonth month: newDepth){
+//            month.setDept(month.getDept() + receiptNote.getTotalCost());
+//        }
+//        return receiptNoteRepository.save(foundReceiptNote);
+        return null;
     }
 
     @Override
     public void deleteReceiptNote(Long id) {
-        ReceiptNote foundReceiptNote = getReceiptNoteById(id);
-        List<DeptByMonth> foundDept = customerRepository
-                .getDeptByMonthFromDate(foundReceiptNote.getCustomer().getId(), foundReceiptNote.getCreationDate());
-        for(DeptByMonth month: foundDept){
-            month.setDept(month.getDept() - foundReceiptNote.getTotalCost());
-        }
-        receiptNoteRepository.delete(foundReceiptNote);
+//        ReceiptNote foundReceiptNote = getReceiptNoteById(id);
+//        List<DeptByMonth> foundDept = customerRepository
+//                .getDeptByMonthFromDate(foundReceiptNote.getCustomer().getId(), foundReceiptNote.getCreationDate());
+//        for(DeptByMonth month: foundDept){
+//            month.setDept(month.getDept() - foundReceiptNote.getTotalCost());
+//        }
+//        receiptNoteRepository.delete(foundReceiptNote);
     }
 
     @Override

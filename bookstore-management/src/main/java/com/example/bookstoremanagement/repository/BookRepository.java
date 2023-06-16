@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long>{
@@ -38,10 +38,10 @@ public interface BookRepository extends JpaRepository<Book, Long>{
             "and author like %?3%",
             nativeQuery = true)
     Book findBookByFields(String title, Long categoryId, String author);
-    @Query(value = "select * " +
-            "from inventory_by_month as i join books as b on b.id = i.book_id "+
-            "where b.id = ?1 " +
-            "and i.year_month > ?2", nativeQuery = true)
-    List<InventoryByMonth> getInventoryFromYearMonth(Long id, LocalDate from);
+//    @Query(value = "select * " +
+//            "from inventory_by_month as i join books as b on b.id = i.book_id "+
+//            "where b.id = ?1 " +
+//            "and i.year_month > ?2", nativeQuery = true)
+//    Set<InventoryByMonth> getInventoryFromYearMonth(Long id, LocalDate from);
 
 }
