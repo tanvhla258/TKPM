@@ -8,6 +8,7 @@ import org.hibernate.annotations.NotFoundAction;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeMap;
 
 @Entity
 @Table(name = "inventory_by_month")
@@ -47,5 +48,19 @@ public class InventoryByMonth {
             }
         }
         return filteredSet;
+    }
+
+    public static TreeMap<Integer, InventoryByMonth> getInventoryByMonthAndPrevious(Set<InventoryByMonth> inventory, int month, int year){
+        TreeMap<Integer, InventoryByMonth> mapOf2Inventory = new TreeMap<>();
+        for(InventoryByMonth i: inventory){
+            if(i.getId().getMonth() == month - 1 && i.getId().getYear() == year){
+                mapOf2Inventory.put(0, i);
+            }
+            if(i.getId().getMonth() == month && i.getId().getYear() == year){
+                mapOf2Inventory.put(1, i);
+                return mapOf2Inventory;
+            }
+        }
+        return null;
     }
 }

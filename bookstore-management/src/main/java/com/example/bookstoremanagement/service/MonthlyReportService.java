@@ -6,6 +6,6 @@ import com.example.bookstoremanagement.domain.InventoryReport;
 import java.util.List;
 
 public interface MonthlyReportService {
-    List<InventoryReport> fetchInventoryReportsByMonth(Integer month);
-    List<AgingReport> fetchAgingReportsByMonth(Integer month);
+    List<InventoryReport> fetchInventoryReportsByMonth(Integer month, Integer year);
+    List<AgingReport> fetchAgingReportsByMonth(Integer month, Integer year);
 }

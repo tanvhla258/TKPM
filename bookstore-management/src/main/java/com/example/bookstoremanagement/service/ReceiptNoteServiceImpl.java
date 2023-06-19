@@ -3,6 +3,7 @@ package com.example.bookstoremanagement.service;
 import com.example.bookstoremanagement.domain.Customer;
 import com.example.bookstoremanagement.domain.DeptByMonth;
 import com.example.bookstoremanagement.domain.ReceiptNote;
+import com.example.bookstoremanagement.exception.CustomerNotFoundException;
 import com.example.bookstoremanagement.exception.ReceiptNoteNotFoundException;
 import com.example.bookstoremanagement.repository.CustomerRepository;
 import com.example.bookstoremanagement.repository.ReceiptNoteRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -34,65 +36,63 @@ public class ReceiptNoteServiceImpl implements ReceiptNoteService{
 
     @Override
     public ReceiptNote addReceiptNote(ReceiptNote receiptNote) {
-//        List<DeptByMonth> deptByMonthOfCustomer = customerRepository
-//                .getDeptByMonthFromDate(receiptNote.getCustomer().getId(), receiptNote.getCreationDate());
-//        Customer customer = receiptNote.getCustomer();
-//        LocalDate creationDate = receiptNote.getCreationDate();
-//        if(customer.getId() == null){
-//            int fromMonth = creationDate.getMonthValue();
-//            int fromYear = creationDate.getYear();
-//            LocalDate currentDate = LocalDate.now();
-//            int toMonth = currentDate.getMonthValue();
-//            int toYear = currentDate.getYear();
-//            customer.setDept(new HashSet<>());
-//            while (fromYear < toYear || (fromYear == toYear && fromMonth <= toMonth)){
-//
-//                if (fromMonth == 12) {
-//                    fromMonth = 1;
-//                    fromYear++;
-//                } else {
-//                    fromMonth++;
-//                }
-//            }
-//            customer = customerRepository.save(customer);
-//
-//        }
-//        for(DeptByMonth month: deptByMonthOfCustomer){
-//            month.setDept(month.getDept() + receiptNote.getTotalCost());
-//        }
+        //TODO: subtract dept for customer from note's creation date
+        subtractCustomerDept(receiptNote);
+        //TODO: save receipt note
+        saveReceiptNote(receiptNote);
+        return receiptNoteRepository.save(receiptNote);
+    }
 
+    private void subtractCustomerDept(ReceiptNote receiptNote){
+        LocalDate creationDate = receiptNote.getCreationDate();
+        int fromMonth = creationDate.getMonthValue();
+        int fromYear = creationDate.getYear();
+        Customer customer = customerRepository.findById(receiptNote.getCustomer().getId())
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
+        Set<DeptByMonth> deptByMonthSet = DeptByMonth.filterByMonthYear(customer.getDept(), fromMonth, fromYear);
+        deptByMonthSet.forEach(i -> {
+            i.setDept(i.getDept() - receiptNote.getTotalCost());
+        });
+        customerRepository.save(customer);
+    }
+
+    private void revertCustomerDept(ReceiptNote receiptNote){
+        LocalDate creationDate = receiptNote.getCreationDate();
+        int fromMonth = creationDate.getMonthValue();
+        int fromYear = creationDate.getYear();
+        Customer customer = customerRepository.findById(receiptNote.getCustomer().getId())
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
+        Set<DeptByMonth> deptByMonthSet = DeptByMonth.filterByMonthYear(customer.getDept(), fromMonth, fromYear);
+        deptByMonthSet.forEach(i -> {
+            i.setDept(i.getDept() + receiptNote.getTotalCost());
+        });
+        customerRepository.save(customer);
+    }
+
+
+    private ReceiptNote saveReceiptNote(ReceiptNote receiptNote){
         return receiptNoteRepository.save(receiptNote);
     }
 
     @Override
     public ReceiptNote updateReceiptNote(Long id, ReceiptNote receiptNote) {
-//        ReceiptNote foundReceiptNote = getReceiptNoteById(id);
-//        List<DeptByMonth> foundDept = customerRepository
-//                .getDeptByMonthFromDate(foundReceiptNote.getCustomer().getId(), foundReceiptNote.getCreationDate());
-//        for(DeptByMonth month: foundDept){
-//            month.setDept(month.getDept() - foundReceiptNote.getTotalCost());
-//        }
-//        foundReceiptNote.setCustomer(receiptNote.getCustomer());
-//        foundReceiptNote.setCreationDate(receiptNote.getCreationDate());
-//        foundReceiptNote.setTotalCost(receiptNote.getTotalCost());
-//        List<DeptByMonth> newDepth = customerRepository
-//                .getDeptByMonthFromDate(receiptNote.getCustomer().getId(), receiptNote.getCreationDate());
-//        for(DeptByMonth month: newDepth){
-//            month.setDept(month.getDept() + receiptNote.getTotalCost());
-//        }
-//        return receiptNoteRepository.save(foundReceiptNote);
-        return null;
+        //first initializing
+        ReceiptNote foundReceiptNote = getReceiptNoteById(id);
+        revertCustomerDept(foundReceiptNote);
+        //update creation date
+        foundReceiptNote.setCreationDate(receiptNote.getCreationDate());
+        //update customer
+        foundReceiptNote.setCustomer(receiptNote.getCustomer());
+        //update total cost
+        subtractCustomerDept(receiptNote);
+        return receiptNoteRepository.save(foundReceiptNote);
     }
 
     @Override
     public void deleteReceiptNote(Long id) {
-//        ReceiptNote foundReceiptNote = getReceiptNoteById(id);
-//        List<DeptByMonth> foundDept = customerRepository
-//                .getDeptByMonthFromDate(foundReceiptNote.getCustomer().getId(), foundReceiptNote.getCreationDate());
-//        for(DeptByMonth month: foundDept){
-//            month.setDept(month.getDept() - foundReceiptNote.getTotalCost());
-//        }
-//        receiptNoteRepository.delete(foundReceiptNote);
+        ReceiptNote foundReceiptNote = getReceiptNoteById(id);
+        revertCustomerDept(foundReceiptNote);
+        receiptNoteRepository.delete(foundReceiptNote);
     }
 
     @Override

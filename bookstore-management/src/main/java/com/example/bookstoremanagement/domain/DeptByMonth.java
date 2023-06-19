@@ -6,6 +6,7 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeMap;
 
 @Entity
 @Table(name = "dept_by_month")
@@ -41,5 +42,19 @@ public class DeptByMonth {
             }
         }
         return filteredSet;
+    }
+
+    public static TreeMap<Integer, DeptByMonth> getDeptByMonthAndPrevious(Set<DeptByMonth> dept, int month, int year){
+        TreeMap<Integer, DeptByMonth> mapOf2Dept = new TreeMap<>();
+        for(DeptByMonth i: dept){
+            if(i.getId().getMonth() == month - 1 && i.getId().getYear() == year){
+                mapOf2Dept.put(0, i);
+            }
+            if(i.getId().getMonth() == month && i.getId().getYear() == year){
+                mapOf2Dept.put(1, i);
+                return mapOf2Dept;
+            }
+        }
+        return null;
     }
 }

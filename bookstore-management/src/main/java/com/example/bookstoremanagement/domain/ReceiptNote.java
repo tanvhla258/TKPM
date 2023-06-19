@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @PrimaryKeyJoinColumn(name = "note_id")
 public class ReceiptNote extends Note {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private Customer customer;
     @Column(name = "total_cost")
