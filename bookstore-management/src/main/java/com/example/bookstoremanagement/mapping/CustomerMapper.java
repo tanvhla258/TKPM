@@ -1,4 +1,7 @@
 package com.example.bookstoremanagement.mapping;
 
-public interface CustomerMapper {
+import com.example.bookstoremanagement.domain.Customer;
+import com.example.bookstoremanagement.dto.CustomerDTO;
+
+public interface CustomerMapper extends BaseMapper<Customer, CustomerDTO> {
 }
