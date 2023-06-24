@@ -1,5 +1,6 @@
 package com.example.bookstoremanagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.NotFound;
@@ -29,7 +30,7 @@ public class InventoryByMonth {
 //    })
 //    private Book book;
     @ManyToOne(fetch = FetchType.LAZY)
-    @NotFound(action = NotFoundAction.IGNORE)
+    @JsonIgnore
     @MapsId("bookId")
     @JoinColumn(name = "book_id")
     private Book book;
