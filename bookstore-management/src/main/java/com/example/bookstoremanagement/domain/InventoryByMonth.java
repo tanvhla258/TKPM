@@ -17,7 +17,7 @@ import java.util.TreeMap;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
 public class InventoryByMonth {
     @EmbeddedId
     private InventoryByMonthId id;

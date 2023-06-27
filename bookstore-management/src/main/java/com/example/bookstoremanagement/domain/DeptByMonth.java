@@ -1,5 +1,6 @@
 package com.example.bookstoremanagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.util.TreeMap;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
 public class DeptByMonth {
     @EmbeddedId
     private DeptByMonthId id;
@@ -23,6 +24,7 @@ public class DeptByMonth {
 //    })
     @ManyToOne
     @MapsId("customerId")
+    @JsonIgnore
     @JoinColumn(name = "customer_id")
     private Customer customer;
     @Column

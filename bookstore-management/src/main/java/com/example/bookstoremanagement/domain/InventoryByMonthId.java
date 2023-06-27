@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 @Embeddable
-@Builder
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
