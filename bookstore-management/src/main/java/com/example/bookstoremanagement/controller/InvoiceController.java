@@ -1,5 +1,6 @@
 package com.example.bookstoremanagement.controller;
 
+import com.example.bookstoremanagement.domain.BookDeliveryNote;
 import com.example.bookstoremanagement.domain.Invoice;
 import com.example.bookstoremanagement.dto.InvoiceDTO;
 import com.example.bookstoremanagement.mapping.InvoiceMapper;

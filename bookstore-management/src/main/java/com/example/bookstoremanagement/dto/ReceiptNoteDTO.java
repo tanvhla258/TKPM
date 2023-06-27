@@ -1,15 +1,14 @@
 package com.example.bookstoremanagement.dto;
 
 import com.example.bookstoremanagement.domain.Note;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Getter
+@Setter
+@Data
 public class ReceiptNoteDTO extends NoteDTO {
     private CustomerDTO customer;
     private Double totalCost;

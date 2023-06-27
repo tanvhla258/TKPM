@@ -24,17 +24,20 @@ import java.util.Objects;
 public class BookDeliveryNoteController{
     private static final String DELIVERY_NOTE_DETAILS_MISSING_MSG = "Book delivery's details must be specified";
     private static final String DELIVERY_NOTE_ID_MISSING_MSG = "Book delivery note's id must be specified";
-    private static final String QUANTITY_LESS_THAN_REGULATION = "Quantity of book less than regulation!";
+    private static final String DELIVERY_QUANTITY_LESS_THAN_REGULATION = "Delivery's quantity of book less than regulation!";
+    private static final String CURRENT_QUANTITY_MORE_THAN_REGULATION = "Current book's quantity more than regulation!";
     private final BookDeliveryNoteService service;
     private final RegulationService regulationService;
     private final BookDeliveryNoteMapper mapper;
     @PostMapping("add")
     public Response addBookDeliveryNote(@RequestBody BookDeliveryNoteDTO bookDeliveryNoteDTO){
         Preconditions.checkState(Objects.nonNull(bookDeliveryNoteDTO), DELIVERY_NOTE_DETAILS_MISSING_MSG);
-        for(BookDeliveryNoteBookDTO book: bookDeliveryNoteDTO.getDeliveryNoteBooks()){
-            Preconditions.checkState(isQuantityLargerThanRegulation(book.getQuantity()),
-                    book.getBook().getTitle() + " "+ QUANTITY_LESS_THAN_REGULATION);
-        }
+//        for(BookDeliveryNoteBookDTO book: bookDeliveryNoteDTO.getDeliveryNoteBooks()){
+//            Preconditions.checkState(isDeliveryQuantityLargerThanRegulation(book.getQuantity()),
+//                    book.getBook().getTitle() + ": "+ DELIVERY_QUANTITY_LESS_THAN_REGULATION);
+//            Preconditions.checkState(isCurrentQuantityLessThanRegulation(book.getQuantity()),
+//                    book.getBook().getTitle() + ": "+ CURRENT_QUANTITY_MORE_THAN_REGULATION);
+//        }
         BookDeliveryNote bookDeliveryNote = mapper.toEntity(bookDeliveryNoteDTO);
         return ResponseAPI.positiveResponse(service.addBookDeliveryNote(bookDeliveryNote));
     }
@@ -53,8 +56,13 @@ public class BookDeliveryNoteController{
         return ResponseAPI.emptyPositiveResponse();
     }
 
-    private boolean isQuantityLargerThanRegulation(int quantity){
+    private boolean isDeliveryQuantityLargerThanRegulation(int quantity){
         int checkQuantity = regulationService.getById(0L).getValue();
         return quantity >= checkQuantity;
+    }
+
+    private boolean isCurrentQuantityLessThanRegulation(int quantity){
+        int checkQuantity = regulationService.getById(1L).getValue();
+        return quantity < checkQuantity;
     }
 }

@@ -31,7 +31,9 @@ public class BookController {
     }
     @GetMapping("list/all")
     public List<BookDTO> getAll(){
-        return bookMapper.toDtoList(bookService.getAll());
+        List<Book> books = bookService.getAll();
+        List<BookDTO> bookDTOS = bookMapper.toDtoList(books);
+        return bookDTOS;
     }
     @PostMapping("add")
     public Response addBook(@RequestBody BookDTO bookDTO){

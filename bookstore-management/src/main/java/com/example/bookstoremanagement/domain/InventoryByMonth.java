@@ -32,7 +32,7 @@ public class InventoryByMonth {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @MapsId("bookId")
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
     public static Set<InventoryByMonth> filterByMonthYear(Set<InventoryByMonth> inventory, int fromMonth, int fromYear){

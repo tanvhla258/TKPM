@@ -1,6 +1,6 @@
 package com.example.bookstoremanagement.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 

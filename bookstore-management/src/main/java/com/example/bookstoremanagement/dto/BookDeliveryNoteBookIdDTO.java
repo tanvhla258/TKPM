@@ -1,7 +1,12 @@
 package com.example.bookstoremanagement.dto;
 
-import lombok.Data;
+import lombok.*;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Data
 public class BookDeliveryNoteBookIdDTO {
     private Long bookId;

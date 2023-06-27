@@ -8,8 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 @Data
-public class RegulationDTO {
-    private Long id;
-    private String title;
-    private Integer value;
+public class BookInvoiceIdDTO {
+    private Long bookId;
+    private Long invoiceId;
 }

@@ -1,16 +1,16 @@
 package com.example.bookstoremanagement.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Data
 @Table(name = "receipt_notes")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @PrimaryKeyJoinColumn(name = "note_id")
+@Getter
+@Setter
 public class ReceiptNote extends Note {
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -2,6 +2,7 @@ package com.example.bookstoremanagement.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -12,7 +13,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table (name = "invoices")
-@Builder
 @Setter
 @Getter
 public class Invoice extends Note{
