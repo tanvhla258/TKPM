@@ -28,4 +28,7 @@ public class Customer {
     private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.EAGER)
     private Set<DeptByMonth> dept;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Invoice> invoices;
 }

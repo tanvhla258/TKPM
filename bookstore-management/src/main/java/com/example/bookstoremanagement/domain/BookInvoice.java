@@ -15,7 +15,7 @@ public class BookInvoice {
     @EmbeddedId
     private BookInvoiceId id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("bookId")
     @JoinColumn(name = "book_id")
     @JsonIgnore

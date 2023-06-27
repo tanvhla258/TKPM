@@ -13,8 +13,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookInvoiceId implements Serializable {
-    @Column(name = "book_id")
     private Long bookId;
-    @Column(name = "invoice_id")
     private Long invoiceId;
 }

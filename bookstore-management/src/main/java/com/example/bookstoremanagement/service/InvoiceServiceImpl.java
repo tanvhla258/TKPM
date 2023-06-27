@@ -1,6 +1,7 @@
 package com.example.bookstoremanagement.service;
 
 import com.example.bookstoremanagement.domain.*;
+import com.example.bookstoremanagement.exception.BookNotFoundException;
 import com.example.bookstoremanagement.exception.CustomerNotFoundException;
 import com.example.bookstoremanagement.exception.InvoiceNotFoundException;
 import com.example.bookstoremanagement.repository.BookRepository;
@@ -38,6 +39,26 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public Invoice addInvoice(Invoice invoice) {
+        Customer customer = invoice.getCustomer();
+        LocalDate current = LocalDate.now();
+        Set<DeptByMonth> dept = new HashSet<>();
+        dept.add(DeptByMonth
+                .builder()
+                .dept(0D)
+                .customer(customer)
+                .id(DeptByMonthId
+                        .builder()
+                        .month(current.getMonthValue())
+                        .year(current.getYear())
+                        .build())
+                .build());
+        customer.setDept(dept);
+        customer = customerRepository.save(customer);
+        invoice.setCustomer(customer);
+        for(BookInvoice bookInvoice: invoice.getBookInvoices()){
+            bookInvoice.setInvoice(invoice);
+        }
+        invoice = invoiceRepository.saveAndFlush(invoice);
         Double totalCost = calculateTotalCost(invoice);
         subtractAndSaveBookQuantity(invoice);
         saveDeptByMonthForCustomer(invoice, totalCost);
@@ -58,6 +79,11 @@ public class InvoiceServiceImpl implements InvoiceService{
         int fromYear = invoice.getCreationDate().getYear();
         for(BookInvoice bookInvoice: invoice.getBookInvoices()){
             Book book = bookInvoice.getBook();
+
+            ///
+            book = bookRepository.findById(book.getId()).orElseThrow(()->new BookNotFoundException("Book not found!"));
+            ///
+
             Set<InventoryByMonth> filtedSet =
                     InventoryByMonth.filterByMonthYear(book.getInventoryByMonthSet(), fromMonth, fromYear);
             filtedSet.forEach(i -> {
