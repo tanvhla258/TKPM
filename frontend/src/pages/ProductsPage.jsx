@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Book from "../components/Book";
+import { useEffect } from "react";
 import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
 import Dropdown from "../components/Dropdown";
 import { boxstyle } from "../constants/boxstyle";
@@ -12,13 +13,29 @@ import {
 } from "../constants/styleComponent.js";
 
 function ProductsPage() {
+  const [result, setResult] = useState();
+  useEffect(() => {
+    const fetchLeague = async () => {
+      try {
+        const data = await fetch("http://localhost:8080/books/list/all").then(
+          (res) => res.json()
+        );
+        console.log(data);
+        setResult([...data]);
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+
+    fetchLeague();
+  }, []);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   return (
     <div>
-      <div style={{display: "flex"}}>
-        <Search style={{width: "50%"}}>
+      <div style={{ display: "flex" }}>
+        <Search style={{ width: "50%" }}>
           <SearchIconWrapper>
             <SearchIcon color="primary" />
           </SearchIconWrapper>

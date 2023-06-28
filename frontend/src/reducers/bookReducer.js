@@ -2,11 +2,15 @@ const initialState = {
   books: [],
 };
 
-const bookReducer = (state = initialState, action) => {
-  switch (action.type) {
-    // Handle different actions (e.g., SET_BOOKS) and update the state accordingly
-    default:
-      return state;
-  }
-};
+const bookSlice = createSlice({
+  name: "regulation",
+  initialState,
+  reducers: {
+    toggleSwitch(state, action) {
+      const { switchId } = action.payload;
+      console.log(switchId);
+      state.switches[switchId] = !state.switches[switchId];
+    },
+  },
+});
 export default bookReducer;

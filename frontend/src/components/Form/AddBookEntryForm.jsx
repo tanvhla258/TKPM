@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
+import dayjs from "dayjs";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useForm } from "react-hook-form";
-
+import axios from "axios";
 import { TextField } from "@mui/material";
 
 function AddBookEntryForm() {
   const [addInput, SetAddInput] = useState(0);
+  const [value, setValue] = useState(dayjs(Date.now()));
+
   const handleAddInput = () => {
     SetAddInput((addInput) => addInput + 1);
   };
@@ -23,7 +26,34 @@ function AddBookEntryForm() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    // console.log(data.date);
+    const newBook = {
+      creationDate: "2020-06-12",
+      shipperName: "Nguyen Van A",
+      deliveryNoteBooks: [
+        {
+          quantity: data.quantity,
+          book: {
+            title: data.bookName,
+            author: data.author,
+            category: {
+              name: "Van hoc",
+            },
+          },
+        },
+      ],
+    };
+    console.log(newBook);
+    try {
+      axios
+        .post("http://localhost:8080/deliveries/add", newBook)
+        .then((respone) => {
+          console.log(respone.data);
+        });
+    } catch (e) {}
+  };
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -78,7 +108,7 @@ function AddBookEntryForm() {
           <Grid mb={1} item xs={2}>
             <TextField
               required
-              {...register("cost", { required: true })}
+              {...register("quantity", { required: true })}
               id="quantity"
               name="quantity"
               label="Số lượng"
@@ -102,7 +132,7 @@ function AddBookEntryForm() {
                   <TextField
                     {...register("bookName", { required: true })}
                     required
-                    id="bookName"
+                    // id="bookName"
                     name="bookName"
                     label="Tên sách "
                     fullWidth
@@ -114,7 +144,7 @@ function AddBookEntryForm() {
                   <TextField
                     {...register("author", { required: true })}
                     required
-                    id="author"
+                    // id="author"
                     name="author"
                     label="Tác giả"
                     fullWidth
@@ -126,7 +156,7 @@ function AddBookEntryForm() {
                   <TextField
                     required
                     {...register("cost", { required: true })}
-                    id="cost"
+                    // id="cost"
                     name="cost"
                     label="Đơn giá"
                     fullWidth
@@ -137,7 +167,7 @@ function AddBookEntryForm() {
                   <TextField
                     required
                     {...register("cost", { required: true })}
-                    id="quantity"
+                    // id="quantity"
                     name="quantity"
                     label="Số lượng"
                     fullWidth
@@ -174,8 +204,14 @@ function AddBookEntryForm() {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Ngày nhập"
+                id="date"
+                name="date"
+                value={value}
                 slotProps={{ textField: { fullWidth: true } }}
                 {...register("date", { required: true })}
+                onChange={(newValue) => {
+                  setValue((value) => newValue);
+                }}
               />
             </LocalizationProvider>
           </Grid>

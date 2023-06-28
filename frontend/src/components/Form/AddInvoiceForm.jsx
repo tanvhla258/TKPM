@@ -15,7 +15,38 @@ function AddInvoiceForm() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    // console.log(data.date);
+    const newInvoice = {
+      bookInvoices: [
+        {
+          id: {
+            bookId: 1,
+          },
+          quantity: 2,
+          unitPrice: 100000,
+          book: {
+            title: "notebook",
+            author: "Phan Huy Truong",
+            category: {
+              name: "Van hoc",
+            },
+            id: 1,
+          },
+        },
+      ],
+      customer: {
+        fullName: "Kim Tien",
+        phoneNumber: "123",
+        address: "Ho Chi Minh",
+        email: "20120210@student.hcmus.edu.vn",
+      },
+      creationDate: "2023-06-27",
+    };
+  };
+  const [value, setValue] = useState(dayjs(Date.now()));
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -25,10 +56,10 @@ function AddInvoiceForm() {
         <Grid container spacing={3}>
           <Grid mb={1} item xs={12}>
             <TextField
-              {...register("bookName", { required: true })}
+              {...register("name", { required: true })}
               required
-              id="bookName"
-              name="bookName"
+              id="name"
+              name="name"
               label="Tên khách hàng "
               fullWidth
               autoComplete="given-name"
@@ -58,15 +89,21 @@ function AddInvoiceForm() {
               variant="standard"
             />
           </Grid>
-          {/* <Grid mb={2} item xs={12}>
+          <Grid mb={2} item xs={12}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Ngày nhập"
+                id="date"
+                name="date"
+                value={value}
                 slotProps={{ textField: { fullWidth: true } }}
                 {...register("date", { required: true })}
+                onChange={(newValue) => {
+                  setValue((value) => newValue);
+                }}
               />
             </LocalizationProvider>
-          </Grid> */}
+          </Grid>
 
           <Grid container justifyContent={"space-between"} item xs={12}>
             <Grid item xs={12} sm={6}>
