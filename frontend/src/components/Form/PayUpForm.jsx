@@ -25,10 +25,10 @@ function PayUpForm() {
         <Grid container spacing={3}>
           <Grid mb={1} item xs={12}>
             <TextField
-              {...register("bookName", { required: true })}
+              {...register("userName", { required: true })}
               required
-              id="bookName"
-              name="bookName"
+              id="userName"
+              name="userName"
               label="Họ tên khách hàng"
               fullWidth
               autoComplete="given-name"
@@ -37,10 +37,10 @@ function PayUpForm() {
           </Grid>
           <Grid mb={1} item xs={12}>
             <TextField
-              {...register("bookName", { required: true })}
+              {...register("address", { required: true })}
               required
-              id="bookName"
-              name="bookName"
+              id="address"
+              name="address"
               label="Địa chỉ"
               fullWidth
               autoComplete="given-name"
@@ -49,10 +49,10 @@ function PayUpForm() {
           </Grid>
           <Grid mb={1} item xs={12}>
             <TextField
-              {...register("bookName", { required: true })}
+              {...register("number", { required: true })}
               required
-              id="bookName"
-              name="bookName"
+              id="number"
+              name="number"
               label="Điện thoại"
               fullWidth
               autoComplete="given-name"
@@ -61,10 +61,10 @@ function PayUpForm() {
           </Grid>
           <Grid mb={1} item xs={12}>
             <TextField
-              {...register("bookName", { required: true })}
+              {...register("email", { required: true })}
               required
-              id="bookName"
-              name="bookName"
+              id="email"
+              name="email"
               label="Email"
               type="email"
               fullWidth

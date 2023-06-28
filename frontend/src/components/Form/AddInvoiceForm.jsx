@@ -56,10 +56,10 @@ function AddInvoiceForm() {
         <Grid container spacing={3}>
           <Grid mb={1} item xs={12}>
             <TextField
-              {...register("name", { required: true })}
+              {...register("bookName", { required: true })}
               required
-              id="name"
-              name="name"
+              id="bookName"
+              name="bookName"
               label="Tên khách hàng "
               fullWidth
               autoComplete="given-name"
