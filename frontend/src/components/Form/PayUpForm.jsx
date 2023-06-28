@@ -20,7 +20,7 @@ function PayUpForm() {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography alignCenter variant="h6" gutterBottom color="primary">
-          Thanh toán nợ
+          Phiếu thu tiền
         </Typography>
         <Grid container spacing={3}>
           <Grid mb={1} item xs={12}>
@@ -29,7 +29,55 @@ function PayUpForm() {
               required
               id="bookName"
               name="bookName"
-              label="Tên khách hàng"
+              label="Họ tên khách hàng"
+              fullWidth
+              autoComplete="given-name"
+              variant="standard"
+            />
+          </Grid>
+          <Grid mb={1} item xs={12}>
+            <TextField
+              {...register("bookName", { required: true })}
+              required
+              id="bookName"
+              name="bookName"
+              label="Địa chỉ"
+              fullWidth
+              autoComplete="given-name"
+              variant="standard"
+            />
+          </Grid>
+          <Grid mb={1} item xs={12}>
+            <TextField
+              {...register("bookName", { required: true })}
+              required
+              id="bookName"
+              name="bookName"
+              label="Điện thoại"
+              fullWidth
+              autoComplete="given-name"
+              variant="standard"
+            />
+          </Grid>
+          <Grid mb={1} item xs={12}>
+            <TextField
+              {...register("bookName", { required: true })}
+              required
+              id="bookName"
+              name="bookName"
+              label="Email"
+              fullWidth
+              autoComplete="given-name"
+              variant="standard"
+            />
+          </Grid>
+          <Grid mb={1} item xs={12}>
+            <TextField
+              {...register("bookName", { required: true })}
+              required
+              id="bookName"
+              name="bookName"
+              label="Ngày thu tiền"
               fullWidth
               autoComplete="given-name"
               variant="standard"
@@ -53,7 +101,7 @@ function PayUpForm() {
               {...register("cost", { required: true })}
               id="cost"
               name="cost"
-              label="Số tiền thanh toán"
+              label="Số tiền thu"
               fullWidth
               variant="standard"
             />
