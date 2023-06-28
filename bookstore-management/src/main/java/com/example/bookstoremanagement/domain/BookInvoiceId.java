@@ -15,4 +15,8 @@ import java.io.Serializable;
 public class BookInvoiceId implements Serializable {
     private Long bookId;
     private Long invoiceId;
+
+    public BookInvoiceId(Long bookId){
+        this.bookId = bookId;
+    }
 }

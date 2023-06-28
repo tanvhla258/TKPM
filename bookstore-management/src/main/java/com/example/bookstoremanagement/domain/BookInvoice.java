@@ -31,4 +31,5 @@ public class BookInvoice {
 
     @Column(name = "unit_price")
     private Double unitPrice;
+
 }

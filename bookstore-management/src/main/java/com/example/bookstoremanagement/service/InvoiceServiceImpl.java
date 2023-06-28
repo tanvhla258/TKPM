@@ -7,6 +7,7 @@ import com.example.bookstoremanagement.exception.InvoiceNotFoundException;
 import com.example.bookstoremanagement.repository.BookRepository;
 import com.example.bookstoremanagement.repository.CustomerRepository;
 import com.example.bookstoremanagement.repository.InvoiceRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -57,6 +58,7 @@ public class InvoiceServiceImpl implements InvoiceService{
         invoice.setCustomer(customer);
         for(BookInvoice bookInvoice: invoice.getBookInvoices()){
             bookInvoice.setInvoice(invoice);
+            bookInvoice.setId(new BookInvoiceId(bookInvoice.getBook().getId()));
         }
         invoice = invoiceRepository.save(invoice);
 //        for(BookInvoice bookInvoice: invoice.getBookInvoices()){
@@ -200,6 +202,8 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public Invoice getInvoiceById(Long id) {
-        return invoiceRepository.findById(id).orElseThrow(() -> new InvoiceNotFoundException("Invoice not found"));
+        return invoiceRepository.findById(id).orElseThrow(() -> new InvoiceNotFoundException("Invoice not found for parameter " + "{id="+id+"}"));
+
+//        return invoiceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Invoice not found for parameter " + "{id="+id+"}"));
     }
 }
