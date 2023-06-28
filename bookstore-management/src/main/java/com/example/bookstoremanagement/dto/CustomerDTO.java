@@ -2,6 +2,8 @@ package com.example.bookstoremanagement.dto;
 
 import lombok.*;
 
+import java.util.Set;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,4 +16,5 @@ public class CustomerDTO {
     private String phoneNumber;
     private String address;
     private String email;
+    private Set<DeptByMonthDTO> dept;
 }

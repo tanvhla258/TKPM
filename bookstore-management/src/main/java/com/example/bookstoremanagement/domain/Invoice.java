@@ -22,7 +22,7 @@ public class Invoice extends Note{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
 //    @MapsId("customerId")
-//    @JsonIgnore
+    @JsonIgnore
     private Customer customer;
 
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)

@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 public class ReceiptNote extends Note {
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "customer_id")
     private Customer customer;
     @Column(name = "total_cost")

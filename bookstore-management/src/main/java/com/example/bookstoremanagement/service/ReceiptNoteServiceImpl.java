@@ -53,7 +53,8 @@ public class ReceiptNoteServiceImpl implements ReceiptNoteService{
         deptByMonthSet.forEach(i -> {
             i.setDept(i.getDept() - receiptNote.getTotalCost());
         });
-        customerRepository.save(customer);
+        receiptNote.setCustomer(customer);
+//        customerRepository.save(customer);
     }
 
     private void revertCustomerDept(ReceiptNote receiptNote){

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
-@RestController("receipts")
+
+@RestController
+@RequestMapping("receipts")
 @RequiredArgsConstructor
 public class ReceiptNoteController {
     private static final String RECEIPT_DETAILS_MISSING_MSG = "Receipt's details must be specified";
@@ -31,7 +33,9 @@ public class ReceiptNoteController {
         Preconditions.checkState(Objects.nonNull(receiptNoteDTO), RECEIPT_DETAILS_MISSING_MSG);
 
         ReceiptNote receiptNote = receiptNoteMapper.toEntity(receiptNoteDTO);
-        return ResponseAPI.positiveResponse(receiptNoteService.addReceiptNote(receiptNote));
+        receiptNote = receiptNoteService.addReceiptNote(receiptNote);
+        ReceiptNoteDTO receiptNoteDTO1 = receiptNoteMapper.toDto(receiptNote);
+        return ResponseAPI.positiveResponse(receiptNoteDTO1);
     }
     @PutMapping("update")
     public Response updateReceiptNote(@RequestParam(value = "id") Long id,
