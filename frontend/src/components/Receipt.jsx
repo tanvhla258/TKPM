@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PaidIcon from "@mui/icons-material/Paid";
-function Receipt({ date, book, id, cost, user }) {
+function Receipt({ date, book, id, cost, user, payup }) {
   return (
     <div>
       <Card sx={{ minWidth: 350 }}>
@@ -31,7 +31,12 @@ function Receipt({ date, book, id, cost, user }) {
 
         <CardActions>
           {/* <Button size="small">Learn More</Button> */}
-          <Button variant="outlined" color="success" startIcon={<PaidIcon />}>
+          <Button
+            onClick={() => payup()}
+            variant="outlined"
+            color="success"
+            startIcon={<PaidIcon />}
+          >
             Thanh toán nợ
           </Button>
           <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>

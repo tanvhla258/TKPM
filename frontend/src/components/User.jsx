@@ -14,7 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/material";
 function User() {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ minWidth: 345 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

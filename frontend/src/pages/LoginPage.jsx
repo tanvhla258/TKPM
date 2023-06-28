@@ -23,7 +23,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        TKPM
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -45,7 +45,11 @@ function LoginPage() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid
+        container
+        component="main"
+        sx={{ height: "100vh", padding: "100px" }}
+      >
         <CssBaseline />
         <Grid
           item

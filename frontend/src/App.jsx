@@ -10,6 +10,7 @@ import TopAndSide from "./components/TopAndSide";
 import { Box } from "@mui/material";
 import InvoicePage from "./pages/InvoicePage";
 import RegulationPage from "./pages/RegulationPage";
+import SignUpPage from "./pages/SignupPage";
 let currentUser = true;
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
         </Routes>
         {!currentUser || (
           <Box sx={{ display: "flex" }}>

@@ -4,6 +4,7 @@ import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
 import Dropdown from "../components/Dropdown";
 import { boxstyle } from "../constants/boxstyle";
 import AddIcon from "../components/AddIcon";
+import AddInvoiceForm from "../components/Form/AddInvoiceForm";
 
 function InvoicePage() {
   const [open, setOpen] = React.useState(false);
@@ -81,12 +82,7 @@ function InvoicePage() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={boxstyle}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <AddInvoiceForm />
         </Box>
       </Modal>
     </div>

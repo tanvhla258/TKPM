@@ -156,7 +156,7 @@ export default function TopAndSide() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            Ban sach kiem them
+            Book management
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Search>

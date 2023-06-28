@@ -15,12 +15,20 @@ import { Grid } from "@mui/material";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 const SettingCard = ({ id, switchValue, handleToggle }) => {
-  const disableColor = switchValue ? "rgba(0,0,0,0.2)" : "transparent";
-  console.log(id, "  ", disableColor);
   return (
-    <Card
-      sx={{ background: disableColor, minWidth: 400, position: "relative" }}
-    >
+    <Card sx={{ background: "#fff", minWidth: 400, position: "relative" }}>
+      {switchValue && (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            background: "rgba(255,255,255,0.8)",
+          }}
+        ></div>
+      )}
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color={"text.secondary"} gutterBottom>
           Quy dinh 1
