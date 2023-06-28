@@ -5,11 +5,11 @@ function AddIcon({ handleOpen }) {
   return (
     <Icon
       style={{
-        position: "sticky",
-        // zIndex: "10",
+        position: "fixed",
+        zIndex: "10",
         cursor: "pointer",
-        bottom: "20px",
-        marginLeft: "90vw",
+        bottom: 15,
+        right: 15,
       }}
       onClick={handleOpen}
       color="primary"

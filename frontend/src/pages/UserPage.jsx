@@ -12,20 +12,45 @@ function UserPage() {
     <div style={{ position: "relative" }}>
       <Grid marginTop={2} container spacing={2}>
         <Grid item>
-          <User></User>
+          <User
+            name="Tan"
+            address="Ho chi minh"
+            phone="0323658878"
+            email="tan@gmail.com"
+          ></User>
         </Grid>
 
         <Grid item>
-          <User></User>
+          <User
+            name="Tan"
+            address="Ho chi minh"
+            phone="0323658878"
+            email="tan@gmail.com"
+          ></User>
         </Grid>
         <Grid item>
-          <User></User>
+          <User
+            name="Tan"
+            address="Ho chi minh"
+            phone="0323658878"
+            email="tan@gmail.com"
+          ></User>
         </Grid>
         <Grid item>
-          <User></User>
+          <User
+            name="Tan"
+            address="Ho chi minh"
+            phone="0323658878"
+            email="tan@gmail.com"
+          ></User>
         </Grid>
         <Grid item>
-          <User></User>
+          <User
+            name="Tan"
+            address="Ho chi minh"
+            phone="0323658878"
+            email="tan@gmail.com"
+          ></User>
         </Grid>
       </Grid>
 

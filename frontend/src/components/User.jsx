@@ -12,16 +12,16 @@ import WidgetsIcon from "@mui/icons-material/Widgets";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { Button } from "@mui/material";
-function User() {
+function User({ name, address, email, phone }) {
   return (
     <Card sx={{ minWidth: 345 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            {name[0].toUpperCase()}
           </Avatar>
         }
-        title="Pham Tan"
+        title={name}
         subheader=" Khach hang thuong"
       />
       <CardContent>
@@ -32,12 +32,12 @@ function User() {
         ></Typography>
 
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          Email: phamtan@gmail.com
+          Email: {email}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          Phone: 0998751123
+          Phone: {phone}
         </Typography>
-        <Typography color="text.secondary">Address: Ho Chi Minh</Typography>
+        <Typography color="text.secondary">Address: {address}</Typography>
       </CardContent>
       <CardActions sx={{ marginLeft: 0 }}>
         <Button color="success" startIcon={<WidgetsIcon />}>
