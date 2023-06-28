@@ -119,18 +119,18 @@ export default function TopAndSide() {
     { name: "Sản phẩm", link: "products" },
     { name: "Phiếu nhập sách", link: "book-entries" },
     { name: "Hóa đơn", link: "invoices" },
-    { name: "User", link: "users" },
     { name: "Phiếu thu tiền", link: "receipts" },
     { name: "Quy định", link: "regulations" },
+    { name: "Khách hàng", link: "users" },
   ];
   const Icons = [
     <HomeIcon />,
     <ShoppingCartIcon />,
     <DescriptionIcon />,
     <ReceiptIcon />,
-    <PersonIcon />,
     <RequestPageIcon />,
     <SettingsIcon />,
+    <PersonIcon />,
   ];
   return (
     <>
@@ -159,7 +159,7 @@ export default function TopAndSide() {
             Book management
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon color="primary" />
             </SearchIconWrapper>
@@ -167,7 +167,7 @@ export default function TopAndSide() {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
+          </Search> */}
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
