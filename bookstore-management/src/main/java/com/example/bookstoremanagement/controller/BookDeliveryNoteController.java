@@ -20,6 +20,7 @@ import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 @RequestMapping(value = "deliveries", consumes = "application/json;charset=UTF-8")
 public class BookDeliveryNoteController{
     private static final String DELIVERY_NOTE_DETAILS_MISSING_MSG = "Book delivery's details must be specified";

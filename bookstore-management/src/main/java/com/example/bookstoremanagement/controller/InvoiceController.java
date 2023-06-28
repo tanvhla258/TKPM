@@ -18,6 +18,7 @@ import java.util.Objects;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("invoices")
+@CrossOrigin
 public class InvoiceController {
     private static final String INVOICE_DETAILS_MISSING_MSG = "Invoice's details must be specified";
     private static final String INVOICE_ID_MISSING_MSG = "Invoice's id must be specified";

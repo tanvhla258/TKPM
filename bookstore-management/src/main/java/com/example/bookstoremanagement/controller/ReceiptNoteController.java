@@ -18,6 +18,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("receipts")
 @RequiredArgsConstructor
+@CrossOrigin
 public class ReceiptNoteController {
     private static final String RECEIPT_DETAILS_MISSING_MSG = "Receipt's details must be specified";
     private static final String RECEIPT_ID_MISSING_MSG = "Receipt's id must be specified";
