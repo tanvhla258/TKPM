@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -10,6 +10,21 @@ import { TextField } from "@mui/material";
 
 function AddBookEntryForm() {
   const [addInput, SetAddInput] = useState(0);
+  const [result, setResult] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch('http://localhost:8080/books/list/all');
+      const json = await data.json();
+      return json;
+    }
+  
+    const result = fetchData()
+      .catch(console.error);;
+  
+    setResult(result);
+  }, [])
+  console.log(result)
   const handleAddInput = () => {
     SetAddInput((addInput) => addInput + 1);
   };
