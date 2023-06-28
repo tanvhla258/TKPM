@@ -66,22 +66,20 @@ function PayUpForm() {
               id="bookName"
               name="bookName"
               label="Email"
+              type="email"
               fullWidth
               autoComplete="given-name"
               variant="standard"
             />
           </Grid>
-          <Grid mb={1} item xs={12}>
-            <TextField
-              {...register("bookName", { required: true })}
-              required
-              id="bookName"
-              name="bookName"
-              label="Ngày thu tiền"
-              fullWidth
-              autoComplete="given-name"
-              variant="standard"
-            />
+          <Grid mb={2} item xs={12}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Ngày nhập"
+                slotProps={{ textField: { fullWidth: true } }}
+                {...register("date", { required: true })}
+              />
+            </LocalizationProvider>
           </Grid>
           {/* <Grid mb={1} item xs={12}>
             <TextField

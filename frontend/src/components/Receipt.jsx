@@ -6,7 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
-import PaidIcon from "@mui/icons-material/Paid";
+import EditIcon from "@mui/icons-material/Edit";
 function Receipt({ date, book, id, cost, user, payup }) {
   return (
     <div>
@@ -35,12 +35,12 @@ function Receipt({ date, book, id, cost, user, payup }) {
             onClick={() => payup()}
             variant="outlined"
             color="success"
-            startIcon={<PaidIcon />}
+            startIcon={<EditIcon />}
           >
-            Thanh toán nợ
+            Chỉnh sửa
           </Button>
           <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
-            Xoa
+            Xóa
           </Button>
         </CardActions>
       </Card>

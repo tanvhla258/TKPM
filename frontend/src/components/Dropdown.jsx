@@ -18,16 +18,14 @@ const MenuProps = {
 };
 
 const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
+  "Tình cảm",
+  "Khoa học viễn tưởng",
+  "Kinh dị",
+  "Tiểu sử",
+  "Truyện ngắn",
+  "Nấu ăn",
+  "Lịch sử",
+  "Thiếu nhi"
 ];
 
 function getStyles(name, personName, theme) {
@@ -55,7 +53,7 @@ function Dropdown() {
   return (
     <div>
       <FormControl sx={{ width: 200 }}>
-        <InputLabel id="demo-controlled-open-select-label">Category</InputLabel>
+        <InputLabel id="demo-controlled-open-select-label">Thể loại</InputLabel>
         <Select
           value={personName}
           defaultChecked={"All"}
