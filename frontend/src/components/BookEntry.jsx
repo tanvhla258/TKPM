@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
-import PaidIcon from "@mui/icons-material/Paid";
+import EditIcon from "@mui/icons-material/Edit";
 function BookEntry({ date, book, id, cost }) {
   return (
     <div>
@@ -27,11 +27,11 @@ function BookEntry({ date, book, id, cost }) {
 
         <CardActions>
           {/* <Button size="small">Learn More</Button> */}
-          <Button variant="outlined" color="success" startIcon={<PaidIcon />}>
-            Nhap kho
+          <Button variant="outlined" color="success" startIcon={<EditIcon />}>
+            Chỉnh sửa
           </Button>
           <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
-            Xoa
+            Xóa
           </Button>
         </CardActions>
       </Card>

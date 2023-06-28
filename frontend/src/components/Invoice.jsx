@@ -12,7 +12,7 @@ import Switch from "@mui/material/Switch";
 import IconButton from "@mui/material/IconButton";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-import PaidIcon from "@mui/icons-material/Paid";
+import EditIcon from "@mui/icons-material/Edit";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -107,15 +107,15 @@ function Invoice({ date, user, id, cost }) {
         <CardActions>
           {/* <Button size="small">Learn More</Button> */}
 
-          <Button variant="outlined" color="success" startIcon={<PaidIcon />}>
-            Thanh toan
+          <Button variant="outlined" color="success" startIcon={<EditIcon />}>
+            Chỉnh sửa
           </Button>
           <Button
             variant="outlined"
             color="error"
-            startIcon={<DriveFileRenameOutlineIcon />}
+            startIcon={<DeleteIcon />}
           >
-            Ghi no
+            Xóa
           </Button>
           <ExpandMore
             expand={expanded}

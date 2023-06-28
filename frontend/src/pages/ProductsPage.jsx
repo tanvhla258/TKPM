@@ -4,6 +4,12 @@ import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
 import Dropdown from "../components/Dropdown";
 import { boxstyle } from "../constants/boxstyle";
 import AddIcon from "../components/AddIcon";
+import SearchIcon from "@mui/icons-material/Search";
+import {
+  StyledInputBase,
+  SearchIconWrapper,
+  Search,
+} from "../constants/styleComponent.js";
 
 function ProductsPage() {
   const [open, setOpen] = React.useState(false);
@@ -11,7 +17,18 @@ function ProductsPage() {
   const handleClose = () => setOpen(false);
   return (
     <div>
-      <Dropdown />
+      <div style={{display: "flex"}}>
+        <Search style={{width: "50%"}}>
+          <SearchIconWrapper>
+            <SearchIcon color="primary" />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
+          />
+        </Search>
+        <Dropdown />
+      </div>
       <Grid marginTop={2} container spacing={2}>
         <Grid item>
           <Book

@@ -21,7 +21,6 @@ function BookEntryPage() {
   const handleClose = () => setOpen(false);
   return (
     <div style={{ position: "relative" }}>
-      <Dropdown />
       <Grid marginTop={2} container spacing={2}>
         <Grid item>
           <BookEntry
