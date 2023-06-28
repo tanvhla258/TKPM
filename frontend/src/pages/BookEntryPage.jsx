@@ -3,7 +3,7 @@ import React from "react";
 import BookEntry from "../components/BookEntry";
 import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
 import Dropdown from "../components/Dropdown";
-import { boxstyle } from "../constants/boxstyle";
+import { boxstyle600 } from "../constants/boxstyle";
 import AddIcon from "../components/AddIcon";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -21,7 +21,6 @@ function BookEntryPage() {
   const handleClose = () => setOpen(false);
   return (
     <div style={{ position: "relative" }}>
-      <Dropdown />
       <Grid marginTop={2} container spacing={2}>
         <Grid item>
           <BookEntry
@@ -57,7 +56,7 @@ function BookEntryPage() {
       <AddIcon handleOpen={handleOpen} />
 
       <Modal open={open} onClose={handleClose}>
-        <Box sx={boxstyle}>
+        <Box sx={boxstyle600}>
           <AddBookEntryForm />
         </Box>
       </Modal>
