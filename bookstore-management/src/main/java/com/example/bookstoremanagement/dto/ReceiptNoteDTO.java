@@ -3,7 +3,6 @@ package com.example.bookstoremanagement.dto;
 import com.example.bookstoremanagement.domain.Note;
 import lombok.*;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

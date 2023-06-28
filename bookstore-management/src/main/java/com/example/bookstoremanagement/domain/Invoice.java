@@ -1,6 +1,7 @@
 package com.example.bookstoremanagement.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -17,10 +18,11 @@ import java.util.Set;
 @Setter
 @Getter
 public class Invoice extends Note{
+//    private Long customerId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("customerId")
     @JoinColumn(name = "customer_id")
-    @JsonIgnore
+//    @MapsId("customerId")
+//    @JsonIgnore
     private Customer customer;
 
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)

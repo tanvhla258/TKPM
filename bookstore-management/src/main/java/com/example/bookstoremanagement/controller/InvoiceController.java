@@ -37,7 +37,7 @@ public class InvoiceController {
         Preconditions.checkState(Objects.nonNull(invoiceDTO), INVOICE_DETAILS_MISSING_MSG);
 
         Invoice invoice = invoiceMapper.toEntity(invoiceDTO);
-        return ResponseAPI.positiveResponse(invoiceService.addInvoice(invoice));
+        return ResponseAPI.positiveResponse(invoiceMapper.toDto(invoiceService.addInvoice(invoice)));
     }
 
     @PostMapping("update")

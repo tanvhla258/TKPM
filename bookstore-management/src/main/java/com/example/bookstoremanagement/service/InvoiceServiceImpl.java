@@ -58,7 +58,10 @@ public class InvoiceServiceImpl implements InvoiceService{
         for(BookInvoice bookInvoice: invoice.getBookInvoices()){
             bookInvoice.setInvoice(invoice);
         }
-        invoice = invoiceRepository.saveAndFlush(invoice);
+        invoice = invoiceRepository.save(invoice);
+//        for(BookInvoice bookInvoice: invoice.getBookInvoices()){
+//            bookInvoice.getId().setInvoiceId(invoice.getId());
+//        }
         Double totalCost = calculateTotalCost(invoice);
         subtractAndSaveBookQuantity(invoice);
         saveDeptByMonthForCustomer(invoice, totalCost);

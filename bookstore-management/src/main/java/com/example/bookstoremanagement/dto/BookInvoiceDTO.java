@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @Data
-public class BookInvoiceDTO {
+public class BookInvoiceDTO { //childer
     private BookInvoiceIdDTO id;
     private InvoiceDTO invoice;
     private BookDTO book;

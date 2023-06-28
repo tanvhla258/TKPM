@@ -6,13 +6,12 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Set;
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Data
-public class InvoiceDTO extends NoteDTO{
+public class InvoiceDTO extends NoteDTO{ //father
     private CustomerDTO customer;
     private Set<BookInvoiceDTO> bookInvoices;
 }

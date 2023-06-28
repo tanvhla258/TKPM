@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.util.Set;
 
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

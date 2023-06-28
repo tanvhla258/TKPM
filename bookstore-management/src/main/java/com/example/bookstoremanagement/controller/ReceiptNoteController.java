@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
-@RestController("receipt")
+@RestController("receipts")
 @RequiredArgsConstructor
 public class ReceiptNoteController {
     private static final String RECEIPT_DETAILS_MISSING_MSG = "Receipt's details must be specified";
