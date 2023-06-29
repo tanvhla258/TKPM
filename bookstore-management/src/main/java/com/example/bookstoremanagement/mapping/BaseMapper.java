@@ -9,4 +9,5 @@ public interface BaseMapper<E,D> {
     E toEntity(D dto);
     Set<D> toDtoSet(Set<E> set);
     Set<E> toSet(Set<D> set);
+    List<E> toList(List<D> list);
 }
