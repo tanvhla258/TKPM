@@ -1,13 +1,11 @@
 package com.example.bookstoremanagement.service;
 
 import com.example.bookstoremanagement.domain.*;
-import com.example.bookstoremanagement.exception.BookNotFoundException;
-import com.example.bookstoremanagement.exception.CustomerNotFoundException;
-import com.example.bookstoremanagement.exception.InvoiceNotFoundException;
+import com.example.bookstoremanagement.exception.*;
 import com.example.bookstoremanagement.repository.BookRepository;
 import com.example.bookstoremanagement.repository.CustomerRepository;
 import com.example.bookstoremanagement.repository.InvoiceRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.example.bookstoremanagement.repository.RegulationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -27,6 +25,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     private final InvoiceRepository invoiceRepository;
     private final BookRepository bookRepository;
     private final CustomerRepository customerRepository;
+    private final RegulationRepository regulationRepository;
     @Override
     public Page<Invoice> fetchInvoicesByPage(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -40,6 +39,11 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public Invoice addInvoice(Invoice invoice) {
+        //Check regulation for customer's dept
+        checkCustomerDept(invoice);
+        //Check inventory after buying
+        checkInventoryAfterBuying(invoice);
+
         Customer customer = invoice.getCustomer();
         LocalDate current = LocalDate.now();
         Set<DeptByMonth> dept = new HashSet<>();
@@ -68,6 +72,38 @@ public class InvoiceServiceImpl implements InvoiceService{
         subtractAndSaveBookQuantity(invoice);
         saveDeptByMonthForCustomer(invoice, totalCost);
         return saveInvoice(invoice);
+    }
+
+    private void checkCustomerDept(Invoice invoice){
+        Regulation regulation = regulationRepository.findById(2L).orElseThrow(() -> new RegulationNotFoundException("Regulation not found for parameter {id=2}"));
+        Customer foundCustomer = customerRepository.findById(invoice.getCustomer().getId())
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found for parameter {id="+invoice.getCustomer().getId()+"}"));
+        DeptByMonth currentDept = DeptByMonth.getDeptByMonth(foundCustomer.getDept(), invoice.getCreationDate().getMonthValue(), invoice.getCreationDate().getYear());
+        if(currentDept != null){
+            if(currentDept.getDept() > regulation.getValue()){
+                throw new DeptLargerThanRegulationWhenBuyingException(regulation.getValue());
+            }
+        }
+    }
+
+    private void checkInventoryAfterBuying(Invoice invoice){
+        Regulation checkRegulation = regulationRepository.findById(3L).orElseThrow(()->new RegulationNotFoundException("Regulation not found for parameter {id=3}"));
+        int checkValue =checkRegulation.getValue();
+        int fromMonth = invoice.getCreationDate().getMonthValue();
+        int fromYear = invoice.getCreationDate().getYear();
+        for(BookInvoice bookInvoice: invoice.getBookInvoices()){
+            Book book = bookInvoice.getBook();
+
+            book = bookRepository.findById(book.getId()).orElseThrow(()->new BookNotFoundException("Book not found!"));
+
+            Set<InventoryByMonth> filtedSet =
+                    InventoryByMonth.filterByMonthYear(book.getInventoryByMonthSet(), fromMonth, fromYear);
+            filtedSet.forEach(i -> {
+                if(i.getQuantity() - bookInvoice.getQuantity() < checkValue){
+                    throw new InventoryAfterSellingLessThanRegulationException(checkValue);
+                }
+            });
+        }
     }
 
     //Calculate total cost
@@ -146,6 +182,11 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public Invoice updateInvoice(Long id, Invoice invoice) {
+        //Check regulation for customer's dept
+        checkCustomerDept(invoice);
+        //Check inventory after buying
+        checkInventoryAfterBuying(invoice);
+        
         Invoice foundInvoice = getInvoiceById(id);
         //revert dept
         revertDeptAddingByInvoice(foundInvoice, calculateTotalCost(foundInvoice));

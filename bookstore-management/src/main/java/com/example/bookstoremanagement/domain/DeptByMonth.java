@@ -46,6 +46,15 @@ public class DeptByMonth {
         return filteredSet;
     }
 
+    public static DeptByMonth getDeptByMonth(Set<DeptByMonth> deptByMonthSet, int month, int year){
+        for(DeptByMonth i: deptByMonthSet){
+            if(i.getId().getYear() == year && i.getId().getMonth() == month){
+                return i;
+            }
+        }
+        return null;
+    }
+
     public static TreeMap<Integer, DeptByMonth> getDeptByMonthAndPrevious(Set<DeptByMonth> dept, int month, int year){
         TreeMap<Integer, DeptByMonth> mapOf2Dept = new TreeMap<>();
         for(DeptByMonth i: dept){

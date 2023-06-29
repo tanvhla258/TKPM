@@ -13,8 +13,10 @@ import java.util.Set;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    @Query(value = "select * from dept_by_month as dbm" +
-            "join customer as c on dbm.customer_id = c.id" +
-            "where c.id = ?1 and dbm.month >= ?2 and dbm.year >= ?3", nativeQuery = true)
-    Set<DeptByMonth> getDeptByMonthFromDate(Long id, Integer fromMonth, Integer fromYear);
+//    @Query(value = "select * from dept_by_month as dbm" +
+//            "join customer as c on dbm.customer_id = c.id" +
+//            "where c.id = ?1 and dbm.month >= ?2 and dbm.year >= ?3", nativeQuery = true)
+//    Set<DeptByMonth> getDeptByMonthFromDate(Long id, Integer fromMonth, Integer fromYear);
+
+    Customer findCustomerByPhoneNumber(String phoneNumber);
 }

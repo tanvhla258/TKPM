@@ -2,6 +2,7 @@ package com.example.bookstoremanagement.controller;
 
 import com.example.bookstoremanagement.domain.Book;
 import com.example.bookstoremanagement.dto.BookDTO;
+import com.example.bookstoremanagement.exception.BookNotFoundException;
 import com.example.bookstoremanagement.mapping.BookMapper;
 import com.example.bookstoremanagement.response.Response;
 import com.example.bookstoremanagement.response.ResponseAPI;
@@ -10,6 +11,8 @@ import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -84,5 +87,7 @@ public class BookController {
         }
         return new PageImpl<>(bookMapper.toDtoList(bookPage.getContent()), bookPage.getPageable(), bookPage.getTotalElements());
     }
+
+
 
 }

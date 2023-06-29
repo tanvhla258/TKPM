@@ -3,10 +3,14 @@ package com.example.bookstoremanagement.service;
 import com.example.bookstoremanagement.domain.Customer;
 import com.example.bookstoremanagement.domain.DeptByMonth;
 import com.example.bookstoremanagement.domain.ReceiptNote;
+import com.example.bookstoremanagement.domain.Regulation;
 import com.example.bookstoremanagement.exception.CustomerNotFoundException;
+import com.example.bookstoremanagement.exception.ProceedsMoreThanDeptException;
 import com.example.bookstoremanagement.exception.ReceiptNoteNotFoundException;
+import com.example.bookstoremanagement.exception.RegulationNotFoundException;
 import com.example.bookstoremanagement.repository.CustomerRepository;
 import com.example.bookstoremanagement.repository.ReceiptNoteRepository;
+import com.example.bookstoremanagement.repository.RegulationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +27,7 @@ import java.util.Set;
 public class ReceiptNoteServiceImpl implements ReceiptNoteService{
     private final ReceiptNoteRepository receiptNoteRepository;
     private final CustomerRepository customerRepository;
+    private final RegulationRepository regulationRepository;
     @Override
     public Page<ReceiptNote> fetchReceiptNotesByPage(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -34,8 +39,36 @@ public class ReceiptNoteServiceImpl implements ReceiptNoteService{
         return null;
     }
 
+    private void checkRegulation(ReceiptNote receiptNote){
+        Regulation regulation = regulationRepository
+                .findById(4L)
+                .orElseThrow(()->new RegulationNotFoundException("Regulation not found for paramter {id=4}"));
+        int isActivated = regulation.getValue();
+        if(isActivated == 1){
+            int month = receiptNote.getCreationDate().getMonthValue();
+            int year = receiptNote.getCreationDate().getYear();
+            Customer customer = customerRepository
+                    .findById(receiptNote.getCustomer().getId())
+                    .orElseThrow(() -> new CustomerNotFoundException("Customer not found for parameter {id="+receiptNote.getCustomer().getId()+"}"));
+            DeptByMonth currentDept = DeptByMonth.getDeptByMonth(customer.getDept(), month, year);
+            if(currentDept == null){
+                return;
+            }
+
+            Double currentDeptValue = currentDept.getDept();
+            if(receiptNote.getTotalCost() > currentDeptValue){
+                throw new ProceedsMoreThanDeptException();
+            }
+
+        }
+
+    }
+
     @Override
     public ReceiptNote addReceiptNote(ReceiptNote receiptNote) {
+        //Check for regulation
+        checkRegulation(receiptNote);
+
         //TODO: subtract dept for customer from note's creation date
         subtractCustomerDept(receiptNote);
         //TODO: save receipt note
@@ -77,6 +110,9 @@ public class ReceiptNoteServiceImpl implements ReceiptNoteService{
 
     @Override
     public ReceiptNote updateReceiptNote(Long id, ReceiptNote receiptNote) {
+        //Check for regulation
+        checkRegulation(receiptNote);
+
         //first initializing
         ReceiptNote foundReceiptNote = getReceiptNoteById(id);
         revertCustomerDept(foundReceiptNote);

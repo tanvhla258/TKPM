@@ -29,11 +29,11 @@ public interface BookRepository extends JpaRepository<Book, Long>{
     countQuery = "select count (*) from books where title like %?1% and category = ?2",
     nativeQuery = true)
     Page<Book> findByTitleAndCategory(String title, Integer category, Pageable pageable);
-    @Query(value = "select * from books where title like %:#{#book.title}% " +
-            "and category_id = %:#{#book.category}% " +
-            "and author like %:#{#book.author}%",
-            nativeQuery = true)
-    Book findBookByFields(@Param("book") Book book);
+//    @Query(value = "select * from books where title like %:#{#book.title}% " +
+//            "and category_id = %:#{#book.category}% " +
+//            "and author like %:#{#book.author}%",
+//            nativeQuery = true)
+//    Book findBookByFields(@Param("book") Book book);
     @Query(value = "select * from books where title like %?1% " +
             "and category_id = ?2 " +
             "and author like %?3%",

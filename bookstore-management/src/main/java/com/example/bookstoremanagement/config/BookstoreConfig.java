@@ -2,7 +2,6 @@ package com.example.bookstoremanagement.config;
 
 import com.example.bookstoremanagement.domain.DeptByMonth;
 import com.example.bookstoremanagement.domain.InventoryByMonth;
-import com.example.bookstoremanagement.repository.BookRepository;
 import com.example.bookstoremanagement.repository.DeptByMonthRepository;
 import com.example.bookstoremanagement.repository.InventoryByMonthRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ public class BookstoreConfig {
     private final InventoryByMonthRepository inventoryRepository;
     private final DeptByMonthRepository deptRepository;
     @Scheduled(cron = "0 0 0 1 * *")
-    public void updateInventoryEveryMonth(){
+    public void updateDatabaseForNewMonth(){
         logger.info("Perform scheduling");
         updateNewMonthInventory();
         updateNewMonthDept();

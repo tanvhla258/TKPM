@@ -57,13 +57,4 @@ public class BookDeliveryNoteController{
         return ResponseAPI.emptyPositiveResponse();
     }
 
-//    private boolean isDeliveryQuantityLargerThanRegulation(int quantity){
-//        int checkQuantity = regulationService.getById(0L).getValue();
-//        return quantity >= checkQuantity;
-//    }
-//
-//    private boolean isCurrentQuantityLessThanRegulation(int quantity){
-//        int checkQuantity = regulationService.getById(1L).getValue();
-//        return quantity < checkQuantity;
-//    }
 }

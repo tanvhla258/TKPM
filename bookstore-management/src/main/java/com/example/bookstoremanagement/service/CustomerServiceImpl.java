@@ -15,4 +15,16 @@ public class CustomerServiceImpl implements CustomerService{
     public List<Customer> getAll() {
         return repository.findAll();
     }
+
+    @Override
+    public Customer addCustomer(Customer customer) {
+        return repository.save(customer);
+    }
+
+    @Override
+    public Customer findCustomerByPhoneNumber(String phoneNumber) {
+        return repository.findCustomerByPhoneNumber(phoneNumber);
+    }
+
+
 }
