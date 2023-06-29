@@ -24,7 +24,7 @@ import { TextField } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bookActions } from "../../reducers/bookReducer";
-function AddInvoiceForm() {
+function UpdateInvoiceForm() {
   const [AmountInput, SetAmountInput] = useState(1);
   const dispatch = useDispatch();
   const books = useSelector((state) => state.book.books);
@@ -37,12 +37,6 @@ function AddInvoiceForm() {
     dispatch(bookActions.fetchAllBooks());
   }, [dispatch]);
 
-  const handleAddInput = () => {
-    SetAmountInput((AmountInput) => AmountInput + 1);
-  };
-  const handleMinusInput = () => {
-    if (AmountInput >= 1) SetAmountInput((AmountInput) => AmountInput - 1);
-  };
   const {
     register,
     handleSubmit,
@@ -95,7 +89,7 @@ function AddInvoiceForm() {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography alignCenter variant="h6" gutterBottom color="primary">
-          Tạo hóa đơn
+          Cập nhật hóa đơn
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4}>
@@ -219,28 +213,6 @@ function AddInvoiceForm() {
                 );
               })}
             </List>
-            <Grid mb={1} item xs={12}>
-              <Icon
-                style={{
-                  cursor: "pointer",
-                }}
-                onClick={handleAddInput}
-                color="primary"
-                fontSize="large"
-              >
-                add_circle
-              </Icon>
-              <Icon
-                style={{
-                  cursor: "pointer",
-                }}
-                onClick={handleMinusInput}
-                color="error"
-                fontSize="large"
-              >
-                remove_circle
-              </Icon>
-            </Grid>
           </Grid>
           <Grid mb={2} item xs={12}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -257,7 +229,7 @@ function AddInvoiceForm() {
           <Grid container item xs={12}>
             <Grid item xs={12} sm={6}>
               <Button variant="outlined" color="success" type="submit">
-                Tạo phiếu
+                Cập nhật
               </Button>
             </Grid>
 
@@ -273,4 +245,4 @@ function AddInvoiceForm() {
   );
 }
 
-export default AddInvoiceForm;
+export default UpdateInvoiceForm;

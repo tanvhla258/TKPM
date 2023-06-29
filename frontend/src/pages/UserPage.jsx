@@ -23,47 +23,19 @@ function UserPage() {
   return (
     <div style={{ position: "relative" }}>
       <Grid marginTop={2} container spacing={2}>
-        <Grid item>
-          <User
-            name="Tan"
-            address="Ho chi minh"
-            phone="0323658878"
-            email="tan@gmail.com"
-          ></User>
-        </Grid>
-
-        <Grid item>
-          <User
-            name="Tan"
-            address="Ho chi minh"
-            phone="0323658878"
-            email="tan@gmail.com"
-          ></User>
-        </Grid>
-        <Grid item>
-          <User
-            name="Tan"
-            address="Ho chi minh"
-            phone="0323658878"
-            email="tan@gmail.com"
-          ></User>
-        </Grid>
-        <Grid item>
-          <User
-            name="Tan"
-            address="Ho chi minh"
-            phone="0323658878"
-            email="tan@gmail.com"
-          ></User>
-        </Grid>
-        <Grid item>
-          <User
-            name="Tan"
-            address="Ho chi minh"
-            phone="0323658878"
-            email="tan@gmail.com"
-          ></User>
-        </Grid>
+        {users?.map((user) => {
+          return (
+            <Grid item>
+              <User
+                key={user.id}
+                name={user.fullName}
+                address={user.address}
+                phone={user.phoneNumber}
+                email={user.email}
+              ></User>
+            </Grid>
+          );
+        })}
       </Grid>
 
       <AddIcon handleOpen={handleOpen} />

@@ -7,13 +7,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-function Receipt({ date, book, id, cost, user, payup }) {
+function Receipt({ receipt, handleOpenUpdate }) {
   return (
     <div>
       <Card sx={{ minWidth: 350 }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {date}
+            {new Date().toISOString().substring(0, 10)}
           </Typography>
           <Typography
             fontWeight={600}
@@ -21,18 +21,18 @@ function Receipt({ date, book, id, cost, user, payup }) {
             variant="h5"
             component="div"
           >
-            {book.name}
+            {receipt.customer.fullName}
           </Typography>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Khách nợ: {user.name}
+          <Typography sx={{ mb: 1.5 }} color="text.secondary"></Typography>
+          <Typography variant="body2">
+            Tiền thanh toán: {receipt.otalCost}
           </Typography>
-          <Typography variant="body2">Giá trị nợ: {cost} </Typography>
         </CardContent>
 
         <CardActions>
           {/* <Button size="small">Learn More</Button> */}
           <Button
-            onClick={() => payup()}
+            onClick={() => handleOpenUpdate()}
             variant="outlined"
             color="success"
             startIcon={<EditIcon />}

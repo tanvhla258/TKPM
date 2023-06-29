@@ -18,14 +18,14 @@ import axios from "axios";
 import { TextField } from "@mui/material";
 
 function AddBookEntryForm() {
-  const [addInput, SetAddInput] = useState(1);
+  const [AmountInput, SetAmountInput] = useState(1);
   const [value, setValue] = useState(dayjs(Date.now()));
 
   const handleAddInput = () => {
-    SetAddInput((addInput) => addInput + 1);
+    SetAmountInput((AmountInput) => AmountInput + 1);
   };
   const handleMinusInput = () => {
-    if (addInput >= 1) SetAddInput((addInput) => addInput - 1);
+    if (AmountInput >= 1) SetAmountInput((AmountInput) => AmountInput - 1);
   };
   const {
     register,
@@ -37,21 +37,27 @@ function AddBookEntryForm() {
   const onSubmit = (data) => {
     console.log(data);
     // console.log(data.date);
+    const deliveryNoteBooks = [];
+    for (let i = 0; i < AmountInput; i++) {
+      let bookNameKey = `bookname${i}`;
+      let authorKey = `author${i}`;
+      let quantityKey = `quantity${i}`;
+      const deliveryNoteBook = {
+        quantity: +data[quantityKey],
+        book: {
+          title: data[bookNameKey],
+          author: data[authorKey],
+          category: {
+            name: "Van hoc",
+          },
+        },
+      };
+      deliveryNoteBooks.push(deliveryNoteBook);
+    }
     const newBook = {
       creationDate: "2020-06-12",
       shipperName: "Nguyen Van A",
-      deliveryNoteBooks: [
-        {
-          quantity: data.quantity0,
-          book: {
-            title: data.bookname0,
-            author: data.author0,
-            category: {
-              name: "Van hoc",
-            },
-          },
-        },
-      ],
+      deliveryNoteBooks: deliveryNoteBooks,
     };
     console.log(newBook);
     try {
@@ -70,7 +76,7 @@ function AddBookEntryForm() {
         </Typography>
         <Grid container spacing={3}>
           <List>
-            {Array.from({ length: addInput }).map((_, index) => {
+            {Array.from({ length: AmountInput }).map((_, index) => {
               return (
                 <ListItem>
                   <Grid mb={1} item xs={1}>
@@ -132,7 +138,7 @@ function AddBookEntryForm() {
               );
             })}
           </List>
-          {/* {Array.from({ length: addInput }).map((_, index) => {
+          {/* {Array.from({ length: AmountInput }).map((_, index) => {
             return (
               <>
                 <Grid mb={1} item xs={1}>

@@ -12,7 +12,7 @@ import WidgetsIcon from "@mui/icons-material/Widgets";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { Button } from "@mui/material";
-function User({ name, address, email, phone }) {
+function User({ key, name, address, email, phone }) {
   return (
     <Card sx={{ minWidth: 345 }}>
       <CardHeader

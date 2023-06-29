@@ -8,11 +8,11 @@ const initialState = {
 };
 
 // Async thunk to fetch all books
-export const fetchAllBookEntries = createAsyncThunk(
-  "book/fetchAllBookEntries",
+export const fetchAllBooks = createAsyncThunk(
+  "book/fetchAllBooks",
   async () => {
     try {
-      const response = await axios.get("");
+      const response = await axios.get("http://localhost:8080/books/list/all");
       return response.data;
     } catch (error) {
       throw error.response.data;
@@ -26,15 +26,15 @@ const bookSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllBookEntries.pending, (state) => {
+      .addCase(fetchAllBooks.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchAllBookEntries.fulfilled, (state, action) => {
+      .addCase(fetchAllBooks.fulfilled, (state, action) => {
         state.loading = false;
         state.books = action.payload;
       })
-      .addCase(fetchAllBookEntries.rejected, (state, action) => {
+      .addCase(fetchAllBooks.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
@@ -43,7 +43,7 @@ const bookSlice = createSlice({
 
 export const bookActions = {
   ...bookSlice.actions,
-  fetchAllBookEntries,
+  fetchAllBooks,
 };
 
 export default bookSlice.reducer;

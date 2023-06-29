@@ -18,20 +18,20 @@ const bull = (
     •
   </Box>
 );
-function Book({ category, name, author, quantity, id }) {
+function Book({ book }) {
   return (
     <Card sx={{ minWidth: 350 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {category}
+          {book.category.name}
         </Typography>
         <Typography fontWeight={600} variant="h5" component="div">
-          {name}
+          {book.title}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {author}
+          {book.author}
         </Typography>
-        <Typography variant="body2">Quantity: {quantity}</Typography>
+        <Typography variant="body2">Quantity: </Typography>
       </CardContent>
 
       <CardActions>

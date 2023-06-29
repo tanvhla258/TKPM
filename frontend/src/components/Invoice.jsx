@@ -43,7 +43,7 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-function Invoice({ date, user, id, cost }) {
+function Invoice({ date, user, id, cost, handleOpenUpdate }) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -58,7 +58,7 @@ function Invoice({ date, user, id, cost }) {
       >
         <CardContent style={{ position: "relative" }}>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {date}
+            {new Date().toISOString().substring(0, 10)}
           </Typography>
           <Typography fontWeight={600} variant="h5" component="div">
             {user.name}
@@ -107,14 +107,15 @@ function Invoice({ date, user, id, cost }) {
         <CardActions>
           {/* <Button size="small">Learn More</Button> */}
 
-          <Button variant="outlined" color="success" startIcon={<EditIcon />}>
+          <Button
+            onClick={() => handleOpenUpdate()}
+            variant="outlined"
+            color="success"
+            startIcon={<EditIcon />}
+          >
             Chỉnh sửa
           </Button>
-          <Button
-            variant="outlined"
-            color="error"
-            startIcon={<DeleteIcon />}
-          >
+          <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
             Xóa
           </Button>
           <ExpandMore

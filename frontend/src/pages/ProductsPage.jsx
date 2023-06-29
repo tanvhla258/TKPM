@@ -11,24 +11,19 @@ import {
   SearchIconWrapper,
   Search,
 } from "../constants/styleComponent.js";
+import { useSelector, useDispatch } from "react-redux";
+import { bookActions } from "../reducers/bookReducer";
 
 function ProductsPage() {
-  const [result, setResult] = useState();
-  useEffect(() => {
-    const fetchLeague = async () => {
-      try {
-        const data = await fetch("http://localhost:8080/books/list/all").then(
-          (res) => res.json()
-        );
-        console.log(data);
-        setResult([...data]);
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
+  const dispatch = useDispatch();
+  const books = useSelector((state) => state.book.books);
 
-    fetchLeague();
-  }, []);
+  useEffect(() => {
+    dispatch(bookActions.fetchAllBooks());
+  }, [dispatch]);
+
+  console.log(books);
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -47,63 +42,13 @@ function ProductsPage() {
         <Dropdown />
       </div>
       <Grid marginTop={2} container spacing={2}>
-        <Grid item>
-          <Book
-            name="Sherlock Homles"
-            author={"conan doley"}
-            category="detective"
-            quantity={50}
-          ></Book>
-        </Grid>
-
-        <Grid item>
-          <Book
-            name="Sherlock Homles"
-            author={"conan doley"}
-            category="detective"
-            quantity={50}
-          ></Book>
-        </Grid>
-        <Grid item>
-          <Book
-            name="Sherlock Homles"
-            author={"conan doley"}
-            category="detective"
-            quantity={50}
-          ></Book>
-        </Grid>
-        <Grid item>
-          <Book
-            name="Sherlock Homles"
-            author={"conan doley"}
-            category="detective"
-            quantity={50}
-          ></Book>
-        </Grid>
-        <Grid item>
-          <Book
-            name="Sherlock Homles"
-            author={"conan doley"}
-            category="detective"
-            quantity={50}
-          ></Book>
-        </Grid>
-        <Grid item>
-          <Book
-            name="Sherlock Homles"
-            author={"conan doley"}
-            category="detective"
-            quantity={50}
-          ></Book>
-        </Grid>
-        <Grid item>
-          <Book
-            name="Sherlock Homles"
-            author={"conan doley"}
-            category="detective"
-            quantity={50}
-          ></Book>
-        </Grid>
+        {books.map((book) => {
+          return (
+            <Grid item>
+              <Book book={book}></Book>
+            </Grid>
+          );
+        })}
       </Grid>
 
       <AddIcon handleOpen={handleOpen} />
