@@ -16,6 +16,7 @@ function PayUpForm() {
   } = useForm();
 
   const onSubmit = (data) => console.log(data);
+  const [value, setValue] = React.useState(dayjs("2022-04-17"));
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -25,10 +26,10 @@ function PayUpForm() {
         <Grid container spacing={3}>
           <Grid mb={1} item xs={12}>
             <TextField
-              {...register("userName", { required: true })}
+              {...register("bookName", { required: true })}
               required
-              id="userName"
-              name="userName"
+              id="bookName"
+              name="bookName"
               label="Họ tên khách hàng"
               fullWidth
               autoComplete="given-name"
@@ -37,10 +38,10 @@ function PayUpForm() {
           </Grid>
           <Grid mb={1} item xs={12}>
             <TextField
-              {...register("address", { required: true })}
+              {...register("bookName", { required: true })}
               required
-              id="address"
-              name="address"
+              id="bookName"
+              name="bookName"
               label="Địa chỉ"
               fullWidth
               autoComplete="given-name"
@@ -49,10 +50,10 @@ function PayUpForm() {
           </Grid>
           <Grid mb={1} item xs={12}>
             <TextField
-              {...register("number", { required: true })}
+              {...register("bookName", { required: true })}
               required
-              id="number"
-              name="number"
+              id="bookName"
+              name="bookName"
               label="Điện thoại"
               fullWidth
               autoComplete="given-name"
@@ -61,10 +62,10 @@ function PayUpForm() {
           </Grid>
           <Grid mb={1} item xs={12}>
             <TextField
-              {...register("email", { required: true })}
+              {...register("bookName", { required: true })}
               required
-              id="email"
-              name="email"
+              id="bookName"
+              name="bookName"
               label="Email"
               type="email"
               fullWidth

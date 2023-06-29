@@ -2,7 +2,7 @@ import React from "react";
 import Invoice from "../components/Invoice";
 import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
 import Dropdown from "../components/Dropdown";
-import { boxstyle } from "../constants/boxstyle";
+import { boxstyle900 } from "../constants/boxstyle";
 import AddIcon from "../components/AddIcon";
 import AddInvoiceForm from "../components/Form/AddInvoiceForm";
 
@@ -80,7 +80,7 @@ function InvoicePage() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={boxstyle}>
+        <Box sx={boxstyle900}>
           <AddInvoiceForm />
         </Box>
       </Modal>

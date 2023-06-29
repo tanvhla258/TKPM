@@ -4,10 +4,22 @@ import { Grid, Typography, Modal, Box } from "@mui/material";
 import { boxstyle } from "../constants/boxstyle";
 import AddIcon from "../components/AddIcon";
 import AddUserForm from "../components/Form/AddUserForm";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "../reducers/userReducer";
+import { useEffect } from "react";
+
 function UserPage() {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const users = useSelector((state) => state.user.users);
+
+  useEffect(() => {
+    dispatch(userActions.fetchAllUser());
+  }, [dispatch]);
+
+  console.log(users);
   return (
     <div style={{ position: "relative" }}>
       <Grid marginTop={2} container spacing={2}>

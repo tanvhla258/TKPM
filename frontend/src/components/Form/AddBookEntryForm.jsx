@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
+import {
+  Button,
+  Grid,
+  Modal,
+  Box,
+  Typography,
+  Icon,
+  List,
+  ListItem,
+} from "@mui/material";
 import dayjs from "dayjs";
-
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -10,7 +18,7 @@ import axios from "axios";
 import { TextField } from "@mui/material";
 
 function AddBookEntryForm() {
-  const [addInput, SetAddInput] = useState(0);
+  const [addInput, SetAddInput] = useState(1);
   const [value, setValue] = useState(dayjs(Date.now()));
 
   const handleAddInput = () => {
@@ -34,10 +42,10 @@ function AddBookEntryForm() {
       shipperName: "Nguyen Van A",
       deliveryNoteBooks: [
         {
-          quantity: data.quantity,
+          quantity: data.quantity0,
           book: {
-            title: data.bookName,
-            author: data.author,
+            title: data.bookname0,
+            author: data.author0,
             category: {
               name: "Van hoc",
             },
@@ -61,62 +69,70 @@ function AddBookEntryForm() {
           Tạo phiếu nhập sách
         </Typography>
         <Grid container spacing={3}>
-          <Grid mb={1} item xs={1}>
-            <TextField
-              label={1}
-              fullWidth
-              disabled
-              color="primary"
-              variant="standard"
-            ></TextField>
-          </Grid>
-          <Grid mb={1} item xs={3}>
-            <TextField
-              {...register("bookName", { required: true })}
-              required
-              id="bookName"
-              name="bookName"
-              label="Tên sách "
-              fullWidth
-              autoComplete="given-name"
-              variant="standard"
-            />
-          </Grid>
-          <Grid mb={1} item xs={3}>
-            <TextField
-              {...register("author", { required: true })}
-              required
-              id="author"
-              name="author"
-              label="Tác giả"
-              fullWidth
-              autoComplete="family-name"
-              variant="standard"
-            />
-          </Grid>
-          <Grid mb={1} item xs={3}>
-            <TextField
-              required
-              {...register("cost", { required: true })}
-              id="cost"
-              name="cost"
-              label="Đơn giá"
-              fullWidth
-              variant="standard"
-            />
-          </Grid>
-          <Grid mb={1} item xs={2}>
-            <TextField
-              required
-              {...register("quantity", { required: true })}
-              id="quantity"
-              name="quantity"
-              label="Số lượng"
-              fullWidth
-              variant="standard"
-            />
-          </Grid>
-          {Array.from({ length: addInput }).map((_, index) => {
+          <List>
+            {Array.from({ length: addInput }).map((_, index) => {
+              return (
+                <ListItem>
+                  <Grid mb={1} item xs={1}>
+                    <TextField
+                      label={index + 1}
+                      fullWidth
+                      disabled
+                      color="primary"
+                      variant="standard"
+                    ></TextField>
+                  </Grid>
+                  <Grid mb={1} item xs={3}>
+                    <TextField
+                      {...register(`bookname${index}`, { required: true })}
+                      required
+                      // id="bookName"
+                      name={`bookname${index}`}
+                      label="Tên sách "
+                      fullWidth
+                      autoComplete="given-name"
+                      variant="standard"
+                    />
+                  </Grid>
+                  <Grid mb={1} item xs={3}>
+                    <TextField
+                      {...register(`author${index}`, { required: true })}
+                      required
+                      // id="author"
+                      name={`author${index}`}
+                      label="Tác giả"
+                      fullWidth
+                      autoComplete="family-name"
+                      variant="standard"
+                    />
+                  </Grid>
+                  <Grid mb={1} item xs={3}>
+                    <TextField
+                      required
+                      {...register(`cost${index}`, { required: true })}
+                      // id="cost"
+                      name={`cost${index}`}
+                      label="Đơn giá"
+                      fullWidth
+                      variant="standard"
+                    />
+                  </Grid>
+                  <Grid mb={1} item xs={2}>
+                    <TextField
+                      required
+                      {...register(`quantity${index}`, { required: true })}
+                      // id="quantity"
+                      name={`quantity${index}`}
+                      label="Số lượng"
+                      fullWidth
+                      variant="standard"
+                    />
+                  </Grid>
+                </ListItem>
+              );
+            })}
+          </List>
+          {/* {Array.from({ length: addInput }).map((_, index) => {
             return (
               <>
                 <Grid mb={1} item xs={1}>
@@ -176,7 +192,7 @@ function AddBookEntryForm() {
                 </Grid>
               </>
             );
-          })}
+          })} */}
           <Grid mb={1} item xs={12}>
             <Icon
               style={{
@@ -210,7 +226,7 @@ function AddBookEntryForm() {
                 slotProps={{ textField: { fullWidth: true } }}
                 {...register("date", { required: true })}
                 onChange={(newValue) => {
-                  setValue((value) => newValue);
+                  setValue(newValue);
                 }}
               />
             </LocalizationProvider>

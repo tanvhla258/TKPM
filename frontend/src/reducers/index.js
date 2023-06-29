@@ -1,11 +1,13 @@
-import { combineReducers } from "redux";
-import bookReducer from "./bookReducer";
-import regulationReducer from "./regulationReducer";
+// import { combineReducers } from "redux";
+// import bookReducer from "./bookReducer";
+// import regulationReducer from "./regulationReducer";
 
-const rootReducer = combineReducers({
-  books: bookReducer,
-  regulations: regulationReducer,
-  // Add more reducers here if needed
-});
+// const rootReducer = combineReducers({
+//   books: bookReducer,
+//   regulations: regulationReducer,
+//   users: userReducer,
 
-export default rootReducer;
+//   // Add more reducers here if needed
+// });
+
+// export default rootReducer;

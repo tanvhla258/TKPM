@@ -24,3 +24,17 @@ export const boxstyle600 = {
   p: 4,
   overflow: "auto",
 };
+
+export const boxstyle900 = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 900,
+  maxHeight: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  overflow: "auto",
+};

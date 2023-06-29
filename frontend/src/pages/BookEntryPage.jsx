@@ -5,17 +5,21 @@ import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
 import Dropdown from "../components/Dropdown";
 import { boxstyle600 } from "../constants/boxstyle";
 import AddIcon from "../components/AddIcon";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import {
-  FormControlLabel,
-  FormControl,
-  TextField,
-  Checkbox,
-} from "@mui/material";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { bookActions } from "../reducers/bookReducer";
+
 import AddBookEntryForm from "../components/Form/AddBookEntryForm";
 function BookEntryPage() {
+  // const dispatch = useDispatch();
+  // const books = useSelector((state) => state.book.books);
+
+  // useEffect(() => {
+  //   dispatch(bookActions.fetchAllBooks());
+  // }, [dispatch]);
+
+  // console.log(books);
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
