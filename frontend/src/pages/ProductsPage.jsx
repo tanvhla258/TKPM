@@ -26,7 +26,7 @@ function ProductsPage() {
 
   console.log(books);
   console.log(categories);
-
+ const categoriesName= categories.map(cate=>cate.name)
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
   // const handleClose = () => setOpen(false);
@@ -42,7 +42,7 @@ function ProductsPage() {
             inputProps={{ "aria-label": "search" }}
           />
         </Search>
-        <Dropdown categories={categories} />
+        <Dropdown label={"Thể loại"} inputArray={categoriesName} />
       </div>
       <Grid marginTop={2} container spacing={2}>
         {books.map((book) => {

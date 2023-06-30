@@ -27,6 +27,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import RequestPageIcon from "@mui/icons-material/RequestPage";
 import DescriptionIcon from "@mui/icons-material/Description";
+import AssessmentIcon from '@mui/icons-material/Assessment';
 import { Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
 import girl from "../assets/girl.svg";
@@ -120,6 +121,7 @@ export default function TopAndSide() {
     { name: "Phiếu nhập sách", link: "book-entries" },
     { name: "Hóa đơn", link: "invoices" },
     { name: "Phiếu thu tiền", link: "receipts" },
+    { name: "Báo cáo", link: "reports" },
     { name: "Quy định", link: "regulations" },
     { name: "Khách hàng", link: "users" },
   ];
@@ -129,8 +131,9 @@ export default function TopAndSide() {
     <DescriptionIcon />,
     <ReceiptIcon />,
     <RequestPageIcon />,
+    <AssessmentIcon />,
     <SettingsIcon />,
-    <PersonIcon />,
+    <PersonIcon />
   ];
   return (
     <>

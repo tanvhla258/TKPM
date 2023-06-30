@@ -25,10 +25,11 @@ function getStyles(name, personName, theme) {
         : theme.typography.fontWeightMedium,
   };
 }
-function Dropdown({ categories }) {
+function Dropdown( {label,inputArray} ) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
-  const names = categories.map((cate) => cate.name);
+  const names = inputArray
+  
   const handleChange = (event) => {
     const {
       target: { value },
@@ -42,7 +43,7 @@ function Dropdown({ categories }) {
   return (
     <div>
       <FormControl sx={{ width: 200 }}>
-        <InputLabel id="demo-controlled-open-select-label">Thể loại</InputLabel>
+        <InputLabel id="demo-controlled-open-select-label">{label}</InputLabel>
         <Select
           value={personName}
           defaultChecked={"All"}

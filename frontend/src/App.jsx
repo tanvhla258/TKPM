@@ -11,6 +11,7 @@ import { Box } from "@mui/material";
 import InvoicePage from "./pages/InvoicePage";
 import RegulationPage from "./pages/RegulationPage";
 import SignUpPage from "./pages/SignupPage";
+import ReportPage from "./pages/ReportPage";
 let currentUser = true;
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/receipts" element={<ReceiptPage />} />
                 <Route path="/book-entries" element={<BookEntryPage />} />
                 <Route path="/users" element={<UserPage />} />
+                <Route path="/reports" element={<ReportPage />} />
               </Routes>
             </Box>
           </Box>
