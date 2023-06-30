@@ -2,17 +2,17 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  books: [],
+  bookEntries: [],
   loading: false,
   error: null,
 };
 
 // Async thunk to fetch all books
-export const fetchAllBooks = createAsyncThunk(
-  "book/fetchAllBooks",
+export const fetchAllBookEntries = createAsyncThunk(
+  "bookEntries/fetchAllBookEntries",
   async () => {
     try {
-      const response = await axios.get("http://localhost:8080/books/list/all");
+      const response = await axios.get("http://localhost:8080/deliveries/add");
       return response.data;
     } catch (error) {
       throw error.response.data;
@@ -20,8 +20,8 @@ export const fetchAllBooks = createAsyncThunk(
   }
 );
 
-const bookSlice = createSlice({
-  name: "book",
+const bookEntrySlice = createSlice({
+  name: "bookEntry",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -32,7 +32,7 @@ const bookSlice = createSlice({
       })
       .addCase(fetchAllBooks.fulfilled, (state, action) => {
         state.loading = false;
-        state.books = action.payload;
+        state.bookEntries = action.payload;
       })
       .addCase(fetchAllBooks.rejected, (state, action) => {
         state.loading = false;
@@ -42,8 +42,8 @@ const bookSlice = createSlice({
 });
 
 export const bookActions = {
-  ...bookSlice.actions,
-  fetchAllBooks,
+  ...bookEntrySlice.actions,
+  fetchAllBookEntries,
 };
 
-export default bookSlice.reducer;
+export default bookEntrySlice.reducer;
