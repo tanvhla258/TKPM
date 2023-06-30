@@ -17,6 +17,7 @@ import java.util.Set;
 @Table(name = "customers")
 public class Customer {
     @Id
+    @SequenceGenerator(name = "customers_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name="fullname")

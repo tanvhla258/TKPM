@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class Category {
     @Id
+    @SequenceGenerator(name = "categories_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column

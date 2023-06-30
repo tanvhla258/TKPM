@@ -1,5 +1,7 @@
 package com.example.bookstoremanagement.dto;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import lombok.*;
 
 @Builder

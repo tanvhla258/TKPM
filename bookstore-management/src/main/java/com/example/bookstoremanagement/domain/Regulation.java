@@ -1,8 +1,6 @@
 package com.example.bookstoremanagement.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Table(name = "regulations")
@@ -14,6 +12,8 @@ import lombok.*;
 @AllArgsConstructor
 public class Regulation{
     @Id
+    @SequenceGenerator(name = "regulations_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String title;
     private Integer value;

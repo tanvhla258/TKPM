@@ -9,6 +9,7 @@ import com.example.bookstoremanagement.response.Response;
 import com.example.bookstoremanagement.response.ResponseAPI;
 import com.example.bookstoremanagement.service.CustomerService;
 import com.google.common.base.Preconditions;
+import jakarta.persistence.SequenceGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

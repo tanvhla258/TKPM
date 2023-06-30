@@ -83,8 +83,7 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     private void checkCustomerDept(Invoice invoice){
         Regulation regulation = regulationRepository.findById(2L).orElseThrow(() -> new RegulationNotFoundException("Regulation not found for parameter {id=2}"));
-        Customer foundCustomer = customerRepository.findById(invoice.getCustomer().getId())
-                .orElseThrow(() -> new CustomerNotFoundException("Customer not found for parameter {id="+invoice.getCustomer().getId()+"}"));
+        Customer foundCustomer = customerRepository.findCustomerByPhoneNumber(invoice.getCustomer().getPhoneNumber());
         DeptByMonth currentDept = DeptByMonth.getDeptByMonth(foundCustomer.getDept(), invoice.getCreationDate().getMonthValue(), invoice.getCreationDate().getYear());
         if(currentDept != null){
             if(currentDept.getDept() > regulation.getValue()){
