@@ -39,8 +39,15 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public Invoice addInvoice(Invoice invoice) {
-        //Check regulation for customer's dept
-        checkCustomerDept(invoice);
+        if(customerRepository.findCustomerByPhoneNumber(invoice.getCustomer().getPhoneNumber()) == null){
+            //Add Customer
+            Customer customer = customerRepository.save(invoice.getCustomer());
+            invoice.setCustomer(customer);
+        }
+        else{
+            //Check regulation for customer's dept
+            checkCustomerDept(invoice);
+        }
         //Check inventory after buying
         checkInventoryAfterBuying(invoice);
 
