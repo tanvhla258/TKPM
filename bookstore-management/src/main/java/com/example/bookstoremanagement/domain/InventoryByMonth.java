@@ -68,7 +68,7 @@ public class InventoryByMonth {
     public static InventoryByMonth getInventoryByMonth(Set<InventoryByMonth> inventory, int month, int year){
 
         for(InventoryByMonth i: inventory){
-            if(i.getId().getYear() == month && i.getId().getYear() == year) {
+            if(i.getId().getMonth() == month && i.getId().getYear() == year) {
                 return i;
             }
         }
