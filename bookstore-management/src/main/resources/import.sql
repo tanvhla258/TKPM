@@ -19,7 +19,7 @@ insert into regulations (id, title, value) values (3, 'Lượng sách tồn sau 
 insert into regulations (id, title, value) values (4, 'Số tiền thu không được vượt quá số tiền nợ', 1);
 
 alter sequence books_seq restart with 11;
-insert into books (id, title, author, category_id) values (0, 'Kỹ thuật lập trình', "Khoa công nghệ thông tin", 3);
+insert into books (id, title, author, category_id) values (0, 'Kỹ thuật lập trình', 'Khoa công nghệ thông tin', 3);
 INSERT INTO books (id, title, author, category_id) VALUES (1, 'Tắt đèn', 'Ngô Tất Tố', 5);
 INSERT INTO books (id, title, author, category_id) VALUES (2, 'Số Đỏ', 'Vũ Trọng Phụng', 5);
 INSERT INTO books (id, title, author, category_id) VALUES (3, 'Từ điển bách khoa toàn thư Việt Nam', 'Various', 6);
@@ -32,7 +32,7 @@ INSERT INTO books (id, title, author, category_id) VALUES (9, 'Tôi thấy hoa v
 INSERT INTO books (id, title, author, category_id) VALUES (10, 'Bến đò', 'Xuân Quỳnh', 5);
 
 alter sequence customers_seq restart with 11;
-insert into customers (id, address, email, fullname, phone_number) values (0, 'Nguyễn Văn Cừ', "abc@gmail.com", "Trần Thị Kim Tiến", 0523897351);
+insert into customers (id, address, email, fullname, phone_number) values (0, 'Nguyễn Văn Cừ', 'abc@gmail.com', 'Trần Thị Kim Tiến', '0523897351');
 INSERT INTO customers (id, address, email, fullname, phone_number) VALUES (1, 'Lê Duẩn', 'def@gmail.com', 'Nguyễn Văn An', '0987654321');
 INSERT INTO customers (id, address, email, fullname, phone_number) VALUES (2, 'Lý Thường Kiệt', 'ghi@gmail.com', 'Trương Thị Ngọc Ánh', '0912345678');
 INSERT INTO customers (id, address, email, fullname, phone_number) VALUES (3, 'Bạch Đằng', 'jkl@gmail.com', 'Lê Minh Khánh', '0965432198');
