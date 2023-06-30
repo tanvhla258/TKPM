@@ -6,6 +6,10 @@ import { boxstyle900, boxstyle600 } from "../constants/boxstyle";
 import AddIcon from "../components/AddIcon";
 import AddInvoiceForm from "../components/Form/AddInvoiceForm";
 import UpdateInvoiceForm from "../components/Form/UpdateInvoiceForm";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { invoiceActions } from "../reducers/invoiceReducer";
+
 
 function InvoicePage() {
   const [open, setOpen] = React.useState(false);
@@ -14,73 +18,33 @@ function InvoicePage() {
   const [openUpdate, setOpenUpdate] = React.useState(false);
   const handleOpenUpdate = () => setOpenUpdate(true);
   const handleCloseUpdate = () => setOpenUpdate(false);
+  const dispatch = useDispatch();
+  const invoices = useSelector((state) => state.invoice.invoices);
+  useEffect(() => {
+    dispatch(invoiceActions.fetchAllInvoice());
+  }, [dispatch]);
+  console.log(invoices)
   return (
     <div style={{ position: "relative" }}>
       <Grid marginTop={2} container spacing={2}>
-        <Grid item>
+        {/* <Grid item>
           <Invoice
             cost={200}
             date={Date.now()}
             user={{ name: "Tan" }}
             handleOpenUpdate={handleOpenUpdate}
           ></Invoice>
-        </Grid>
-
-        <Grid item>
-          <Invoice
-            cost={200}
-            date={Date.now()}
-            user={{ name: "Truong" }}
-            handleOpenUpdate={handleOpenUpdate}
-          ></Invoice>
-        </Grid>
-        <Grid item>
-          <Invoice
-            cost={100}
-            date={Date.now()}
-            user={{ name: "Trinh" }}
-          ></Invoice>
-        </Grid>
-        <Grid item>
-          <Invoice
-            cost={300}
-            date={Date.now()}
-            user={{ name: "Tien" }}
-            handleOpenUpdate={handleOpenUpdate}
-          ></Invoice>
-        </Grid>
-        <Grid item>
-          <Invoice
-            cost={300}
-            date={Date.now()}
-            user={{ name: "Tien" }}
-            handleOpenUpdate={handleOpenUpdate}
-          ></Invoice>
-        </Grid>
-        <Grid item>
-          <Invoice
-            cost={300}
-            date={Date.now()}
-            user={{ name: "Tien" }}
-            handleOpenUpdate={handleOpenUpdate}
-          ></Invoice>
-        </Grid>
-        <Grid item>
-          <Invoice
-            cost={300}
-            date={Date.now()}
-            user={{ name: "Tien" }}
-            handleOpenUpdate={handleOpenUpdate}
-          ></Invoice>
-        </Grid>
-        <Grid item>
-          <Invoice
-            cost={300}
-            date={Date.now()}
-            user={{ name: "Tien" }}
-            handleOpenUpdate={handleOpenUpdate}
-          ></Invoice>
-        </Grid>
+        </Grid> */}
+        {invoices?.content?.map((invoice) => {
+          return (
+            <Grid item>
+              <Invoice
+                invoice={invoice}
+                handleOpenUpdate={handleOpenUpdate}
+              ></Invoice>
+            </Grid>
+          );
+        })}
       </Grid>
 
       <AddIcon handleOpen={handleOpen} />
