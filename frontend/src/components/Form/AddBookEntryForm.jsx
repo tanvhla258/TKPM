@@ -108,6 +108,8 @@ function AddBookEntryForm() {
                       variant="standard"
                     />
                   </Grid>
+                  <Grid mb={1} item xs={1} />
+
                   <Grid mb={1} item xs={3}>
                     <TextField
                       {...register(`author${index}`, { required: true })}
@@ -120,29 +122,9 @@ function AddBookEntryForm() {
                       variant="standard"
                     />
                   </Grid>
-                  <Grid mb={1} item xs={3}>
-                    <InputLabel id={`category`}>Thể loại</InputLabel>
+                  <Grid mb={1} item xs={1} />
 
-                    <Select
-                      {...register(`category`, {
-                        required: true,
-                      })}
-                      required
-                      id={`category`}
-                      // value={book}
-                      name={`category`}
-                      labelId={`category`}
-                      label="Thể loại"
-                      // defaultValue={book[0]}
-                      // onChange={handleChange}
-                    >
-                      {categories.map((cate) => (
-                        <MenuItem value={cate.id}>{cate.name}</MenuItem>
-                      ))}
-                    </Select>
-                  </Grid>
-
-                  <Grid mb={1} item xs={3}>
+                  <Grid mb={1} item xs={2}>
                     <TextField
                       required
                       {...register(`cost${index}`, { required: true })}
@@ -153,7 +135,9 @@ function AddBookEntryForm() {
                       variant="standard"
                     />
                   </Grid>
-                  <Grid mb={1} item xs={2}>
+                  <Grid mb={1} item xs={1} />
+
+                  <Grid mb={1} item xs={1}>
                     <TextField
                       required
                       {...register(`quantity${index}`, { required: true })}
@@ -163,6 +147,32 @@ function AddBookEntryForm() {
                       fullWidth
                       variant="standard"
                     />
+                  </Grid>
+                  <Grid mb={1} item xs={1} />
+
+                  <Grid mb={1} item xs={2}>
+                    <InputLabel id={`category`}>Thể loại</InputLabel>
+
+                    <Select
+                      {...register(`category`, {
+                        required: true,
+                      })}
+                      required
+                      id={`category`}
+                      defaultValue={categories[0]?.name}
+                      // value={book}
+                      name={`category`}
+                      labelId={`category`}
+                      label="Thể loại"
+                      // defaultValue={book[0]}
+                      // onChange={handleChange}
+                    >
+                      {categories.map((cate) => (
+                        <MenuItem sx={{ overflow: "clip" }} value={cate.id}>
+                          {cate.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   </Grid>
                 </ListItem>
               );

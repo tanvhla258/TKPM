@@ -22,15 +22,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(id, bookName, author, quantity, unitPrice) {
+  return { id, bookName, author, quantity, unitPrice };
 }
 
-const rows = [
-  createData(1, "Frozen yoghurt", 6.0, 24, 4.0),
-  createData(2, "Ice cream sandwich", 9.0, 37, 4.3),
-  createData(3, "Eclair", 16.0, 24, 6.0),
-];
 // import CardHeader from "@mui/material/CardHeader";
 
 const ExpandMore = styled((props) => {
@@ -43,9 +38,22 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-function Invoice({ date, user, id, cost, handleOpenUpdate }) {
+function Invoice({ invoice, handleOpenUpdate }) {
   const [expanded, setExpanded] = React.useState(false);
-
+  console.log("invoice:", invoice);
+  const rows = invoice.bookInvoices.map((item, index) => {
+    return createData(
+      index + 1,
+      item.book.title,
+      item.book.author,
+      item.quantity,
+      item.unitPrice
+    );
+  });
+  const totalCost = invoice.bookInvoices.reduce(
+    (acc, item) => acc + item.quantity * item.unitPrice,
+    0
+  );
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -61,7 +69,7 @@ function Invoice({ date, user, id, cost, handleOpenUpdate }) {
             {new Date().toISOString().substring(0, 10)}
           </Typography>
           <Typography fontWeight={600} variant="h5" component="div">
-            {user.name}
+            {invoice.customer.fullName}
           </Typography>
 
           <Typography
@@ -69,7 +77,7 @@ function Invoice({ date, user, id, cost, handleOpenUpdate }) {
             variant="body2"
             fontWeight={600}
           >
-            Thành tiền: {0}d
+            Thành tiền: {totalCost}đ
           </Typography>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <TableContainer>
@@ -86,16 +94,16 @@ function Invoice({ date, user, id, cost, handleOpenUpdate }) {
                 <TableBody>
                   {rows.map((row) => (
                     <TableRow
-                      key={row.name}
+                      key={row.id}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        {row.id}
                       </TableCell>
-                      <TableCell align="left">{row.calories}</TableCell>
-                      <TableCell align="left">{row.fat}</TableCell>
-                      <TableCell align="left">{row.carbs}</TableCell>
-                      <TableCell align="left">{row.protein}</TableCell>
+                      <TableCell align="left">{row.bookName}</TableCell>
+                      <TableCell align="left">{row.author}</TableCell>
+                      <TableCell align="left">{row.quantity}</TableCell>
+                      <TableCell align="left">{row.unitPrice}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

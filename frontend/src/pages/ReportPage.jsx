@@ -17,34 +17,27 @@ function ReportPage() {
   const names = ["Công nợ", "Tồn sách"];
   return (
     <div>
-      <div style={{ display: "flex" }}>
-        <Dropdown label={"Loại báo cáo"} inputArray={names} />
-        {/* <InputLabel htmlFor="date">Ngày nhập</InputLabel> */}
-        {/* <TextField
-          type="date"
-          {...register("date", { required: true })}
-          id="date"
-          name="date"
-        /> */}
-      </div>
-
-      {/* <AddIcon handleOpen={handleOpen} /> */}
-
-      {/* <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={boxstyle}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal> */}
+      <Grid container alignItems={"end"} spacing={3}>
+        <Grid item>
+          <Dropdown label={"Loại báo cáo"} inputArray={names} />
+        </Grid>
+        <Grid item>
+          <InputLabel htmlFor="date">Ngày nhập</InputLabel>
+          <TextField
+            type="month"
+            // {...register("date", { required: true })}
+            id="date"
+            name="date"
+            min="2022-03"
+            // value="2023-06"
+          />
+        </Grid>
+        <Grid item>
+          <Button variant="outlined" color="success" type="submit">
+            Lập báo cáo
+          </Button>
+        </Grid>
+      </Grid>
     </div>
   );
 }
