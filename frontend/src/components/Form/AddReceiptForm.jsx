@@ -9,6 +9,8 @@ import {
   List,
   InputLabel,
   ListItem,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -17,17 +19,10 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { TextField } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../../reducers/userReducer";
 
 function AddReceiptForm() {
-  const [AmountInput, SetAmountInput] = useState(1);
-  const [value, setValue] = useState(dayjs(Date.now()));
-
-  const handleAddInput = () => {
-    SetAmountInput((AmountInput) => AmountInput + 1);
-  };
-  const handleMinusInput = () => {
-    if (AmountInput >= 1) SetAmountInput((AmountInput) => AmountInput - 1);
-  };
   const {
     register,
     handleSubmit,
@@ -43,11 +38,11 @@ function AddReceiptForm() {
       creationDate: "2023-06-28",
       totalCost: data.cost,
       customer: {
-        fullName: data.userName,
-        phoneNumber: data.phone,
-        address: data.address,
-        email: data.email,
-        id: 1,
+        fullName: data.userInfo.fullName,
+        phoneNumber: data.userInfo.phoneNumber,
+        address: data.userInfo.address,
+        email: data.userInfo.email,
+        id: data.userInfo.id,
       },
     };
     console.log(newReceipt);
@@ -59,6 +54,14 @@ function AddReceiptForm() {
         });
     } catch (e) {}
   };
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.user.users);
+
+  useEffect(() => {
+    dispatch(userActions.fetchAllUser());
+  }, [dispatch]);
+
+  console.log(users);
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -68,18 +71,27 @@ function AddReceiptForm() {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Grid mb={1} item xs={12}>
-              <TextField
-                {...register("userName", { required: true })}
+              <InputLabel id={`userInfo`}>Khách hàng</InputLabel>
+              <Select
+                {...register(`userInfo`, {
+                  required: true,
+                })}
                 required
-                id="userName"
-                name="userName"
-                label="Tên khách hàng "
-                fullWidth
-                variant="standard"
-              />
+                id={`userInfo`}
+                // value={book}
+                name={`userInfo`}
+                labelId={`userInfo`}
+                label="sách"
+                // defaultValue={book[0]}
+                // onChange={handleChange}
+              >
+                {users.map((user) => (
+                  <MenuItem value={user}>{user.fullName}</MenuItem>
+                ))}
+              </Select>
             </Grid>
 
-            <Grid mb={1} item xs={12}>
+            {/* <Grid mb={1} item xs={12}>
               <TextField
                 required
                 {...register("phone", { required: true })}
@@ -111,7 +123,7 @@ function AddReceiptForm() {
                 fullWidth
                 variant="standard"
               />
-            </Grid>
+            </Grid> */}
             <Grid mb={1} item xs={12}>
               <TextField
                 required

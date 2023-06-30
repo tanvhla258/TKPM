@@ -7,6 +7,7 @@ const initialState = {
     switch2: true,
     switch3: true,
   },
+  regulations: [],
 };
 
 const regulationSlice = createSlice({

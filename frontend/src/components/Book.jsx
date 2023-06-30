@@ -25,7 +25,12 @@ function Book({ book }) {
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {book.category.name}
         </Typography>
-        <Typography fontWeight={600} variant="h5" component="div">
+        <Typography
+          sx={{ textOverflow: "ellipsis" }}
+          fontWeight={600}
+          variant="h5"
+          component="div"
+        >
           {book.title}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">

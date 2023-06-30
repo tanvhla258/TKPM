@@ -13,7 +13,7 @@ function Receipt({ receipt, handleOpenUpdate }) {
       <Card sx={{ minWidth: 350 }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {new Date().toISOString().substring(0, 10)}
+            {receipt.creationDate}
           </Typography>
           <Typography
             fontWeight={600}
@@ -25,7 +25,7 @@ function Receipt({ receipt, handleOpenUpdate }) {
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary"></Typography>
           <Typography variant="body2">
-            Tiền thanh toán: {receipt.otalCost}
+            Tiền thanh toán: {receipt.totalCost}
           </Typography>
         </CardContent>
 

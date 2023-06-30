@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import Book from "../components/Book";
 import { useEffect } from "react";
-import { Button, Grid, Modal, Box, Typography, Icon, InputLabel } from "@mui/material";
+import {
+  Button,
+  Grid,
+  Modal,
+  Box,
+  Typography,
+  Icon,
+  InputLabel,
+} from "@mui/material";
 import Dropdown from "../components/Dropdown";
 import { TextField } from "@mui/material";
 
 function ReportPage() {
-  var names = ["Công nợ","Tồn sách"];
+  const names = ["Công nợ", "Tồn sách"];
   return (
     <div>
       <div style={{ display: "flex" }}>
