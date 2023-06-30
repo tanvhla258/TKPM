@@ -1,3 +1,4 @@
+alter sequence category_seq restart with 11;
 insert into categories (id, name) values (0, 'Văn học');
 insert into categories (id, name) values(1, 'Lãng mạn');
 insert into categories (id, name) values    (2, 'Bí ẩn');
@@ -10,12 +11,14 @@ insert into categories (id, name) values   (8, 'Dạy nấu ăn');
 insert into categories (id, name) values   (9, 'Bài luận');
 insert into categories (id, name) values    (10, 'Lịch sử');
 
+
 insert into regulations (id, title, value) values (0, 'Số lượng sách nhập ít nhất', 150);
 insert into regulations (id, title, value) values (1, 'Số lượng tồn ít hơn', 300);
 insert into regulations (id, title, value) values (2, 'Nợ tối đa của khách hàng', 20);
 insert into regulations (id, title, value) values (3, 'Lượng sách tồn sau bán ít nhắt', 20);
 insert into regulations (id, title, value) values (4, 'Số tiền thu không được vượt quá số tiền nợ', 1);
 
+alter sequence books_seq restart with 11;
 insert into books (id, title, author, category_id) values (0, 'Kỹ thuật lập trình', "Khoa công nghệ thông tin", 3);
 INSERT INTO books (id, title, author, category_id) VALUES (1, 'Tắt đèn', 'Ngô Tất Tố', 5);
 INSERT INTO books (id, title, author, category_id) VALUES (2, 'Số Đỏ', 'Vũ Trọng Phụng', 5);
@@ -28,6 +31,7 @@ INSERT INTO books (id, title, author, category_id) VALUES (8, 'Cánh đồng b�
 INSERT INTO books (id, title, author, category_id) VALUES (9, 'Tôi thấy hoa vàng trên cỏ xanh', 'Nguyễn Nhật Ánh', 8);
 INSERT INTO books (id, title, author, category_id) VALUES (10, 'Bến đò', 'Xuân Quỳnh', 5);
 
+alter sequence customers_seq restart with 11;
 insert into customers (id, address, email, fullname, phone_number) values (0, 'Nguyễn Văn Cừ', "abc@gmail.com", "Trần Thị Kim Tiến", 0523897351);
 INSERT INTO customers (id, address, email, fullname, phone_number) VALUES (1, 'Lê Duẩn', 'def@gmail.com', 'Nguyễn Văn An', '0987654321');
 INSERT INTO customers (id, address, email, fullname, phone_number) VALUES (2, 'Lý Thường Kiệt', 'ghi@gmail.com', 'Trương Thị Ngọc Ánh', '0912345678');
@@ -39,4 +43,3 @@ INSERT INTO customers (id, address, email, fullname, phone_number) VALUES (7, 'N
 INSERT INTO customers (id, address, email, fullname, phone_number) VALUES (8, 'Ngô Quyền', 'yz@gmail.com', 'Nguyễn Văn Minh', '0912876543');
 INSERT INTO customers (id, address, email, fullname, phone_number) VALUES (9, 'Lê Lợi', 'abc123@gmail.com', 'Trần Thị Thu Hà', '0987654321');
 INSERT INTO customers (id, address, email, fullname, phone_number) VALUES (10, 'Hai Bà Trưng', 'def456@gmail.com', 'Nguyễn Thị Ngọc Ánh', '0912345678');
-
