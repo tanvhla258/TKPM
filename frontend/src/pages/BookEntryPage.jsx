@@ -34,7 +34,7 @@ function BookEntryPage() {
         <Grid item>
           <BookEntry
             cost={200}
-            date={Date.now()}
+            date={new Date().toISOString().substring(0, 10)}
             book={{ name: "Khong gia dinh", author: "Tan" }}
             handleOpenUpdate={handleOpenUpdate}
           ></BookEntry>
@@ -43,7 +43,7 @@ function BookEntryPage() {
         <Grid item>
           <BookEntry
             cost={200}
-            date={Date.now()}
+            date={new Date().toISOString().substring(0, 10)}
             book={{ name: "Harry Potter", author: "Trinh" }}
             handleOpenUpdate={handleOpenUpdate}
           ></BookEntry>
@@ -51,7 +51,7 @@ function BookEntryPage() {
         <Grid item>
           <BookEntry
             cost={100}
-            date={Date.now()}
+            date={new Date().toISOString().substring(0, 10)}
             book={{ name: "Harry Potter", author: "Trinh" }}
             handleOpenUpdate={handleOpenUpdate}
           ></BookEntry>
@@ -59,7 +59,7 @@ function BookEntryPage() {
         <Grid item>
           <BookEntry
             cost={300}
-            date={Date.now()}
+            date={new Date().toISOString().substring(0, 10)}
             book={{ name: "Harry Potter", author: "Trinh" }}
             handleOpenUpdate={handleOpenUpdate}
           ></BookEntry>

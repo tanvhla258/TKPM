@@ -17,16 +17,19 @@ import { bookActions } from "../reducers/bookReducer";
 function ProductsPage() {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.book.books);
+  const categories = useSelector((state) => state.book.categories);
 
   useEffect(() => {
     dispatch(bookActions.fetchAllBooks());
+    dispatch(bookActions.fetchAllCategories());
   }, [dispatch]);
 
   console.log(books);
+  console.log(categories);
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
   return (
     <div>
       <div style={{ display: "flex" }}>
@@ -39,7 +42,7 @@ function ProductsPage() {
             inputProps={{ "aria-label": "search" }}
           />
         </Search>
-        <Dropdown />
+        <Dropdown categories={categories} />
       </div>
       <Grid marginTop={2} container spacing={2}>
         {books.map((book) => {
@@ -51,9 +54,9 @@ function ProductsPage() {
         })}
       </Grid>
 
-      <AddIcon handleOpen={handleOpen} />
+      {/* <AddIcon handleOpen={handleOpen} /> */}
 
-      <Modal
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -67,7 +70,7 @@ function ProductsPage() {
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
           </Typography>
         </Box>
-      </Modal>
+      </Modal> */}
     </div>
   );
 }

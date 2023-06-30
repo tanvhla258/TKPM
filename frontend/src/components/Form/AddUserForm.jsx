@@ -61,9 +61,9 @@ function AddUserForm() {
           <Grid mb={1} item xs={12}>
             <TextField
               required
-              {...register("cost", { required: true })}
+              {...register("address", { required: true })}
               id="12"
-              name="cost"
+              name="address"
               label="Địa chỉ"
               fullWidth
               variant="standard"

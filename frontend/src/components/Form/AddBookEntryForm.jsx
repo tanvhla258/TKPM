@@ -8,6 +8,7 @@ import {
   Icon,
   List,
   ListItem,
+  InputLabel,
 } from "@mui/material";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -19,7 +20,7 @@ import { TextField } from "@mui/material";
 
 function AddBookEntryForm() {
   const [AmountInput, SetAmountInput] = useState(1);
-  const [value, setValue] = useState(dayjs(Date.now()));
+  // const [value, setValue] = useState(dayjs(Date.now()));
 
   const handleAddInput = () => {
     SetAmountInput((AmountInput) => AmountInput + 1);
@@ -55,7 +56,7 @@ function AddBookEntryForm() {
       deliveryNoteBooks.push(deliveryNoteBook);
     }
     const newBook = {
-      creationDate: "2020-06-12",
+      creationDate: data.date,
       shipperName: "Nguyen Van A",
       deliveryNoteBooks: deliveryNoteBooks,
     };
@@ -223,7 +224,7 @@ function AddBookEntryForm() {
           </Grid>
 
           <Grid mb={2} item xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Ngày nhập"
                 id="date"
@@ -235,7 +236,14 @@ function AddBookEntryForm() {
                   setValue(newValue);
                 }}
               />
-            </LocalizationProvider>
+            </LocalizationProvider> */}
+            <InputLabel htmlFor="date">Ngày nhập</InputLabel>
+            <TextField
+              type="date"
+              {...register("date", { required: true })}
+              id="date"
+              name="date"
+            />
           </Grid>
 
           <Grid container justifyContent={"space-between"} item xs={12}>

@@ -243,15 +243,13 @@ function AddInvoiceForm() {
             </Grid>
           </Grid>
           <Grid mb={2} item xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="Ngày nhập"
-                id="date"
-                name="date"
-                slotProps={{ textField: { fullWidth: true } }}
-                {...register("date", { required: true })}
-              />
-            </LocalizationProvider>
+            <InputLabel htmlFor="date">Ngày nhập</InputLabel>
+            <TextField
+              type="date"
+              {...register("date", { required: true })}
+              id="date"
+              name="date"
+            />
           </Grid>
 
           <Grid container item xs={12}>

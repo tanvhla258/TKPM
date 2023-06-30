@@ -17,17 +17,6 @@ const MenuProps = {
   },
 };
 
-const names = [
-  "Tình cảm",
-  "Khoa học viễn tưởng",
-  "Kinh dị",
-  "Tiểu sử",
-  "Truyện ngắn",
-  "Nấu ăn",
-  "Lịch sử",
-  "Thiếu nhi"
-];
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -36,10 +25,10 @@ function getStyles(name, personName, theme) {
         : theme.typography.fontWeightMedium,
   };
 }
-function Dropdown() {
+function Dropdown({ categories }) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
-
+  const names = categories.map((cate) => cate.name);
   const handleChange = (event) => {
     const {
       target: { value },
