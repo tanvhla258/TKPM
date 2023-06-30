@@ -8,19 +8,28 @@ import {
   Icon,
   List,
   ListItem,
+  Select,
+  MenuItem,
   InputLabel,
 } from "@mui/material";
-import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { TextField } from "@mui/material";
-
+import { useDispatch, useSelector } from "react-redux";
+import { bookActions } from "../../reducers/bookReducer";
 function AddBookEntryForm() {
   const [AmountInput, SetAmountInput] = useState(1);
   // const [value, setValue] = useState(dayjs(Date.now()));
+  const dispatch = useDispatch();
+  const books = useSelector((state) => state.book.books);
+  const categories = useSelector((state) => state.book.categories);
+
+  useEffect(() => {
+    dispatch(bookActions.fetchAllCategories());
+  }, [dispatch]);
+
+  console.log(categories);
 
   const handleAddInput = () => {
     SetAmountInput((AmountInput) => AmountInput + 1);
@@ -48,9 +57,7 @@ function AddBookEntryForm() {
         book: {
           title: data[bookNameKey],
           author: data[authorKey],
-          category: {
-            name: "Van hoc",
-          },
+          category: { id: +data.category },
         },
       };
       deliveryNoteBooks.push(deliveryNoteBook);
@@ -113,6 +120,28 @@ function AddBookEntryForm() {
                       variant="standard"
                     />
                   </Grid>
+                  <Grid mb={1} item xs={3}>
+                    <InputLabel id={`category`}>Thể loại</InputLabel>
+
+                    <Select
+                      {...register(`category`, {
+                        required: true,
+                      })}
+                      required
+                      id={`category`}
+                      // value={book}
+                      name={`category`}
+                      labelId={`category`}
+                      label="Thể loại"
+                      // defaultValue={book[0]}
+                      // onChange={handleChange}
+                    >
+                      {categories.map((cate) => (
+                        <MenuItem value={cate.id}>{cate.name}</MenuItem>
+                      ))}
+                    </Select>
+                  </Grid>
+
                   <Grid mb={1} item xs={3}>
                     <TextField
                       required
