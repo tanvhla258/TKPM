@@ -1,4 +1,4 @@
-alter sequence category_seq restart with 11;
+alter sequence categories_seq restart with 11;
 insert into categories (id, name) values (0, 'Văn học');
 insert into categories (id, name) values(1, 'Lãng mạn');
 insert into categories (id, name) values    (2, 'Bí ẩn');
