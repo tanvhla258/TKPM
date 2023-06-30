@@ -5,7 +5,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import WidgetsIcon from "@mui/icons-material/Widgets";
+import EditIcon from "@mui/icons-material/Edit";
 import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 // import CardHeader from "@mui/material/CardHeader";
@@ -36,16 +36,15 @@ function Book({ book }) {
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {book.author}
         </Typography>
-        <Typography variant="body2">Quantity: </Typography>
       </CardContent>
 
       <CardActions>
         {/* <Button size="small">Learn More</Button> */}
-        <Button color="success" startIcon={<WidgetsIcon />}>
-          Update
+        <Button color="success" startIcon={<EditIcon />}>
+          Chỉnh sửa
         </Button>
         <Button color="error" startIcon={<DeleteIcon />}>
-          Delete
+          Xóa
         </Button>
       </CardActions>
     </Card>
