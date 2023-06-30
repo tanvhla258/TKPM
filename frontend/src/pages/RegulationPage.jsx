@@ -6,6 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import Switch from "@mui/material/Switch";
 import AddIcon from "../components/AddIcon";
@@ -40,10 +41,33 @@ const SettingCard = ({ id, switchValue, handleToggle }) => {
           50
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button startIcon={<WidgetsIcon />}>Update</Button>
+      {/* <CardActions>
+        <Button startIcon={<EditIcon />}>Edit</Button>
         <Button color="error" startIcon={<DeleteIcon />}>
           Delete
+        </Button>
+        <CardActions sx={{ right: 2, position: "absolute" }}>
+          <Switch
+            onChange={() => {
+              handleToggle(id);
+            }}
+            {...label}
+            defaultChecked
+          />
+        </CardActions>
+      </CardActions> */}
+      <CardActions>
+        {/* <Button size="small">Learn More</Button> */}
+        <Button
+          onClick={() => handleOpenUpdate()}
+          variant="outlined"
+          color="success"
+          startIcon={<EditIcon />}
+        >
+          Chỉnh sửa
+        </Button>
+        <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
+          Xóa
         </Button>
         <CardActions sx={{ right: 2, position: "absolute" }}>
           <Switch
