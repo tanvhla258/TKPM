@@ -17,8 +17,8 @@ import java.util.Set;
 @Setter
 public class Book {
     @Id
-    @SequenceGenerator(name = "customers_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "books_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "books_seq")
     private Long id;
     @Column
     private String title;
