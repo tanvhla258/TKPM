@@ -32,4 +32,10 @@ public class RegulationController {
         List<Regulation> regulation = regulationMapper.toList(regulationDTO);
         return ResponseAPI.positiveResponse(regulationService.updateRegulations(regulation));
     }
+
+    @GetMapping("list/all")
+    public Response getAllRegulation(){
+        List<Regulation> regulations = regulationService.getAll();
+        return ResponseAPI.positiveResponse(regulationMapper.toDtoList(regulations));
+    }
 }

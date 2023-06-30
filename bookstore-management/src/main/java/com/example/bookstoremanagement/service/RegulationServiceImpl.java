@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class RegulationServiceImpl implements RegulationService {
-    private RegulationRepository regulationRepository;
+    private final RegulationRepository regulationRepository;
     @Override
     public List<Regulation> getAll() {
         return regulationRepository.findAll();
