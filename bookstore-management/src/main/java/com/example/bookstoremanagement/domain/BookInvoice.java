@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookInvoice {
+public class BookInvoice{
     @EmbeddedId
     private BookInvoiceId id;
 
@@ -32,4 +32,7 @@ public class BookInvoice {
     @Column(name = "unit_price")
     private Double unitPrice;
 
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

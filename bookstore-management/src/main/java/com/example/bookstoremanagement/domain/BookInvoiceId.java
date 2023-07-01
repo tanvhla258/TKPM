@@ -19,4 +19,8 @@ public class BookInvoiceId implements Serializable {
     public BookInvoiceId(Long bookId){
         this.bookId = bookId;
     }
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

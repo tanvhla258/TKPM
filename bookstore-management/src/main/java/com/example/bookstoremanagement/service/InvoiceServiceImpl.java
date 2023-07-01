@@ -199,6 +199,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     @Override
     public Invoice updateInvoice(Long id, Invoice invoice) {
 
+
         //Check regulation for customer's dept
         checkCustomerDeptInPreviousState(invoice, calculateTotalCost(invoice));
         //Check inventory after buying
@@ -244,6 +245,10 @@ public class InvoiceServiceImpl implements InvoiceService{
                 throw new DeptLargerThanRegulationWhenBuyingException(regulation.getValue());
             }
         }
+
+        for(DeptByMonth i: set){
+            i.setDept(i.getDept() + totalCost);
+        }
     }
 
     private void checkInventoryAfterBuyingInPreviousState(Invoice invoice){
@@ -268,6 +273,14 @@ public class InvoiceServiceImpl implements InvoiceService{
                     }
                 });
             }
+        }
+
+        for(BookInvoice bookInvoice: invoice.getBookInvoices()){
+            Book foundBook = bookRepository.findBookByFields(bookInvoice.getBook().getTitle(), bookInvoice.getBook().getCategory().getId(), bookInvoice.getBook().getAuthor());
+            filtedSet = InventoryByMonth.filterByMonthYear(foundBook.getInventoryByMonthSet(), fromMonth, fromYear);
+            filtedSet.forEach(i -> {
+                i.setQuantity(i.getQuantity() - bookInvoice.getQuantity());
+            });
         }
     }
 

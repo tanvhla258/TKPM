@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Table(name = "customers")
-public class Customer {
+public class Customer{
     @Id
     @SequenceGenerator(name = "customers_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customers_seq")
@@ -34,4 +34,8 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private Set<Invoice> invoices;
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
