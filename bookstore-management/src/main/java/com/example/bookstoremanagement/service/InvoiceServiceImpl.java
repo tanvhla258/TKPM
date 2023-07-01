@@ -219,6 +219,10 @@ public class InvoiceServiceImpl implements InvoiceService{
         //save dept
         saveDeptByMonthForCustomer(foundInvoice, calculateTotalCost(invoice));
         //add quantity
+
+        for(BookInvoice bookInvoice: foundInvoice.getBookInvoices()){
+            bookInvoice.setInvoice(invoice);
+        }
         subtractAndSaveBookQuantity(foundInvoice);
         return invoiceRepository.save(foundInvoice);
     }
