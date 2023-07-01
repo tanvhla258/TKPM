@@ -8,6 +8,7 @@ import com.example.bookstoremanagement.repository.InvoiceRepository;
 import com.example.bookstoremanagement.repository.RegulationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,47 +40,42 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public Invoice addInvoice(Invoice invoice) {
-        if(customerRepository.findCustomerByPhoneNumber(invoice.getCustomer().getPhoneNumber()) == null){
-            //Add Customer
-            Customer customer = customerRepository.save(invoice.getCustomer());
-            invoice.setCustomer(customer);
-        }
-        else{
-            //Check regulation for customer's dept
-            checkCustomerDept(invoice);
-        }
         //Check inventory after buying
         checkInventoryAfterBuying(invoice);
 
-        Customer customer = invoice.getCustomer();
-        Set<DeptByMonth> dept = new HashSet<>();
+        Customer customer = customerRepository.findCustomerByPhoneNumber(invoice.getCustomer().getPhoneNumber());
 
         LocalDate current = LocalDate.now();
         int fromYear = invoice.getCreationDate().getYear();
         int fromMonth = invoice.getCreationDate().getMonthValue();
         int toYear = current.getYear();
         int toMonth = current.getMonthValue();
-        while (fromYear < toYear || (fromYear == toYear && fromMonth <= toMonth)){
-            dept.add(DeptByMonth
-                    .builder()
-                    .dept(0D)
-                    .customer(customer)
-                    .id(DeptByMonthId
-                            .builder()
-                            .month(fromMonth)
-                            .year(fromYear)
-                            .build())
-                    .build());
-            if (fromMonth == 12) {
-                fromMonth = 1;
-                fromYear++;
-            } else {
-                fromMonth++;
+        if(customer == null){
+            //Add Customer
+            customer = customerRepository.save(invoice.getCustomer());
+            Set<DeptByMonth> dept = new HashSet<>();
+            while (fromYear < toYear || (fromYear == toYear && fromMonth <= toMonth)){
+                dept.add(DeptByMonth
+                        .builder()
+                        .dept(0D)
+                        .customer(customer)
+                        .id(DeptByMonthId
+                                .builder()
+                                .month(fromMonth)
+                                .year(fromYear)
+                                .build())
+                        .build());
+                if (fromMonth == 12) {
+                    fromMonth = 1;
+                    fromYear++;
+                } else {
+                    fromMonth++;
+                }
             }
+            customer.setDept(dept);
         }
-        customer.setDept(dept);
-        customer = customerRepository.save(customer);
         invoice.setCustomer(customer);
+//        invoice.setCustomer(customer);
         for(BookInvoice bookInvoice: invoice.getBookInvoices()){
             bookInvoice.setInvoice(invoice);
             bookInvoice.setId(new BookInvoiceId(bookInvoice.getBook().getId()));
@@ -89,8 +85,8 @@ public class InvoiceServiceImpl implements InvoiceService{
 //            bookInvoice.getId().setInvoiceId(invoice.getId());
 //        }
         Double totalCost = calculateTotalCost(invoice);
-        subtractAndSaveBookQuantity(invoice);
         saveDeptByMonthForCustomer(invoice, totalCost);
+        subtractAndSaveBookQuantity(invoice);
         return saveInvoice(invoice);
     }
 
