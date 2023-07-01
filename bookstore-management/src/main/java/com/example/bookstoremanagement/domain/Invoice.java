@@ -25,6 +25,6 @@ public class Invoice extends Note{
     @JsonIgnore
     private Customer customer;
 
-    @OneToMany(mappedBy = "invoice", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "invoice", cascade = {CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Set<BookInvoice> bookInvoices;
 }
