@@ -27,11 +27,11 @@ import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import RequestPageIcon from "@mui/icons-material/RequestPage";
 import DescriptionIcon from "@mui/icons-material/Description";
-import AssessmentIcon from '@mui/icons-material/Assessment';
+import AssessmentIcon from "@mui/icons-material/Assessment";
 import { Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
 import girl from "../assets/girl.svg";
-
+import { useSelector } from "react-redux";
 import {
   StyledInputBase,
   SearchIconWrapper,
@@ -105,6 +105,9 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function TopAndSide() {
+  const admin = useSelector((state) => state.admin.admin);
+
+  console.log(admin);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -133,7 +136,7 @@ export default function TopAndSide() {
     <RequestPageIcon />,
     <AssessmentIcon />,
     <SettingsIcon />,
-    <PersonIcon />
+    <PersonIcon />,
   ];
   return (
     <>
@@ -190,7 +193,10 @@ export default function TopAndSide() {
               //   onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <Avatar alt="Remy Sharp" src="../assets/2.jpg" />
+              <Avatar
+                alt={admin?.email?.toUpperCase() || "Tan"}
+                src="../assets/2.jpg"
+              />
             </IconButton>
           </Box>
         </Toolbar>

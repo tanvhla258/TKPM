@@ -10,7 +10,7 @@ import EditIcon from "@mui/icons-material/Edit";
 const onRemove = (receipt) => {
   try {
     axios
-      .post(`http://localhost:8080/receipts/remvove${receipt.id}`)
+      .post(`http://localhost:8080/receipts/remove/${receipt.id}`)
       .then((respone) => {
         console.log(respone.data);
         Swal.fire("Xoá thành công", "OK").then((result) => {

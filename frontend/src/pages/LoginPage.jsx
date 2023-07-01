@@ -12,7 +12,8 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { useDispatch } from "react-redux";
+import { adminActions } from "../reducers/adminReducer";
 function Copyright(props) {
   return (
     <Typography
@@ -34,13 +35,16 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 function LoginPage() {
+  const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const credentials = {
       email: data.get("email"),
       password: data.get("password"),
-    });
+    };
+
+    dispatch(adminActions.loginAdmin(credentials));
   };
 
   return (

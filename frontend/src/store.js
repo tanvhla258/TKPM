@@ -5,6 +5,7 @@ import userReducer from "./reducers/userReducer";
 import receiptReducer from "./reducers/receiptReducer";
 import invoiceReducer from "./reducers/invoiceReducer";
 import bookEntryReducer from "./reducers/bookEntryReducer";
+import adminReducer from "./reducers/adminReducer";
 const store = configureStore({
   reducer: {
     regulation: regulationReducer,
@@ -13,6 +14,7 @@ const store = configureStore({
     receipt: receiptReducer,
     invoice: invoiceReducer,
     bookEntry: bookEntryReducer,
+    admin: adminReducer,
   },
 });
 

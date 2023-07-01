@@ -61,7 +61,7 @@ function Invoice({ invoice, handleOpenUpdate }) {
   const onRemove = (invoice) => {
     try {
       axios
-        .post(`http://localhost:8080/invoices/remvove${invoice.id}`, invoice)
+        .put(`http://localhost:8080/invoices/remove/${invoice.id}`)
         .then((respone) => {
           console.log(respone.data);
           Swal.fire("Xoá thành công", "OK").then((result) => {

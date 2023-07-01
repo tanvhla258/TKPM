@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
+import axios from "axios";
 import {
   Collapse,
   TableContainer,
@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 import styled from "@emotion/styled";
 import EditIcon from "@mui/icons-material/Edit";
+import Swal from "sweetalert2";
 function createData(id, title, author, quantity) {
   return { id, title, author, quantity };
 }
@@ -38,7 +39,7 @@ const ExpandMore = styled((props) => {
 const onRemove = (bookEntry) => {
   try {
     axios
-      .post(`http://localhost:8080/deliveries/remvove${bookEntry.id}`)
+      .post(`http://localhost:8080/deliveries/remove/${bookEntry.id}`)
       .then((respone) => {
         console.log(respone.data);
         Swal.fire("Xoá thành công", "OK").then((result) => {

@@ -58,7 +58,6 @@ function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
       };
       bookArray.push(book);
     }
-    console.log("array", bookArray);
     const newInvoice = {
       bookInvoices: bookArray,
       customer: {
@@ -72,7 +71,10 @@ function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
     console.log("send:", newInvoice);
     try {
       axios
-        .post("http://localhost:8080/invoices/add", newInvoice)
+        .post(
+          `http://localhost:8080/invoices/update?id=${updateInvoice.id}`,
+          newInvoice
+        )
         .then((respone) => {
           console.log(respone.data);
           Swal.fire("Cập nhật thành công", "OK").then((result) => {

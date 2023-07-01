@@ -46,7 +46,10 @@ function UpdateReceiptForm({
     console.log(newReceipt);
     try {
       axios
-        .post("http://localhost:8080/receipts/update", newReceipt)
+        .post(
+          `http://localhost:8080/receipts/update?id=${updateReceipt.id}`,
+          newReceipt
+        )
         .then((respone) => {
           console.log(respone.data);
           Swal.fire("Cập nhật phiếu thu thành công", "OK").then((result) => {
