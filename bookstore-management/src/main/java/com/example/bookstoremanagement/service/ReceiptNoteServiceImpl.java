@@ -114,15 +114,16 @@ public class ReceiptNoteServiceImpl implements ReceiptNoteService{
 //        checkRegulation(receiptNote);
 
         //first initializing
-        ReceiptNote foundReceiptNote = getReceiptNoteById(id);
-        revertCustomerDept(foundReceiptNote);
-        //update creation date
-        foundReceiptNote.setCreationDate(receiptNote.getCreationDate());
-        //update customer
-        foundReceiptNote.setCustomer(receiptNote.getCustomer());
-        //update total cost
-        subtractCustomerDept(receiptNote);
-        return receiptNoteRepository.save(foundReceiptNote);
+//        ReceiptNote foundReceiptNote = getReceiptNoteById(id);
+//        revertCustomerDept(foundReceiptNote);
+//        //update creation date
+//        foundReceiptNote.setCreationDate(receiptNote.getCreationDate());
+//        //update customer
+//        foundReceiptNote.setCustomer(receiptNote.getCustomer());
+//        //update total cost
+//        subtractCustomerDept(receiptNote);
+        deleteReceiptNote(id);
+        return addReceiptNote(receiptNote);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class ReceiptNoteController {
         ReceiptNoteDTO receiptNoteDTO1 = receiptNoteMapper.toDto(receiptNote);
         return ResponseAPI.positiveResponse(receiptNoteDTO1);
     }
-    @PutMapping("update")
+    @PostMapping("update")
     public Response updateReceiptNote(@RequestParam(value = "id") Long id,
                                       @RequestBody ReceiptNoteDTO receiptNoteDTO){
         Preconditions.checkState(Objects.nonNull(id), RECEIPT_ID_MISSING_MSG);
