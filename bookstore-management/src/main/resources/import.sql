@@ -15,7 +15,7 @@ insert into categories (id, name) values    (10, 'Lịch sử');
 
 insert into regulations (id, title, value) values (0, 'Số lượng sách nhập ít nhất', 150);
 insert into regulations (id, title, value) values (1, 'Số lượng tồn ít hơn', 300);
-insert into regulations (id, title, value) values (2, 'Nợ tối đa của khách hàng', 20);
+insert into regulations (id, title, value) values (2, 'Nợ tối đa của khách hàng', 20000000);
 insert into regulations (id, title, value) values (3, 'Lượng sách tồn sau bán ít nhất', 20);
 insert into regulations (id, title, value) values (4, 'Số tiền thu không được vượt quá số tiền nợ', 1);
 
