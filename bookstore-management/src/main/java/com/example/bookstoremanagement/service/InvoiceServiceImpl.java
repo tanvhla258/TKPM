@@ -161,7 +161,8 @@ public class InvoiceServiceImpl implements InvoiceService{
         LocalDate currentDate = LocalDate.now();
         int toMonth = currentDate.getMonthValue();
         int toYear = currentDate.getYear();
-        if(customer.getId() == null){
+        customer = customerRepository.findCustomerByPhoneNumber(customer.getPhoneNumber());
+        if(customer == null){
             //insert new customer
             customer = customerRepository.save(customer);
 //            customer.setDept(new HashSet<>());
