@@ -34,9 +34,9 @@ public interface BookRepository extends JpaRepository<Book, Long>{
 //            "and author like %:#{#book.author}%",
 //            nativeQuery = true)
 //    Book findBookByFields(@Param("book") Book book);
-    @Query(value = "select * from books where title like %?1% " +
+    @Query(value = "select * from books where title = ?1 " +
             "and category_id = ?2 " +
-            "and author like %?3%",
+            "and author = ?3",
             nativeQuery = true)
     Book findBookByFields(String title, Long categoryId, String author);
 //    @Query(value = "select * " +

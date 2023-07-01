@@ -23,8 +23,7 @@ public class Customer {
     private Long id;
     @Column(name="fullname")
     private String fullName;
-    @Column(name = "phone_number")
-    @Unique
+    @Column(name = "phone_number", unique = true)
     private String phoneNumber;
     @Column
     private String address;
