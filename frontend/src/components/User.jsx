@@ -35,16 +35,16 @@ function User({ key, name, address, email, phone }) {
           Email: {email}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          Phone: {phone}
+          Số điện thoại: {phone}
         </Typography>
-        <Typography color="text.secondary">Address: {address}</Typography>
+        <Typography color="text.secondary">Địa chỉ: {address}</Typography>
       </CardContent>
       <CardActions sx={{ marginLeft: 0 }}>
         <Button color="success" startIcon={<WidgetsIcon />}>
-          Update
+          Chỉnh sửa
         </Button>
         <Button color="error" startIcon={<DeleteIcon />}>
-          Delete
+          Xóa
         </Button>
       </CardActions>
     </Card>

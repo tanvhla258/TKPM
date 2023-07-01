@@ -144,7 +144,7 @@ function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
                   </Grid>
                   <Grid mb={1} item xs={1} />
 
-                  <Grid mb={1} item xs={1}>
+                  <Grid mb={1} item xs={2}>
                     <TextField
                       defaultValue={item.quantity}
                       required

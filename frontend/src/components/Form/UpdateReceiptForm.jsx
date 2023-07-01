@@ -41,7 +41,7 @@ function UpdateReceiptForm({
         phoneNumber: data.phone,
         address: data.address,
         email: data.email,
-        id: 1,
+        id: updateReceipt.id,
       },
     };
     console.log(newReceipt);
@@ -66,7 +66,7 @@ function UpdateReceiptForm({
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: e.response.data.message,
+            text: "e.response.data.message",
           }).then((result) => {
             if (result.isConfirmed) {
               // window.location.href = "/book-entries";

@@ -83,7 +83,7 @@ function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
               // () => handleClose(true);
             }
           });
-          handleCloseUpdate(true);
+          handleCloseUpdate();
         })
         .catch((e) => {
           console.log("loi:", e);
@@ -99,7 +99,7 @@ function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
           });
         });
     } finally {
-      handleCloseUpdate(true);
+      handleCloseUpdate();
     }
   };
   const handleChange = () => {};

@@ -7,10 +7,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import axios from "axios";
+import Swal from "sweetalert2";
 const onRemove = (receipt) => {
   try {
     axios
-      .post(`http://localhost:8080/receipts/remove/${receipt.id}`)
+      .put(`http://localhost:8080/receipts/remove/${receipt.id}`)
       .then((respone) => {
         console.log(respone.data);
         Swal.fire("Xoá thành công", "OK").then((result) => {
@@ -24,6 +26,7 @@ const onRemove = (receipt) => {
   }
 };
 function Receipt({ receipt, handleOpenUpdate }) {
+  console.log(receipt);
   return (
     <div>
       <Card sx={{ minWidth: 350 }}>
