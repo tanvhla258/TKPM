@@ -52,18 +52,31 @@ public class InvoiceServiceImpl implements InvoiceService{
         checkInventoryAfterBuying(invoice);
 
         Customer customer = invoice.getCustomer();
-        LocalDate current = LocalDate.now();
         Set<DeptByMonth> dept = new HashSet<>();
-        dept.add(DeptByMonth
-                .builder()
-                .dept(0D)
-                .customer(customer)
-                .id(DeptByMonthId
-                        .builder()
-                        .month(current.getMonthValue())
-                        .year(current.getYear())
-                        .build())
-                .build());
+
+        LocalDate current = LocalDate.now();
+        int fromYear = invoice.getCreationDate().getYear();
+        int fromMonth = invoice.getCreationDate().getMonthValue();
+        int toYear = current.getYear();
+        int toMonth = current.getMonthValue();
+        while (fromYear < toYear || (fromYear == toYear && fromMonth <= toMonth)){
+            dept.add(DeptByMonth
+                    .builder()
+                    .dept(0D)
+                    .customer(customer)
+                    .id(DeptByMonthId
+                            .builder()
+                            .month(fromMonth)
+                            .year(fromYear)
+                            .build())
+                    .build());
+            if (fromMonth == 12) {
+                fromMonth = 1;
+                fromYear++;
+            } else {
+                fromMonth++;
+            }
+        }
         customer.setDept(dept);
         customer = customerRepository.save(customer);
         invoice.setCustomer(customer);
@@ -188,11 +201,12 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public Invoice updateInvoice(Long id, Invoice invoice) {
+
         //Check regulation for customer's dept
-        checkCustomerDept(invoice);
+        checkCustomerDeptInPreviousState(invoice, calculateTotalCost(invoice));
         //Check inventory after buying
-        checkInventoryAfterBuying(invoice);
-        
+        checkInventoryAfterBuyingInPreviousState(invoice);
+
         Invoice foundInvoice = getInvoiceById(id);
         //revert dept
         revertDeptAddingByInvoice(foundInvoice, calculateTotalCost(foundInvoice));
@@ -207,6 +221,51 @@ public class InvoiceServiceImpl implements InvoiceService{
         //add quantity
         subtractAndSaveBookQuantity(foundInvoice);
         return invoiceRepository.save(foundInvoice);
+    }
+
+    private void checkCustomerDeptInPreviousState(Invoice invoice, Double totalCost){
+
+        Regulation regulation = regulationRepository.findById(2L).orElseThrow(() -> new RegulationNotFoundException("Regulation not found for parameter {id=2}"));
+        Customer foundCustomer = customerRepository.findCustomerByPhoneNumber(invoice.getCustomer().getPhoneNumber());
+
+        int fromMonth = invoice.getCreationDate().getMonthValue();
+        int fromYear = invoice.getCreationDate().getYear();
+        Set<DeptByMonth> set = DeptByMonth.filterByMonthYear(foundCustomer.getDept(), fromMonth, fromYear);
+        for(DeptByMonth i: set){
+            i.setDept(i.getDept() - totalCost);
+        }
+
+        DeptByMonth currentDept = DeptByMonth.getDeptByMonth(set, invoice.getCreationDate().getMonthValue(), invoice.getCreationDate().getYear());
+        if(currentDept != null){
+            if(currentDept.getDept() > regulation.getValue()){
+                throw new DeptLargerThanRegulationWhenBuyingException(regulation.getValue());
+            }
+        }
+    }
+
+    private void checkInventoryAfterBuyingInPreviousState(Invoice invoice){
+        int fromMonth = invoice.getCreationDate().getMonthValue();
+        int fromYear = invoice.getCreationDate().getYear();
+        Set<InventoryByMonth> filtedSet = null;
+        for(BookInvoice bookInvoice: invoice.getBookInvoices()){
+            Book foundBook = bookRepository.findBookByFields(bookInvoice.getBook().getTitle(), bookInvoice.getBook().getCategory().getId(), bookInvoice.getBook().getAuthor());
+            filtedSet = InventoryByMonth.filterByMonthYear(foundBook.getInventoryByMonthSet(), fromMonth, fromYear);
+            filtedSet.forEach(i -> {
+                i.setQuantity(i.getQuantity() + bookInvoice.getQuantity());
+            });
+        }
+
+        Regulation checkRegulation = regulationRepository.findById(3L).orElseThrow(()->new RegulationNotFoundException("Regulation not found for parameter {id=3}"));
+        int checkValue =checkRegulation.getValue();
+        for(BookInvoice bookInvoice: invoice.getBookInvoices()){
+            if(filtedSet != null) {
+                filtedSet.forEach(i -> {
+                    if (i.getQuantity() - bookInvoice.getQuantity() < checkValue) {
+                        throw new InventoryAfterSellingLessThanRegulationException(checkValue);
+                    }
+                });
+            }
+        }
     }
 
     @Override

@@ -21,7 +21,7 @@ public class BookInvoice {
     @JsonIgnore
     private Book book;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("invoiceId")
     @JsonIgnore
     @JoinColumn(name = "invoice_id")

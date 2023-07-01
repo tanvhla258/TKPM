@@ -48,6 +48,9 @@ public class MonthlyReportServiceImpl implements MonthlyReportService{
         List<AgingReport> reports = new ArrayList<>();
         List<Customer> customers = customerRepository.findAll();
         for(Customer customer: customers){
+            if(customer.getId() == 11){
+                int a = 1;
+            }
             TreeMap<Integer, DeptByMonth> map =
                     DeptByMonth.getDeptByMonthAndPrevious(customer.getDept(), month, year);
             if(map == null){
