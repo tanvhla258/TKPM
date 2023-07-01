@@ -208,24 +208,26 @@ public class InvoiceServiceImpl implements InvoiceService{
         //Check inventory after buying
         checkInventoryAfterBuyingInPreviousState(invoice);
 
-        Invoice foundInvoice = getInvoiceById(id);
-        //revert dept
-        revertDeptAddingByInvoice(foundInvoice, calculateTotalCost(foundInvoice));
-        //revert quantity
-        revertAndSaveBookQuantity(foundInvoice);
-
-        foundInvoice.setCreationDate(invoice.getCreationDate());
-        foundInvoice.setCustomer(invoice.getCustomer());
-        foundInvoice.setBookInvoices(invoice.getBookInvoices());
-        //save dept
-        saveDeptByMonthForCustomer(foundInvoice, calculateTotalCost(invoice));
-        //add quantity
-
-        for(BookInvoice bookInvoice: foundInvoice.getBookInvoices()){
-            bookInvoice.setInvoice(invoice);
-        }
-        subtractAndSaveBookQuantity(foundInvoice);
-        return invoiceRepository.save(foundInvoice);
+        deleteInvoice(id);
+        return addInvoice(invoice);
+//        Invoice foundInvoice = getInvoiceById(id);
+//        //revert dept
+//        revertDeptAddingByInvoice(foundInvoice, calculateTotalCost(foundInvoice));
+//        //revert quantity
+//        revertAndSaveBookQuantity(foundInvoice);
+//
+//        foundInvoice.setCreationDate(invoice.getCreationDate());
+//        foundInvoice.setCustomer(invoice.getCustomer());
+//        foundInvoice.setBookInvoices(invoice.getBookInvoices());
+//        //save dept
+//        saveDeptByMonthForCustomer(foundInvoice, calculateTotalCost(invoice));
+//        //add quantity
+//
+//        for(BookInvoice bookInvoice: foundInvoice.getBookInvoices()){
+//            bookInvoice.setInvoice(invoice);
+//        }
+//        subtractAndSaveBookQuantity(foundInvoice);
+//        return invoiceRepository.save(foundInvoice);
     }
 
     private void checkCustomerDeptInPreviousState(Invoice invoice, Double totalCost){
