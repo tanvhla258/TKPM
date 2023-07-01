@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.checkerframework.common.aliasing.qual.Unique;
 
 import java.util.Set;
 
@@ -23,6 +24,7 @@ public class Customer {
     @Column(name="fullname")
     private String fullName;
     @Column(name = "phone_number")
+    @Unique
     private String phoneNumber;
     @Column
     private String address;
