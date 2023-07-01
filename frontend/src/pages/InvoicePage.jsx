@@ -66,7 +66,10 @@ function InvoicePage() {
       </Modal>
       <Modal open={openUpdate} onClose={handleCloseUpdate}>
         <Box sx={boxstyle900}>
-          <UpdateInvoiceForm updateInvoice={updateInvoice} />
+          <UpdateInvoiceForm
+            handleCloseUpdate={handleCloseUpdate}
+            updateInvoice={updateInvoice}
+          />
         </Box>
       </Modal>
     </div>

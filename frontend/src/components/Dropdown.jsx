@@ -25,11 +25,11 @@ function getStyles(name, personName, theme) {
         : theme.typography.fontWeightMedium,
   };
 }
-function Dropdown( {label,inputArray} ) {
+function Dropdown({ setdropdownData, label, inputArray }) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
-  const names = inputArray
-  
+  const names = inputArray;
+
   const handleChange = (event) => {
     const {
       target: { value },
@@ -38,6 +38,7 @@ function Dropdown( {label,inputArray} ) {
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
+    setdropdownData(value);
   };
 
   return (
