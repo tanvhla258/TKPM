@@ -118,6 +118,22 @@ public class BookDeliveryNoteServiceImpl implements BookDeliveryNoteService{
                 throw new QuantityOfDeliveryBookLessThanRegulationException(check);
             }
         }
+
+        for(BookDeliveryNoteBook bookDeliveryNoteBook: foundNote.getDeliveryNoteBooks()){
+            Book book = bookDeliveryNoteBook.getBook();
+            Book foundBook = bookRepository.findBookByFields(book.getTitle(), book.getCategory().getId(), book.getAuthor());
+
+            if(foundBook == null){
+                continue;
+            }
+
+            Set<InventoryByMonth> foundInventories;
+            foundInventories = InventoryByMonth.filterByMonthYear(foundBook.getInventoryByMonthSet(), foundNote.getCreationDate().getMonthValue(), foundNote.getCreationDate().getYear());
+            for(InventoryByMonth i: foundInventories){
+                i.setQuantity(i.getQuantity() + bookDeliveryNoteBook.getQuantity());
+            }
+            books.add(foundBook);
+        }
 //         Current quantity of book less than regulation
         check = regulationRepository.findById(1L).orElseThrow(() -> new RegulationNotFoundException("Regulation not found")).getValue();
         for(BookDeliveryNoteBook bookDeliveryNoteBook: bookDeliveryNote.getDeliveryNoteBooks()){

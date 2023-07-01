@@ -111,7 +111,7 @@ public class ReceiptNoteServiceImpl implements ReceiptNoteService{
     @Override
     public ReceiptNote updateReceiptNote(Long id, ReceiptNote receiptNote) {
         //Check for regulation
-        checkRegulation(receiptNote);
+//        checkRegulation(receiptNote);
 
         //first initializing
         ReceiptNote foundReceiptNote = getReceiptNoteById(id);
