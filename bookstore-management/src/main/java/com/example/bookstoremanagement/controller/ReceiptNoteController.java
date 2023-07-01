@@ -48,7 +48,7 @@ public class ReceiptNoteController {
         return ResponseAPI.positiveResponse(receiptNoteService.updateReceiptNote(id, receiptNote));
     }
 
-    @DeleteMapping("remove/{id}")
+    @PutMapping("remove/{id}")
     public Response removeReceiptNote(@PathVariable("id") Long id){
         Preconditions.checkState(Objects.nonNull(id), RECEIPT_ID_MISSING_MSG);
         receiptNoteService.deleteReceiptNote(id);
