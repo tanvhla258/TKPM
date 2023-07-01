@@ -34,14 +34,15 @@ function UpdateReceiptForm({
     // console.log(data.date);
 
     const newReceipt = {
-      creationDate: "2023-06-28",
+      creationDate: data.date,
       totalCost: data.cost,
+      id: updateReceipt.id,
       customer: {
         fullName: data.userName,
         phoneNumber: data.phone,
         address: data.address,
         email: data.email,
-        id: updateReceipt.id,
+        id: updateReceipt.customer.id,
       },
     };
     console.log(newReceipt);

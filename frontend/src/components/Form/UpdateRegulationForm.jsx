@@ -16,14 +16,12 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { TextField } from "@mui/material";
 import { regulationActions } from "../../reducers/regulationReducer";
-
+import Swal from "sweetalert2";
 function UpdateRegulationForm({
   handleOpenUpdate,
   updateRegulation,
   handleCloseUpdate,
 }) {
-  const [value, setValue] = useState(dayjs(Date.now()));
-  console.log(updateRegulation);
   const {
     register,
     handleSubmit,
@@ -34,9 +32,14 @@ function UpdateRegulationForm({
     console.log(data);
     // console.log(data.date);
     const newRegulation = {};
+    console.log(
+      `http://localhost:8080/regulations/update?id=${updateRegulation.id}&value=${data.value}`
+    );
     try {
       axios
-        .post("http://localhost:8080/regulations/update", newRegulation)
+        .post(
+          `http://localhost:8080/regulations/update?id=${updateRegulation.id}&value=${data.value}`
+        )
         .then((respone) => {
           console.log(respone.data);
           Swal.fire("Cập nhật quy định thành công", "OK").then((result) => {
@@ -72,8 +75,8 @@ function UpdateRegulationForm({
             <TextField
               {...register("value", { required: true })}
               required
-              id="userName"
-              name="userName"
+              id="value"
+              name="value"
               label={updateRegulation.title}
               fullWidth
               variant="standard"
