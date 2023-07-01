@@ -13,7 +13,7 @@ export const fetchAllBookEntries = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/deliveries/list?page=0&size=10"
+        "http://localhost:8080/deliveries/list?page=0&size=30"
       );
       return response.data;
     } catch (error) {

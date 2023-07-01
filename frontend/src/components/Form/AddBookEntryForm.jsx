@@ -18,17 +18,17 @@ import axios from "axios";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { bookActions } from "../../reducers/bookReducer";
-function AddBookEntryForm() {
+import Flash from "../Flash";
+import Swal from "sweetalert2";
+
+function AddBookEntryForm({ handleClose }) {
   const [AmountInput, SetAmountInput] = useState(1);
-  // const [value, setValue] = useState(dayjs(Date.now()));
   const dispatch = useDispatch();
-  const books = useSelector((state) => state.book.books);
   const categories = useSelector((state) => state.book.categories);
 
   useEffect(() => {
     dispatch(bookActions.fetchAllCategories());
   }, [dispatch]);
-
   console.log(categories);
 
   const handleAddInput = () => {
@@ -73,11 +73,30 @@ function AddBookEntryForm() {
         .post("http://localhost:8080/deliveries/add", newBook)
         .then((respone) => {
           console.log(respone.data);
+          Swal.fire("Tạo sách thành công", "OK").then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/book-entries";
+              // () => handleClose(true);
+            }
+          });
+          handleClose(true);
         });
-    } catch (e) {}
+    } catch (e) {
+      console.log("loi:", e);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "wrong",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/book-entries";
+        }
+      });
+    }
+    handleClose(true);
   };
   return (
-    <>
+    <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography alignCenter variant="h6" gutterBottom color="primary">
           Tạo phiếu nhập sách
@@ -178,67 +197,7 @@ function AddBookEntryForm() {
               );
             })}
           </List>
-          {/* {Array.from({ length: AmountInput }).map((_, index) => {
-            return (
-              <>
-                <Grid mb={1} item xs={1}>
-                  <TextField
-                    label={index + 2}
-                    fullWidth
-                    disabled
-                    color="primary"
-                    variant="standard"
-                  ></TextField>
-                </Grid>
-                <Grid mb={1} item xs={3}>
-                  <TextField
-                    {...register("bookName", { required: true })}
-                    required
-                    // id="bookName"
-                    name="bookName"
-                    label="Tên sách "
-                    fullWidth
-                    autoComplete="given-name"
-                    variant="standard"
-                  />
-                </Grid>
-                <Grid mb={1} item xs={3}>
-                  <TextField
-                    {...register("author", { required: true })}
-                    required
-                    // id="author"
-                    name="author"
-                    label="Tác giả"
-                    fullWidth
-                    autoComplete="family-name"
-                    variant="standard"
-                  />
-                </Grid>
-                <Grid mb={1} item xs={3}>
-                  <TextField
-                    required
-                    {...register("cost", { required: true })}
-                    // id="cost"
-                    name="cost"
-                    label="Đơn giá"
-                    fullWidth
-                    variant="standard"
-                  />
-                </Grid>
-                <Grid mb={1} item xs={2}>
-                  <TextField
-                    required
-                    {...register("cost", { required: true })}
-                    // id="quantity"
-                    name="quantity"
-                    label="Số lượng"
-                    fullWidth
-                    variant="standard"
-                  />
-                </Grid>
-              </>
-            );
-          })} */}
+
           <Grid mb={1} item xs={12}>
             <Icon
               style={{
@@ -263,19 +222,6 @@ function AddBookEntryForm() {
           </Grid>
 
           <Grid mb={2} item xs={12}>
-            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="Ngày nhập"
-                id="date"
-                name="date"
-                value={value}
-                slotProps={{ textField: { fullWidth: true } }}
-                {...register("date", { required: true })}
-                onChange={(newValue) => {
-                  setValue(newValue);
-                }}
-              />
-            </LocalizationProvider> */}
             <InputLabel htmlFor="date">Ngày nhập</InputLabel>
             <TextField
               type="date"
@@ -293,14 +239,18 @@ function AddBookEntryForm() {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Button variant="outlined" color="primary">
+              <Button
+                onClick={() => handleClose()}
+                variant="outlined"
+                color="primary"
+              >
                 Quay lại
               </Button>
             </Grid>
           </Grid>
         </Grid>
       </form>
-    </>
+    </Box>
   );
 }
 

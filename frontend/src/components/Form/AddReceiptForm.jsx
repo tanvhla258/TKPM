@@ -21,8 +21,9 @@ import axios from "axios";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../reducers/userReducer";
+import Swal from "sweetalert2";
 
-function AddReceiptForm() {
+function AddReceiptForm({ handleClose }) {
   const {
     register,
     handleSubmit,
@@ -51,6 +52,12 @@ function AddReceiptForm() {
         .post("http://localhost:8080/receipts/add", newReceipt)
         .then((respone) => {
           console.log(respone.data);
+          Swal.fire("Tạo phiếu thu thành công", "OK").then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/receipts";
+              // () => handleClose(true);
+            }
+          });
         });
     } catch (e) {}
   };
@@ -155,7 +162,11 @@ function AddReceiptForm() {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Button variant="outlined" color="primary">
+              <Button
+                onClick={() => handleClose()}
+                variant="outlined"
+                color="primary"
+              >
                 Quay lại
               </Button>
             </Grid>

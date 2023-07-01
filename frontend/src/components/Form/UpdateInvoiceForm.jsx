@@ -13,10 +13,9 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
+import Swal from "sweetalert2";
 import axios from "axios";
 import { useState } from "react";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useForm } from "react-hook-form";
 import dayjs from "dayjs";
@@ -24,15 +23,12 @@ import { TextField } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bookActions } from "../../reducers/bookReducer";
-function UpdateInvoiceForm() {
+function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
+  console.log(updateInvoice);
   const [AmountInput, SetAmountInput] = useState(1);
   const dispatch = useDispatch();
   const books = useSelector((state) => state.book.books);
-  // const [book, setBook] = React.useState("");
 
-  // const handleChange = (event) => {
-  //   setBook(event.target.value);
-  // };
   useEffect(() => {
     dispatch(bookActions.fetchAllBooks());
   }, [dispatch]);
@@ -79,6 +75,13 @@ function UpdateInvoiceForm() {
         .post("http://localhost:8080/invoices/add", newInvoice)
         .then((respone) => {
           console.log(respone.data);
+          Swal.fire("Cập nhật thành công", "OK").then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/book-entries";
+              // () => handleClose(true);
+            }
+          });
+          handleCloseUpdate(true);
         });
     } catch (e) {
       console.log(e);
@@ -102,6 +105,7 @@ function UpdateInvoiceForm() {
                 label="Tên khách hàng "
                 fullWidth
                 variant="standard"
+                defaultValue={updateInvoice.customer.fullName}
               />
             </Grid>
 
@@ -114,6 +118,7 @@ function UpdateInvoiceForm() {
                 label="Số điện thoại"
                 fullWidth
                 variant="standard"
+                defaultValue={updateInvoice.customer.phoneNumber}
               />
             </Grid>
             <Grid mb={1} item xs={12}>
@@ -125,6 +130,7 @@ function UpdateInvoiceForm() {
                 label="Email"
                 fullWidth
                 variant="standard"
+                defaultValue={updateInvoice.customer.email}
               />
             </Grid>
             <Grid mb={1} item xs={12}>
@@ -136,6 +142,7 @@ function UpdateInvoiceForm() {
                 label="Địa chỉ"
                 fullWidth
                 variant="standard"
+                defaultValue={updateInvoice.customer.address}
               />
             </Grid>
           </Grid>
@@ -147,7 +154,7 @@ function UpdateInvoiceForm() {
               </Typography>
             </Grid>
             <List>
-              {Array.from({ length: AmountInput }).map((_, index) => {
+              {updateInvoice.bookInvoices.map((item, index) => {
                 return (
                   <ListItem>
                     <Grid container spacing={3}>
@@ -174,7 +181,10 @@ function UpdateInvoiceForm() {
                             name={`bookInfo${index}`}
                             labelId={`bookInfo${index}`}
                             label="sách"
-                            // defaultValue={book[0]}
+                            defaultValue={books.find(
+                              (book) => book.title === item.book.title
+                            )}
+
                             // onChange={handleChange}
                           >
                             {books.map((book) => (
@@ -194,6 +204,7 @@ function UpdateInvoiceForm() {
                           name={`cost${index}`}
                           label="Đơn giá"
                           fullWidth
+                          defaultValue={item.unitPrice}
                           variant="standard"
                         />
                       </Grid>
@@ -205,6 +216,7 @@ function UpdateInvoiceForm() {
                           name={`quantity${index}`}
                           label="Số lượng"
                           fullWidth
+                          defaultValue={item.quantity}
                           variant="standard"
                         />
                       </Grid>
@@ -215,15 +227,13 @@ function UpdateInvoiceForm() {
             </List>
           </Grid>
           <Grid mb={2} item xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="Ngày nhập"
-                id="date"
-                name="date"
-                slotProps={{ textField: { fullWidth: true } }}
-                {...register("date", { required: true })}
-              />
-            </LocalizationProvider>
+            <TextField
+              type="date"
+              {...register("date", { required: true })}
+              id="date"
+              name="date"
+              defaultValue={updateInvoice.creationDate}
+            />
           </Grid>
 
           <Grid container item xs={12}>
@@ -234,7 +244,11 @@ function UpdateInvoiceForm() {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Button variant="outlined" color="primary">
+              <Button
+                onClick={() => handleCloseUpdate()}
+                variant="outlined"
+                color="primary"
+              >
                 Quay lại
               </Button>
             </Grid>

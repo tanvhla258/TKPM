@@ -35,19 +35,30 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
+const onRemove = (bookEntry) => {
+  try {
+    axios
+      .post(`http://localhost:8080/deliveries/remvove${bookEntry.id}`)
+      .then((respone) => {
+        console.log(respone.data);
+        Swal.fire("Xoá thành công", "OK").then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/book-entries";
+            // () => handleClose(true);
+          }
+        });
+      });
+  } catch (e) {
+    console.log(e);
+  }
+};
 function BookEntry({ bookEntry, handleOpenUpdate }) {
-  console.log(bookEntry);
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  // const rows = [
-  //   createData(1, "Frozen yoghurt", 6.0, 24),
-  //   createData(2, "Ice cream sandwich", 9.0, 37),
-  //   createData(3, "Eclair", 16.0, 24),
-  // ];
   const rows = bookEntry.deliveryNoteBooks.map((item, index) => {
     return createData(
       index + 1,
@@ -56,7 +67,6 @@ function BookEntry({ bookEntry, handleOpenUpdate }) {
       item.quantity
     );
   });
-  console.log("rows:", rows);
   return (
     <div>
       <Card
@@ -120,14 +130,19 @@ function BookEntry({ bookEntry, handleOpenUpdate }) {
         <CardActions>
           {/* <Button size="small">Learn More</Button> */}
           <Button
-            onClick={() => handleOpenUpdate()}
+            onClick={() => handleOpenUpdate(bookEntry)}
             variant="outlined"
             color="success"
             startIcon={<EditIcon />}
           >
             Chỉnh sửa
           </Button>
-          <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
+          <Button
+            onClick={() => onRemove(bookEntry)}
+            variant="outlined"
+            color="error"
+            startIcon={<DeleteIcon />}
+          >
             Xóa
           </Button>
           <ExpandMore

@@ -1,23 +1,17 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import WidgetsIcon from "@mui/icons-material/Widgets";
-import Switch from "@mui/material/Switch";
-import AddIcon from "../components/AddIcon";
 import { useSelector, useDispatch } from "react-redux";
 import { regulationActions } from "../reducers/regulationReducer";
-import { Grid } from "@mui/material";
 import { useEffect } from "react";
-
+import UpdateRegulationForm from "../components/Form/UpdateRegulationForm";
+import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
+import { boxstyle600 } from "../constants/boxstyle";
 const label = { inputProps: { "aria-label": "Switch demo" } };
-const SettingCard = ({ regulation }) => {
- 
+const SettingCard = ({ regulation, handleOpenUpdate }) => {
   return (
     <Card sx={{ background: "#fff", minWidth: 400, position: "relative" }}>
       {/* {switchValue && (
@@ -34,7 +28,7 @@ const SettingCard = ({ regulation }) => {
       )} */}
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color={"text.secondary"} gutterBottom>
-          Quy dinh {regulation.id}
+          Quy định {regulation.id}
         </Typography>
         <Typography variant="h5" component="div">
           {regulation.title}
@@ -43,11 +37,11 @@ const SettingCard = ({ regulation }) => {
           {regulation.value}
         </Typography>
       </CardContent>
-  
+
       <CardActions>
         {/* <Button size="small">Learn More</Button> */}
         <Button
-          onClick={() => handleOpenUpdate()}
+          onClick={() => handleOpenUpdate(regulation)}
           variant="outlined"
           color="success"
           startIcon={<EditIcon />}
@@ -78,31 +72,55 @@ function RegulationPage() {
   // console.log(switches);
   const dispatch = useDispatch();
   const regulations = useSelector((state) => state.regulation.regulations);
+  const [updateRegulation, setUpdateRegulation] = React.useState(false);
 
   useEffect(() => {
     dispatch(regulationActions.fetchAllRegulations());
   }, [dispatch]);
 
   console.log(regulations);
- 
+  const [openUpdate, setOpenUpdate] = React.useState(false);
+
+  const handleOpenUpdate = (data) => {
+    setUpdateRegulation(data);
+    setOpenUpdate(true);
+  };
+  const handleCloseUpdate = () => setOpenUpdate(false);
   return (
-    <Grid container spacing={2}>
-     
-   {regulations.result?.map(reg=>{
-    return( <Grid item>
-      <SettingCard
-        // handleToggle={handleToggle}
-        id="switch1"
-        regulation={reg}
-        // switchValue={switches.switch1}
-      />
-    </Grid>)
-   })}
-      {/* <Grid item>
+    <>
+      <Grid container spacing={2}>
+        {regulations.result?.map((reg) => {
+          return (
+            <Grid item>
+              <SettingCard
+                // handleToggle={handleToggle}
+                id="switch1"
+                regulation={reg}
+                handleOpenUpdate={handleOpenUpdate}
+                // switchValue={switches.switch1}
+              />
+            </Grid>
+          );
+        })}
+        {/* <Grid item>
         <SettingCard id="switch4" />
       </Grid> */}
-      {/* <AddIcon handleOpen={handleOpen} /> */}
-    </Grid>
+        {/* <AddIcon handleOpen={handleOpen} /> */}
+      </Grid>
+      <Modal
+        open={openUpdate}
+        onClose={handleCloseUpdate}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={boxstyle600}>
+          <UpdateRegulationForm
+            handleCloseUpdate={handleCloseUpdate}
+            updateRegulation={updateRegulation}
+          />
+        </Box>
+      </Modal>
+    </>
   );
 }
 

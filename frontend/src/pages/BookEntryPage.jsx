@@ -23,10 +23,14 @@ function BookEntryPage() {
 
   const [open, setOpen] = React.useState(false);
   const [openUpdate, setOpenUpdate] = React.useState(false);
+  const [updateBookEntry, setUpdateBookEntry] = React.useState();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleOpenUpdate = () => setOpenUpdate(true);
+  const handleOpenUpdate = (data) => {
+    setOpenUpdate(true);
+    setUpdateBookEntry(data);
+  };
   const handleCloseUpdate = () => setOpenUpdate(false);
   return (
     <div style={{ position: "relative" }}>
@@ -34,7 +38,10 @@ function BookEntryPage() {
         {bookEntries.content?.map((be) => {
           return (
             <Grid item>
-              <BookEntry bookEntry={be}></BookEntry>
+              <BookEntry
+                handleOpenUpdate={handleOpenUpdate}
+                bookEntry={be}
+              ></BookEntry>
             </Grid>
           );
         })}
@@ -44,12 +51,15 @@ function BookEntryPage() {
 
       <Modal open={open} onClose={handleClose}>
         <Box sx={boxstyle900}>
-          <AddBookEntryForm />
+          <AddBookEntryForm setOpen={setOpen} handleClose={handleClose} />
         </Box>
       </Modal>
       <Modal open={openUpdate} onClose={handleCloseUpdate}>
         <Box sx={boxstyle900}>
-          <UpdateBookEntryForm />
+          <UpdateBookEntryForm
+            updateBookEntry={updateBookEntry}
+            handleCloseUpdate={handleCloseUpdate}
+          />
         </Box>
       </Modal>
     </div>

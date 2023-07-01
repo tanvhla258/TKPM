@@ -21,7 +21,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
+import axios from "axios";
+import Swal from "sweetalert2";
 function createData(id, bookName, author, quantity, unitPrice) {
   return { id, bookName, author, quantity, unitPrice };
 }
@@ -56,6 +57,23 @@ function Invoice({ invoice, handleOpenUpdate }) {
   );
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+  const onRemove = (invoice) => {
+    try {
+      axios
+        .post(`http://localhost:8080/invoices/remvove${invoice.id}`, invoice)
+        .then((respone) => {
+          console.log(respone.data);
+          Swal.fire("Xoá thành công", "OK").then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/invoices";
+              // () => handleClose(true);
+            }
+          });
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <>
@@ -116,14 +134,19 @@ function Invoice({ invoice, handleOpenUpdate }) {
           {/* <Button size="small">Learn More</Button> */}
 
           <Button
-            onClick={() => handleOpenUpdate()}
+            onClick={() => handleOpenUpdate(invoice)}
             variant="outlined"
             color="success"
             startIcon={<EditIcon />}
           >
             Chỉnh sửa
           </Button>
-          <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
+          <Button
+            onClick={() => onRemove(invoice)}
+            variant="outlined"
+            color="error"
+            startIcon={<DeleteIcon />}
+          >
             Xóa
           </Button>
           <ExpandMore

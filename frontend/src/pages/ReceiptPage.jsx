@@ -12,11 +12,17 @@ import { receiptActions } from "../reducers/receiptReducer";
 import { useEffect } from "react";
 function ReceiptPage() {
   const [open, setOpen] = React.useState(false);
+  const [updateReceipt, setUpdateReceipt] = React.useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [openUpdate, setOpenUpdate] = React.useState(false);
-  const handleOpenUpdate = () => setOpenUpdate(true);
+  const handleOpenUpdate = (data) => {
+    setUpdateReceipt(data);
+    setOpenUpdate(true);
+  };
   const handleCloseUpdate = () => setOpenUpdate(false);
+
   const dispatch = useDispatch();
   const receipts = useSelector((state) => state.receipt.receipts);
   useEffect(() => {
@@ -24,17 +30,7 @@ function ReceiptPage() {
   }, [dispatch]);
 
   console.log(receipts);
-  // const receipt = {
-  //   creationDate: "2023-06-28",
-  //   totalCost: 200000,
-  //   customer: {
-  //     fullName: "Kim Tien",
-  //     phoneNumber: "123",
-  //     address: "Ho Chi Minh",
-  //     email: "20120210@student.hcmus.edu.vn",
-  //     id: 1,
-  //   },
-  // };
+
   return (
     <div style={{ position: "relative" }}>
       <Grid marginTop={2} container spacing={2}>
@@ -59,7 +55,7 @@ function ReceiptPage() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={boxstyle}>
-          <AddReceiptForm />
+          <AddReceiptForm handleClose={handleClose} />
         </Box>
       </Modal>
       <Modal
@@ -69,7 +65,10 @@ function ReceiptPage() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={boxstyle}>
-          <UpdateReceiptForm />
+          <UpdateReceiptForm
+            handleCloseUpdate={handleCloseUpdate}
+            updateReceipt={updateReceipt}
+          />
         </Box>
       </Modal>
     </div>

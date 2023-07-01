@@ -15,16 +15,14 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
 import { useForm } from "react-hook-form";
-import dayjs from "dayjs";
 import { TextField } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bookActions } from "../../reducers/bookReducer";
-function AddInvoiceForm() {
+import Swal from "sweetalert2";
+function AddInvoiceForm({ handleClose }) {
   const [AmountInput, SetAmountInput] = useState(1);
   const dispatch = useDispatch();
   const books = useSelector((state) => state.book.books);
@@ -77,7 +75,7 @@ function AddInvoiceForm() {
         address: data.address,
         email: data.email,
       },
-      creationDate: "2023-06-27",
+      creationDate: data.date,
     };
     console.log("send:", newInvoice);
     try {
@@ -85,6 +83,13 @@ function AddInvoiceForm() {
         .post("http://localhost:8080/invoices/add", newInvoice)
         .then((respone) => {
           console.log(respone.data);
+          Swal.fire("Tạo hóa đơn thành công", "OK").then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/invoices";
+              // () => handleClose(true);
+            }
+          });
+          handleClose(true);
         });
     } catch (e) {
       console.log(e);
@@ -180,6 +185,7 @@ function AddInvoiceForm() {
                             name={`bookInfo${index}`}
                             labelId={`bookInfo${index}`}
                             label="sách"
+
                             // defaultValue={book[0]}
                             // onChange={handleChange}
                           >
@@ -260,7 +266,11 @@ function AddInvoiceForm() {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Button variant="outlined" color="primary">
+              <Button
+                onClick={() => handleClose()}
+                variant="outlined"
+                color="primary"
+              >
                 Quay lại
               </Button>
             </Grid>

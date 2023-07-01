@@ -8,18 +8,18 @@ import {
   Icon,
   List,
   ListItem,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
-import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { TextField } from "@mui/material";
-
-function UpdateBookEntryForm({ book }) {
-  const [value, setValue] = useState(dayjs(Date.now()));
-
+import { useDispatch, useSelector } from "react-redux";
+import { bookActions } from "../../reducers/bookReducer";
+import Swal from "sweetalert2";
+function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
   const {
     register,
     handleSubmit,
@@ -27,22 +27,58 @@ function UpdateBookEntryForm({ book }) {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // console.log(data.date);
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.book.categories);
 
+  useEffect(() => {
+    dispatch(bookActions.fetchAllCategories());
+  }, [dispatch]);
+
+  const onSubmit = (data) => {
+    console.log("formdata", data);
+    // console.log(data.date);
+    const deliveryNoteBooks = [];
+    for (let i = 0; i < updateBookEntry.deliveryNoteBooks.length; i++) {
+      let bookNameKey = `bookname${i}`;
+      let authorKey = `author${i}`;
+      let quantityKey = `quantity${i}`;
+      const deliveryNoteBook = {
+        quantity: +data[quantityKey],
+        book: {
+          title: data[bookNameKey],
+          author: data[authorKey],
+          category: {
+            id: +updateBookEntry.deliveryNoteBooks[i].book.category.id,
+          },
+        },
+      };
+      deliveryNoteBooks.push(deliveryNoteBook);
+    }
+    console.log("deli", deliveryNoteBooks);
     const newBookEntry = {
-      creationDate: "2020-06-12",
+      creationDate: data.date,
       shipperName: "Nguyen Van A",
+      deliveryNoteBooks: deliveryNoteBooks,
     };
-    console.log(newBookEntry);
+    console.log("send:", newBookEntry);
     try {
       axios
-        .post("http://localhost:8080/deliveries/add", newBookEntry)
+        .post(
+          `http://localhost:8080/deliveries/update?id=${updateBookEntry.id}`,
+          newBookEntry
+        )
         .then((respone) => {
           console.log(respone.data);
+          Swal.fire("Cập nhật thành công", "OK").then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/book-entries";
+              // () => handleClose(true);
+            }
+          });
+          handleCloseUpdate(true);
         });
     } catch (e) {}
+    handleCloseUpdate();
   };
   return (
     <>
@@ -51,68 +87,104 @@ function UpdateBookEntryForm({ book }) {
           Cập nhật phiếu nhập sách
         </Typography>
         <Grid container spacing={3}>
-          <Grid mb={1} item xs={3}>
-            <TextField
-              {...register(`bookname`, { required: true })}
-              required
-              // id="bookName"
-              name={`bookname`}
-              label="Tên sách "
-              fullWidth
-              autoComplete="given-name"
-              variant="standard"
-              // defaultValue={book.name}
-            />
-          </Grid>
-          <Grid mb={1} item xs={3}>
-            <TextField
-              {...register(`author`, { required: true })}
-              required
-              // id="author"
-              name={`author`}
-              label="Tác giả"
-              fullWidth
-              autoComplete="family-name"
-              variant="standard"
-            />
-          </Grid>
-          <Grid mb={1} item xs={3}>
-            <TextField
-              required
-              {...register(`cost`, { required: true })}
-              // id="cost"
-              name={`cost`}
-              label="Đơn giá"
-              fullWidth
-              variant="standard"
-            />
-          </Grid>
-          <Grid mb={1} item xs={2}>
-            <TextField
-              required
-              {...register(`quantity`, { required: true })}
-              // id="quantity"
-              name={`quantity`}
-              label="Số lượng"
-              fullWidth
-              variant="standard"
-            />
-          </Grid>
+          <List>
+            {updateBookEntry.deliveryNoteBooks?.map((item, index) => {
+              return (
+                <ListItem>
+                  <Grid mb={1} item xs={1}>
+                    <TextField
+                      label={index + 1}
+                      fullWidth
+                      disabled
+                      color="primary"
+                      variant="standard"
+                    ></TextField>
+                  </Grid>
+                  <Grid mb={1} item xs={3}>
+                    <TextField
+                      defaultValue={item.book.title}
+                      {...register(`bookname${index}`, { required: true })}
+                      required
+                      // id="bookName"
+                      name={`bookname${index}`}
+                      label="Tên sách "
+                      fullWidth
+                      autoComplete="given-name"
+                      variant="standard"
+                    />
+                  </Grid>
+                  <Grid mb={1} item xs={1} />
+
+                  <Grid mb={1} item xs={3}>
+                    <TextField
+                      defaultValue={item.book.author}
+                      {...register(`author${index}`, { required: true })}
+                      required
+                      // id="author"
+                      name={`author${index}`}
+                      label="Tác giả"
+                      fullWidth
+                      autoComplete="family-name"
+                      variant="standard"
+                    />
+                  </Grid>
+                  <Grid mb={1} item xs={1} />
+
+                  <Grid mb={1} item xs={1}>
+                    <TextField
+                      defaultValue={item.quantity}
+                      required
+                      {...register(`quantity${index}`, { required: true })}
+                      // id="quantity"
+                      name={`quantity${index}`}
+                      label="Số lượng"
+                      fullWidth
+                      variant="standard"
+                    />
+                  </Grid>
+                  <Grid mb={1} item xs={1} />
+
+                  <Grid mb={1} item xs={2}>
+                    {/* <InputLabel id={`category`}>Thể loại</InputLabel>
+
+                    <Select
+                      {...register(`category`, {
+                        required: true,
+                      })}
+                      required
+                      id={`category`}
+                      defaultValue={
+                        categories.filter(
+                          (cate) => cate.id == item.book.category.id
+                        ).name
+                      }
+                      value={book}
+                      name={`category`}
+                      labelId={`category`}
+                      label="Thể loại"
+                      // defaultValue={book[0]}
+                      // onChange={handleChange}
+                    >
+                      {categories.map((cate) => (
+                        <MenuItem sx={{ overflow: "clip" }} value={cate.id}>
+                          {cate.name}
+                        </MenuItem>
+                      ))}
+                    </Select> */}
+                  </Grid>
+                </ListItem>
+              );
+            })}
+          </List>
 
           <Grid mb={2} item xs={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="Ngày nhập"
-                id="date"
-                name="date"
-                value={value}
-                slotProps={{ textField: { fullWidth: true } }}
-                {...register("date", { required: true })}
-                onChange={(newValue) => {
-                  setValue(newValue);
-                }}
-              />
-            </LocalizationProvider>
+            <TextField
+              type="date"
+              {...register("date", { required: true })}
+              id="date"
+              name="date"
+              defaultValue={updateBookEntry.creationDate}
+            />
           </Grid>
 
           <Grid container justifyContent={"space-between"} item xs={12}>
@@ -123,7 +195,11 @@ function UpdateBookEntryForm({ book }) {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Button variant="outlined" color="primary">
+              <Button
+                onClick={() => handleCloseUpdate()}
+                variant="outlined"
+                color="primary"
+              >
                 Quay lại
               </Button>
             </Grid>

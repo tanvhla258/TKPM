@@ -7,6 +7,22 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+const onRemove = (receipt) => {
+  try {
+    axios
+      .post(`http://localhost:8080/receipts/remvove${receipt.id}`)
+      .then((respone) => {
+        console.log(respone.data);
+        Swal.fire("Xoá thành công", "OK").then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/receipts";
+          }
+        });
+      });
+  } catch (e) {
+    console.log(e);
+  }
+};
 function Receipt({ receipt, handleOpenUpdate }) {
   return (
     <div>
@@ -32,14 +48,19 @@ function Receipt({ receipt, handleOpenUpdate }) {
         <CardActions>
           {/* <Button size="small">Learn More</Button> */}
           <Button
-            onClick={() => handleOpenUpdate()}
+            onClick={() => handleOpenUpdate(receipt)}
             variant="outlined"
             color="success"
             startIcon={<EditIcon />}
           >
             Chỉnh sửa
           </Button>
-          <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
+          <Button
+            onClick={() => onRemove(receipt)}
+            variant="outlined"
+            color="error"
+            startIcon={<DeleteIcon />}
+          >
             Xóa
           </Button>
         </CardActions>

@@ -10,20 +10,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { invoiceActions } from "../reducers/invoiceReducer";
 
-
 function InvoicePage() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [openUpdate, setOpenUpdate] = React.useState(false);
-  const handleOpenUpdate = () => setOpenUpdate(true);
+  const handleOpenUpdate = (data) => {
+    setOpenUpdate(true);
+    setUpdateInvoice(data);
+  };
   const handleCloseUpdate = () => setOpenUpdate(false);
+
+  const [updateInvoice, setUpdateInvoice] = React.useState(false);
+
   const dispatch = useDispatch();
   const invoices = useSelector((state) => state.invoice.invoices);
   useEffect(() => {
     dispatch(invoiceActions.fetchAllInvoice());
   }, [dispatch]);
-  console.log(invoices)
+  console.log(invoices);
   return (
     <div style={{ position: "relative" }}>
       <Grid marginTop={2} container spacing={2}>
@@ -56,12 +61,12 @@ function InvoicePage() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={boxstyle900}>
-          <AddInvoiceForm />
+          <AddInvoiceForm handleClose={handleClose} />
         </Box>
       </Modal>
       <Modal open={openUpdate} onClose={handleCloseUpdate}>
-        <Box sx={boxstyle600}>
-          <UpdateInvoiceForm />
+        <Box sx={boxstyle900}>
+          <UpdateInvoiceForm updateInvoice={updateInvoice} />
         </Box>
       </Modal>
     </div>
