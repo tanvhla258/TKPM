@@ -9,5 +9,5 @@ public interface RegulationService {
     List<Regulation> getAll();
     List<Regulation> updateRegulations(List<Regulation> regulations);
     Regulation getById(Long id);
-    Regulation updateRegulation(Long id, Regulation regulation);
+    Regulation updateRegulation(Long id, Integer value);
 }

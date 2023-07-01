@@ -40,10 +40,10 @@ public class RegulationController {
     }
 
     @PostMapping("update")
-    public Response updateRegulation(@RequestParam("id") Long id,@RequestBody RegulationDTO regulationDTO){
+    public Response updateRegulation(@RequestParam("id") Long id,@RequestParam Integer value){
         Preconditions.checkState(Objects.nonNull(id), REGULATION_ID_MISSING_MSG);
-        Preconditions.checkState(Objects.nonNull(regulationDTO), REGULATION_DETAILS_MISSING_MSG);
-        Regulation regulation = regulationMapper.toEntity(regulationDTO);
-        return ResponseAPI.positiveResponse(regulationService.updateRegulation(id, regulation));
+        Preconditions.checkState(Objects.nonNull(value), REGULATION_DETAILS_MISSING_MSG);
+//        Regulation regulation = regulationMapper.toEntity(regulationDTO);
+        return ResponseAPI.positiveResponse(regulationService.updateRegulation(id, value));
     }
 }

@@ -35,9 +35,9 @@ public class RegulationServiceImpl implements RegulationService {
     }
 
     @Override
-    public Regulation updateRegulation(Long id, Regulation regulation) {
+    public Regulation updateRegulation(Long id, Integer value) {
         Regulation foundRegulation = getById(id);
-        foundRegulation.setValue(regulation.getValue());
-        return regulationRepository.save(regulation);
+        foundRegulation.setValue(value);
+        return regulationRepository.save(foundRegulation);
     }
 }
