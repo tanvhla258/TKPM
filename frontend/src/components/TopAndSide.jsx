@@ -138,6 +138,7 @@ export default function TopAndSide() {
     <SettingsIcon />,
     <PersonIcon />,
   ];
+
   return (
     <>
       <CssBaseline />

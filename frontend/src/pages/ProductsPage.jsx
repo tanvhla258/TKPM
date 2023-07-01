@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import Book from "../components/Book";
 import { useEffect } from "react";
-import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
+import {
+  Button,
+  Grid,
+  Modal,
+  Box,
+  Typography,
+  Icon,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
 import Dropdown from "../components/Dropdown";
 import { boxstyle } from "../constants/boxstyle";
 import AddIcon from "../components/AddIcon";
@@ -11,41 +20,94 @@ import {
   SearchIconWrapper,
   Search,
 } from "../constants/styleComponent.js";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { bookActions } from "../reducers/bookReducer";
-
+import { useForm } from "react-hook-form";
 function ProductsPage() {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.book.books);
   const categories = useSelector((state) => state.book.categories);
-
+  const [searchInfo, setSearchInfo] = useState([]);
   useEffect(() => {
     dispatch(bookActions.fetchAllBooks());
     dispatch(bookActions.fetchAllCategories());
   }, [dispatch]);
+  console.log(searchInfo);
+  const bookRender = searchInfo.content ? searchInfo.content : books;
+  const categoriesName = categories.map((cate) => cate.name);
 
-  console.log(books);
-  console.log(categories);
- const categoriesName= categories.map(cate=>cate.name)
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+    try {
+      axios
+        .get(
+          `http://localhost:8080/books/search?title=${data.search}&page=0&size=10`
+        )
+        .then((respone) => {
+          console.log(respone.data);
+          setSearchInfo(respone.data);
+        })
+        .catch((e) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Không tìm thấy theo yêu cầu",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // window.location.href = "/book-entries";
+            }
+          });
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div>
-      <div style={{ display: "flex" }}>
-        <Search style={{ width: "50%" }}>
-          <SearchIconWrapper>
-            <SearchIcon color="primary" />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
+      <div style={{ display: "flex", gap: 20 }}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            // style={{ width: "50%" }}
+            {...register("search", { required: true })}
+            required
+            id="search"
+            name="search"
+            label="Tìm sách"
+            onKeyUp={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit(onSubmit);
+                // write your functionality here
+              }
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+            fullWidth
           />
-        </Search>
+          {/* <Button
+            // onClick={handleOpenUpdate}
+            variant="outlined"
+            color="success"
+            type="submit"
+          >
+            Tìm
+          </Button> */}
+        </form>
         <Dropdown label={"Thể loại"} inputArray={categoriesName} />
       </div>
       <Grid marginTop={2} container spacing={2}>
-        {books.map((book) => {
+        {bookRender?.map((book) => {
           return (
             <Grid item>
               <Book book={book}></Book>
@@ -53,24 +115,6 @@ function ProductsPage() {
           );
         })}
       </Grid>
-
-      {/* <AddIcon handleOpen={handleOpen} /> */}
-
-      {/* <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={boxstyle}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal> */}
     </div>
   );
 }

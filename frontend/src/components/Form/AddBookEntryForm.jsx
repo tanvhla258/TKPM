@@ -64,7 +64,7 @@ function AddBookEntryForm({ handleClose }) {
     }
     const newBook = {
       creationDate: data.date,
-      shipperName: "Nguyen Van A",
+      shipperName: data.shipper,
       deliveryNoteBooks: deliveryNoteBooks,
     };
     console.log(newBook);
@@ -80,19 +80,21 @@ function AddBookEntryForm({ handleClose }) {
             }
           });
           handleClose(true);
+        })
+        .catch((e) => {
+          console.log("loi:", e);
+
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: e.response.data.message,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // window.location.href = "/book-entries";
+            }
+          });
         });
-    } catch (e) {
-      console.log("loi:", e);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "wrong",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "/book-entries";
-        }
-      });
-    }
+    } catch (e) {}
     handleClose(true);
   };
   return (
@@ -101,6 +103,7 @@ function AddBookEntryForm({ handleClose }) {
         <Typography alignCenter variant="h6" gutterBottom color="primary">
           Tạo phiếu nhập sách
         </Typography>
+
         <Grid container spacing={3}>
           <List>
             {Array.from({ length: AmountInput }).map((_, index) => {
@@ -221,13 +224,25 @@ function AddBookEntryForm({ handleClose }) {
             </Icon>
           </Grid>
 
-          <Grid mb={2} item xs={12}>
+          <Grid item xs={12}>
             <InputLabel htmlFor="date">Ngày nhập</InputLabel>
             <TextField
               type="date"
               {...register("date", { required: true })}
               id="date"
               name="date"
+            />
+          </Grid>
+          <Grid mb={2} item xs={3}>
+            <TextField
+              {...register(`shipper`, { required: true })}
+              required
+              // id="bookName"
+              name={`shipper`}
+              label="Shipper "
+              fullWidth
+              autoComplete="given-name"
+              variant="standard"
             />
           </Grid>
 

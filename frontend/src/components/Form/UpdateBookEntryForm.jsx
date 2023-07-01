@@ -76,9 +76,23 @@ function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
             }
           });
           handleCloseUpdate(true);
+        })
+        .catch((e) => {
+          console.log("loi:", e);
+
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: e.response.data.message,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // window.location.href = "/book-entries";
+            }
+          });
         });
-    } catch (e) {}
-    handleCloseUpdate();
+    } finally {
+      handleCloseUpdate();
+    }
   };
   return (
     <>
@@ -190,7 +204,7 @@ function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
           <Grid container justifyContent={"space-between"} item xs={12}>
             <Grid item xs={12} sm={6}>
               <Button variant="outlined" color="success" type="submit">
-                Tạo phiếu
+                Cập nhật phiếu
               </Button>
             </Grid>
 

@@ -36,6 +36,9 @@ function Book({ book }) {
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {book.author}
         </Typography>
+        {/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          {book.quantity}
+        </Typography> */}
       </CardContent>
 
       <CardActions>

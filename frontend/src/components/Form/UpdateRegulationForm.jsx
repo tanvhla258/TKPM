@@ -45,6 +45,19 @@ function UpdateRegulationForm({
               // () => handleClose(true);
             }
           });
+        })
+        .catch((e) => {
+          console.log("loi:", e);
+
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: e.response.data.message,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // window.location.href = "/book-entries";
+            }
+          });
         });
     } catch (e) {}
   };

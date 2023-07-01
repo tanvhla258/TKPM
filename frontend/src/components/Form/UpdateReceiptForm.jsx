@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import {
   Button,
   Grid,
@@ -58,8 +59,23 @@ function UpdateReceiptForm({
               // () => handleClose(true);
             }
           });
+        })
+        .catch((e) => {
+          console.log("loi:", e);
+
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: e.response.data.message,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // window.location.href = "/book-entries";
+            }
+          });
         });
-    } catch (e) {}
+    } finally {
+      handleCloseUpdate();
+    }
   };
   return (
     <>
@@ -145,12 +161,7 @@ function UpdateReceiptForm({
 
           <Grid container justifyContent={"space-between"} item x={12}>
             <Grid item xs={12} sm={6}>
-              <Button
-                onClick={handleOpenUpdate}
-                variant="outlined"
-                color="success"
-                type="submit"
-              >
+              <Button variant="outlined" color="success" type="submit">
                 Cập nhật phiếu
               </Button>
             </Grid>

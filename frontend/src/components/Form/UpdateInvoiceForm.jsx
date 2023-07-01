@@ -16,15 +16,13 @@ import {
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useState } from "react";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useForm } from "react-hook-form";
-import dayjs from "dayjs";
 import { TextField } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bookActions } from "../../reducers/bookReducer";
 function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
-  console.log(updateInvoice);
+  console.log("invoice", updateInvoice);
   const [AmountInput, SetAmountInput] = useState(1);
   const dispatch = useDispatch();
   const books = useSelector((state) => state.book.books);
@@ -51,6 +49,7 @@ function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
       const book = {
         id: {
           bookId: data[bookKey].id,
+          invoiceId: updateInvoice.id,
         },
         quantity: +data[quantityKey],
         unitPrice: +data[costKey],
@@ -66,7 +65,8 @@ function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
         address: data.address,
         email: data.email,
       },
-      creationDate: "2023-06-27",
+      id: updateInvoice.id,
+      creationDate: data.date,
     };
     console.log("send:", newInvoice);
     try {
@@ -79,17 +79,30 @@ function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
           console.log(respone.data);
           Swal.fire("Cập nhật thành công", "OK").then((result) => {
             if (result.isConfirmed) {
-              window.location.href = "/book-entries";
+              window.location.href = "/invoices";
               // () => handleClose(true);
             }
           });
           handleCloseUpdate(true);
+        })
+        .catch((e) => {
+          console.log("loi:", e);
+
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: e.response.data.message,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // window.location.href = "/book-entries";
+            }
+          });
         });
-    } catch (e) {
-      console.log(e);
+    } finally {
+      handleCloseUpdate(true);
     }
   };
-
+  const handleChange = () => {};
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -180,14 +193,13 @@ function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
                             required
                             id={`bookInfo${index}`}
                             // value={book}
+                            // value={selectedBook}
+                            // onChange={(event) =>
+                            //   setSelectedBook(event.target.value)
+                            // }
                             name={`bookInfo${index}`}
                             labelId={`bookInfo${index}`}
                             label="sách"
-                            defaultValue={books.find(
-                              (book) => book.title === item.book.title
-                            )}
-
-                            // onChange={handleChange}
                           >
                             {books.map((book) => (
                               <MenuItem value={book}>

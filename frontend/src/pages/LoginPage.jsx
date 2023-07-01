@@ -51,8 +51,10 @@ function LoginPage() {
     <ThemeProvider theme={defaultTheme}>
       <Grid
         container
+        zIndex={10}
+        position={"absolute"}
         component="main"
-        sx={{ height: "100vh", padding: "100px" }}
+        sx={{ height: "100vh" }}
       >
         <CssBaseline />
         <Grid
@@ -123,6 +125,7 @@ function LoginPage() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                onClick={() => (window.location.href = "/")}
               >
                 Sign In
               </Button>
