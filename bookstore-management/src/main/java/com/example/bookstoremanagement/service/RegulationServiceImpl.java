@@ -33,4 +33,11 @@ public class RegulationServiceImpl implements RegulationService {
     public Regulation getById(Long id) {
         return regulationRepository.findById(id).orElseThrow(() -> new RegulationNotFoundException("Regulation not found!"));
     }
+
+    @Override
+    public Regulation updateRegulation(Long id, Regulation regulation) {
+        Regulation foundRegulation = getById(id);
+        foundRegulation.setValue(regulation.getValue());
+        return regulationRepository.save(regulation);
+    }
 }

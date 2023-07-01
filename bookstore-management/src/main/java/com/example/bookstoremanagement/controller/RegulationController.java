@@ -23,9 +23,9 @@ import java.util.Objects;
 public class RegulationController {
     private final RegulationService regulationService;
     private final RegulationMapper regulationMapper;
-//    private final String REGULATION_ID_MISSING_MSG = "Regulation's id must be specified";
+    private final String REGULATION_ID_MISSING_MSG = "Regulation's id must be specified";
     private final String REGULATION_DETAILS_MISSING_MSG = "Regulation's details must be specified";
-    @PostMapping("update")
+    @PostMapping("update/all")
     public Response updateRegulations(@RequestBody List<RegulationDTO> regulationDTO){
 //        Preconditions.checkState(Objects.nonNull(id), REGULATION_ID_MISSING_MSG);
         Preconditions.checkState(Objects.nonNull(regulationDTO), REGULATION_DETAILS_MISSING_MSG);
@@ -37,5 +37,13 @@ public class RegulationController {
     public Response getAllRegulation(){
         List<Regulation> regulations = regulationService.getAll();
         return ResponseAPI.positiveResponse(regulationMapper.toDtoList(regulations));
+    }
+
+    @PostMapping("update")
+    public Response updateRegulation(@RequestParam("id") Long id,@RequestBody RegulationDTO regulationDTO){
+        Preconditions.checkState(Objects.nonNull(id), REGULATION_ID_MISSING_MSG);
+        Preconditions.checkState(Objects.nonNull(regulationDTO), REGULATION_DETAILS_MISSING_MSG);
+        Regulation regulation = regulationMapper.toEntity(regulationDTO);
+        return ResponseAPI.positiveResponse(regulationService.updateRegulation(id, regulation));
     }
 }
