@@ -81,41 +81,41 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(DeptLargerThanRegulationWhenBuyingException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleDeptLargerThanRegulationWhenBuyingException(Exception exception){
-        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND);
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
         apiError.setMessage(exception.getMessage());
         return buildResponseEntity(apiError);
     }
 
     @ExceptionHandler(InventoryAfterSellingLessThanRegulationException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleInventoryAfterSellingLessThanRegulationException(Exception exception){
-        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND);
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
         apiError.setMessage(exception.getMessage());
         return buildResponseEntity(apiError);
     }
 
     @ExceptionHandler(ProceedsMoreThanDeptException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleProceedsMoreThanDeptException(Exception exception){
-        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND);
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
         apiError.setMessage(exception.getMessage());
         return buildResponseEntity(apiError);
     }
 
     @ExceptionHandler(QuantityOfBookInventoryWhenDeliveryMoreThanRegulationException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleQuantityOfBookInventoryWhenDeliveryMoreThanRegulationException(Exception exception){
-        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND);
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
         apiError.setMessage(exception.getMessage());
         return buildResponseEntity(apiError);
     }
 
     @ExceptionHandler(QuantityOfDeliveryBookLessThanRegulationException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleQuantityOfDeliveryBookLessThanRegulationException(Exception exception){
-        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND);
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
         apiError.setMessage(exception.getMessage());
         return buildResponseEntity(apiError);
     }
