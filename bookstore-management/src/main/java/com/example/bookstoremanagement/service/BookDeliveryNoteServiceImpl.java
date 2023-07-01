@@ -1,10 +1,7 @@
 package com.example.bookstoremanagement.service;
 
 import com.example.bookstoremanagement.domain.*;
-import com.example.bookstoremanagement.exception.BookDeliveryNoteNotFoundException;
-import com.example.bookstoremanagement.exception.QuantityOfBookInventoryWhenDeliveryMoreThanRegulationException;
-import com.example.bookstoremanagement.exception.QuantityOfDeliveryBookLessThanRegulationException;
-import com.example.bookstoremanagement.exception.RegulationNotFoundException;
+import com.example.bookstoremanagement.exception.*;
 import com.example.bookstoremanagement.repository.BookDeliveryNoteRepository;
 import com.example.bookstoremanagement.repository.BookRepository;
 import com.example.bookstoremanagement.repository.CategoryRepository;
@@ -17,9 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -74,23 +69,88 @@ public class BookDeliveryNoteServiceImpl implements BookDeliveryNoteService{
 
     @Override
     public BookDeliveryNote updateBookDeliveryNote(Long id, BookDeliveryNote bookDeliveryNote) {
-        checkRegulation(bookDeliveryNote);
+
+        checkRegulationInPreviousState(id, bookDeliveryNote);
+
+        deleteBookDeliveryNote(id);
+        return addBookDeliveryNote(bookDeliveryNote);
+
+//        BookDeliveryNote foundNote = getBookDeliveryNoteById(id);
+//        for(BookDeliveryNoteBook bookDeliveryNoteBook: foundNote.getDeliveryNoteBooks()){
+//            Book book  = bookDeliveryNoteBook.getBook();
+//            Book foundBook = bookRepository.findBookByFields(book.getTitle(), book.getCategory().getId(), book.getAuthor());
+//            if(foundBook == null){
+//                continue;
+//            }
+//            for(InventoryByMonth i: InventoryByMonth.filterByMonthYear(foundBook.getInventoryByMonthSet(), foundNote.getCreationDate().getMonthValue(), foundNote.getCreationDate().getYear())){
+//                i.setQuantity(i.getQuantity() - bookDeliveryNoteBook.getQuantity());
+//            }
+//        }
+//        updateBookInventoryByMonth(bookDeliveryNote);
+//        foundNote.setCreationDate(bookDeliveryNote.getCreationDate());
+//        foundNote.setShipperName(bookDeliveryNote.getShipperName());
+//        foundNote.setDeliveryNoteBooks(bookDeliveryNote.getDeliveryNoteBooks());
+//        return deliveryNoteRepository.save(foundNote);
+    }
+
+    private void checkRegulationInPreviousState(Long id, BookDeliveryNote bookDeliveryNote){
         BookDeliveryNote foundNote = getBookDeliveryNoteById(id);
+        List<Book> books=  new ArrayList<>();
         for(BookDeliveryNoteBook bookDeliveryNoteBook: foundNote.getDeliveryNoteBooks()){
-            Book book  = bookDeliveryNoteBook.getBook();
+            Book book = bookDeliveryNoteBook.getBook();
             Book foundBook = bookRepository.findBookByFields(book.getTitle(), book.getCategory().getId(), book.getAuthor());
+
             if(foundBook == null){
                 continue;
             }
-            for(InventoryByMonth i: InventoryByMonth.filterByMonthYear(foundBook.getInventoryByMonthSet(), bookDeliveryNote.getCreationDate().getMonthValue(), bookDeliveryNote.getCreationDate().getYear())){
+
+            Set<InventoryByMonth> foundInventories;
+            foundInventories = InventoryByMonth.filterByMonthYear(foundBook.getInventoryByMonthSet(), foundNote.getCreationDate().getMonthValue(), foundNote.getCreationDate().getYear());
+            for(InventoryByMonth i: foundInventories){
                 i.setQuantity(i.getQuantity() - bookDeliveryNoteBook.getQuantity());
             }
+            books.add(foundBook);
         }
-        updateBookInventoryByMonth(bookDeliveryNote);
-        foundNote.setCreationDate(bookDeliveryNote.getCreationDate());
-        foundNote.setShipperName(bookDeliveryNote.getShipperName());
-        foundNote.setDeliveryNoteBooks(bookDeliveryNote.getDeliveryNoteBooks());
-        return deliveryNoteRepository.save(foundNote);
+
+        Integer check = regulationRepository.findById(0L).orElseThrow(() -> new RegulationNotFoundException("Regulation not found")).getValue();
+        for(BookDeliveryNoteBook bookDeliveryNoteBook: bookDeliveryNote.getDeliveryNoteBooks()){
+            if(bookDeliveryNoteBook.getQuantity() < check){
+                throw new QuantityOfDeliveryBookLessThanRegulationException(check);
+            }
+        }
+//         Current quantity of book less than regulation
+        check = regulationRepository.findById(1L).orElseThrow(() -> new RegulationNotFoundException("Regulation not found")).getValue();
+        for(BookDeliveryNoteBook bookDeliveryNoteBook: bookDeliveryNote.getDeliveryNoteBooks()){
+            Long inBookId = bookDeliveryNoteBook.getId().getBookId();
+            Book inBook = bookRepository.findById(inBookId).orElseThrow(() -> new BookNotFoundException("No book found for id={"+inBookId+"}"));
+            //if not exist in
+            Book f = null;
+            int inMonth = bookDeliveryNote.getCreationDate().getMonthValue();
+            int inYear = bookDeliveryNote.getCreationDate().getYear();
+            for(Book book: books){
+                if(Objects.equals(book.getCategory().getId(), inBook.getCategory().getId())
+                && Objects.equals(book.getTitle(), inBook.getTitle())
+                        && Objects.equals(book.getAuthor(), inBook.getAuthor())){
+                    f = book;
+                    break;
+                }
+            }
+            if(f != null){
+                InventoryByMonth inventory = InventoryByMonth.getInventoryByMonth(f.getInventoryByMonthSet(), inMonth, inYear);
+                if(inventory != null && inventory.getQuantity() > check){
+                    throw new QuantityOfBookInventoryWhenDeliveryMoreThanRegulationException(check);
+                }
+            }
+            else{
+                Book foundBook = bookRepository.findBookByFields(inBook.getTitle(), inBook.getCategory().getId(), inBook.getAuthor());
+                if(foundBook != null){
+                    InventoryByMonth inventory = InventoryByMonth.getInventoryByMonth(foundBook.getInventoryByMonthSet(), inMonth, inYear);
+                    if(inventory != null && inventory.getQuantity() > check){
+                        throw new QuantityOfBookInventoryWhenDeliveryMoreThanRegulationException(check);
+                    }
+                }
+            }
+        }
     }
 
     private BookDeliveryNote updateBookInventoryByMonth(BookDeliveryNote bookDeliveryNote) {
@@ -99,12 +159,6 @@ public class BookDeliveryNoteServiceImpl implements BookDeliveryNoteService{
             bookDeliveryNoteBook.setId(new BookDeliveryNoteBookId());
             bookDeliveryNoteBook.setDeliveryNote(bookDeliveryNote);
             Book book = bookDeliveryNoteBook.getBook();
-//            Category foundCategory = book.getCategory();
-////            if(foundCategory.getId() == null){
-////                foundCategory = categoryRepository.save(foundCategory);
-////            }
-//            book.setCategory(foundCategory);
-//            Book foundBook = bookRepository.findBookByFields(book.getBook());
             Book foundBook = bookRepository.findBookByFields(book.getTitle(), book.getCategory().getId(), book.getAuthor());
             int fromMonth = creationDate.getMonthValue();
             int fromYear = creationDate.getYear();
@@ -171,7 +225,7 @@ public class BookDeliveryNoteServiceImpl implements BookDeliveryNoteService{
             bookRepository.save(book);
             bookDeliveryNoteBook.setBook(book);
         }
-        return deliveryNoteRepository.saveAndFlush(bookDeliveryNote);
+        return deliveryNoteRepository.save(bookDeliveryNote);
     }
 
     @Override

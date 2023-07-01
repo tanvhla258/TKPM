@@ -19,6 +19,6 @@ import java.util.Set;
 public class BookDeliveryNote extends Note {
     @Column(name = "shipper_name")
     private String shipperName;
-    @OneToMany(mappedBy = "deliveryNote", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "deliveryNote", cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private Set<BookDeliveryNoteBook> deliveryNoteBooks;
 }
