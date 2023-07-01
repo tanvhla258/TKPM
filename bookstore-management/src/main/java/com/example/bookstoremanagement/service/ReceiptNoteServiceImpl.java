@@ -72,8 +72,7 @@ public class ReceiptNoteServiceImpl implements ReceiptNoteService{
         //TODO: subtract dept for customer from note's creation date
         subtractCustomerDept(receiptNote);
         //TODO: save receipt note
-        saveReceiptNote(receiptNote);
-        return receiptNoteRepository.save(receiptNote);
+        return saveReceiptNote(receiptNote);
     }
 
     private void subtractCustomerDept(ReceiptNote receiptNote){
