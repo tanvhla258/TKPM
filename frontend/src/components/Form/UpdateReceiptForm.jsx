@@ -67,7 +67,7 @@ function UpdateReceiptForm({
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "e.response.data.message",
+            text: e.response.data.message,
           }).then((result) => {
             if (result.isConfirmed) {
               // window.location.href = "/book-entries";

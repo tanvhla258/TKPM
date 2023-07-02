@@ -8,20 +8,17 @@ import Typography from "@mui/material/Typography";
 import PaidIcon from "@mui/icons-material/Paid";
 import { blue, green, red, yellow } from "@mui/material/colors";
 
-function TodayCard({ invoices, color }) {
+function TodayCard2({ receipts, color }) {
+  console.log(receipts);
   const today = new Date().toISOString().slice(0, 10);
-  // Filter invoices with the same day as today
-  const filteredInvoices = invoices?.content?.filter(
-    (invoice) => invoice.creationDate === today
+  const filteredreceipts = receipts?.content?.filter(
+    (receipt) => receipt.creationDate === today
   );
-  const totalCosts = filteredInvoices?.map((invoice) => {
-    const { bookInvoices } = invoice;
-    const invoiceTotalCost = bookInvoices.reduce((total, bookInvoice) => {
-      const { quantity, unitPrice } = bookInvoice;
-      return total + quantity * unitPrice;
-    }, 0);
-    return invoiceTotalCost;
-  });
+  console.log(filteredreceipts);
+  const totalCost = filteredreceipts?.reduce(
+    (acc, item) => acc + item.totalCost,
+    0
+  );
   return (
     <Card
       sx={{
@@ -34,14 +31,14 @@ function TodayCard({ invoices, color }) {
     >
       <PaidIcon sx={{ color: color?.[400] }} />
       <Typography fontWeight={700} variant="h6">
-        {totalCosts?.reduce((acc, item) => acc + item, 0)} VND
+        {totalCost} VND
       </Typography>
-      <Typography fontWeight={300}>Tổng hóa đơn</Typography>
-      <Typography fontWeight={600} fontSize={10} sx={{ color: red[800] }}>
-        {totalCosts != 0 ? "-30% so với hôm qua" : "chưa có thông tin"}
+      <Typography fontWeight={300}>Tổng phiếu thu</Typography>
+      <Typography fontWeight={600} fontSize={10} sx={{ color: blue[800] }}>
+        {totalCost != 0 ? "+20% so với hôm qua" : "chưa có thông tin"}
       </Typography>
     </Card>
   );
 }
 
-export default TodayCard;
+export default TodayCard2;

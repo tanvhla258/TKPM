@@ -84,7 +84,7 @@ function Invoice({ invoice, handleOpenUpdate }) {
       >
         <CardContent style={{ position: "relative" }}>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {new Date().toISOString().substring(0, 10)}
+            {invoice.creationDate}
           </Typography>
           <Typography fontWeight={600} variant="h5" component="div">
             {invoice.customer.fullName}

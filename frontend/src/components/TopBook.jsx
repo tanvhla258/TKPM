@@ -11,24 +11,41 @@ function createData(id, name, author, sell) {
   return { id, name, author, sell };
 }
 
-const rows = [
-  createData("1", "Người trong làng", "Làng", 24),
-  createData("2", "Đi qua mùa hạ", "Nguyễn Nhật Ánh", 24),
-  createData("3", "Người trong làng", "Làng", 24),
-  createData("4", "Người trong làng", "Làng", 24),
-  createData("5", "Người trong làng", "Làng", 24),
-];
+export default function TopBook({ invoices }) {
+  console.log(invoices);
+  const TopSellBook = [];
 
-export default function TopBook() {
+  invoices?.content?.forEach((invoice) => {
+    invoice?.bookInvoices?.forEach((bookInvoice) => {
+      const { book, quantity } = bookInvoice;
+
+      const existingBook = TopSellBook.find((b) => b.id === book.id);
+
+      if (existingBook) {
+        // Book already exists, update the quantity
+        existingBook.quantity += quantity;
+      } else {
+        // Add a new entry to the array
+        TopSellBook.push({ ...book, quantity });
+      }
+    });
+  });
+
+  console.log(TopSellBook);
+  const rows = TopSellBook?.sort((a, b) => b.quantity - a.quantity).map(
+    (book, index) =>
+      createData(index + 1, book.title, book.author, book.quantity)
+  );
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>#</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Author</TableCell>
-            <TableCell align="right">Số lượng</TableCell>
+            <TableCell align="left">Tên sách</TableCell>
+            <TableCell align="left">Tác giả</TableCell>
+            <TableCell align="center">Số lượng</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -40,9 +57,9 @@ export default function TopBook() {
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <TableCell align="right">{row.name}</TableCell>
-              <TableCell align="right">{row.author}</TableCell>
-              <TableCell align="right">{row.sell}</TableCell>
+              <TableCell align="left">{row.name}</TableCell>
+              <TableCell align="left">{row.author}</TableCell>
+              <TableCell align="center">{row.sell}</TableCell>
             </TableRow>
           ))}
         </TableBody>

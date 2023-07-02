@@ -28,7 +28,7 @@ const SettingCard = ({ regulation, handleOpenUpdate }) => {
       )} */}
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color={"text.secondary"} gutterBottom>
-          Quy định {regulation.id}
+          Quy định {regulation.id + 1}
         </Typography>
         <Typography variant="h5" component="div">
           {regulation.title}
@@ -89,19 +89,22 @@ function RegulationPage() {
   return (
     <>
       <Grid container spacing={2}>
-        {regulations.result?.map((reg) => {
-          return (
-            <Grid item>
-              <SettingCard
-                // handleToggle={handleToggle}
-                id="switch1"
-                regulation={reg}
-                handleOpenUpdate={handleOpenUpdate}
-                // switchValue={switches.switch1}
-              />
-            </Grid>
-          );
-        })}
+        {regulations.result?.length > 0 &&
+          [...regulations.result]
+            .sort((a, b) => a.id - b.id)
+            .map((reg, index) => {
+              return (
+                <Grid key={index} item>
+                  <SettingCard
+                    // handleToggle={handleToggle}
+                    id="switch1"
+                    regulation={reg}
+                    handleOpenUpdate={handleOpenUpdate}
+                    // switchValue={switches.switch1}
+                  />
+                </Grid>
+              );
+            })}
         {/* <Grid item>
         <SettingCard id="switch4" />
       </Grid> */}

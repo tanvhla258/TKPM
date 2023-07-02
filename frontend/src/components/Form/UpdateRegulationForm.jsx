@@ -44,7 +44,7 @@ function UpdateRegulationForm({
           console.log(respone.data);
           Swal.fire("Cập nhật quy định thành công", "OK").then((result) => {
             if (result.isConfirmed) {
-              window.location.href = "/receipts";
+              window.location.href = "/regulations";
               // () => handleClose(true);
             }
           });
@@ -62,7 +62,9 @@ function UpdateRegulationForm({
             }
           });
         });
-    } catch (e) {}
+    } finally {
+      handleCloseUpdate();
+    }
   };
   return (
     <>

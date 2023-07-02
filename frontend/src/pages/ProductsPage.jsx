@@ -45,25 +45,45 @@ function ProductsPage() {
   const onSubmit = (data) => {
     console.log(data);
     try {
-      axios
-        .get(
-          `http://localhost:8080/books/search?title=${data.search}&page=0&size=10`
-        )
-        .then((respone) => {
-          console.log(respone.data);
-          setSearchInfo(respone.data);
-        })
-        .catch((e) => {
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Không tìm thấy theo yêu cầu",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // window.location.href = "/book-entries";
-            }
+      if (data.search != "")
+        axios
+          .get(
+            `http://localhost:8080/books/search?title=${data.search}&page=0&size=10`
+          )
+          .then((respone) => {
+            console.log(respone.data);
+            setSearchInfo(respone.data);
+          })
+          .catch((e) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Không tìm thấy theo yêu cầu",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // window.location.href = "/book-entries";
+              }
+            });
           });
-        });
+      else {
+        axios
+          .get(`http://localhost:8080/books/search?&page=0&size=10`)
+          .then((respone) => {
+            console.log(respone.data);
+            setSearchInfo(respone.data);
+          })
+          .catch((e) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Không tìm thấy theo yêu cầu",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // window.location.href = "/book-entries";
+              }
+            });
+          });
+      }
     } catch (e) {
       console.log(e);
     }
@@ -75,8 +95,7 @@ function ProductsPage() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
             // style={{ width: "50%" }}
-            {...register("search", { required: true })}
-            required
+            {...register("search", { required: false })}
             id="search"
             name="search"
             label="Tìm sách"
@@ -95,14 +114,6 @@ function ProductsPage() {
             }}
             fullWidth
           />
-          {/* <Button
-            // onClick={handleOpenUpdate}
-            variant="outlined"
-            color="success"
-            type="submit"
-          >
-            Tìm
-          </Button> */}
         </form>
         <Dropdown label={"Thể loại"} inputArray={categoriesName} />
       </div>

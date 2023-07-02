@@ -118,6 +118,8 @@ function AddBookEntryForm({ handleClose }) {
                       variant="standard"
                     ></TextField>
                   </Grid>
+                  <Grid mb={1} item xs={1} />
+
                   <Grid mb={1} item xs={3}>
                     <TextField
                       {...register(`bookname${index}`, { required: true })}
@@ -146,7 +148,7 @@ function AddBookEntryForm({ handleClose }) {
                   </Grid>
                   <Grid mb={1} item xs={1} />
 
-                  <Grid mb={1} item xs={2}>
+                  {/* <Grid mb={1} item xs={2}>
                     <TextField
                       required
                       {...register(`cost${index}`, { required: true })}
@@ -156,10 +158,10 @@ function AddBookEntryForm({ handleClose }) {
                       fullWidth
                       variant="standard"
                     />
-                  </Grid>
+                  </Grid> */}
                   <Grid mb={1} item xs={1} />
 
-                  <Grid mb={1} item xs={1}>
+                  <Grid mb={1} item xs={2}>
                     <TextField
                       required
                       {...register(`quantity${index}`, { required: true })}
@@ -223,27 +225,28 @@ function AddBookEntryForm({ handleClose }) {
               remove_circle
             </Icon>
           </Grid>
-
-          <Grid item xs={12}>
-            <InputLabel htmlFor="date">Ngày nhập</InputLabel>
-            <TextField
-              type="date"
-              {...register("date", { required: true })}
-              id="date"
-              name="date"
-            />
-          </Grid>
-          <Grid mb={2} item xs={3}>
-            <TextField
-              {...register(`shipper`, { required: true })}
-              required
-              // id="bookName"
-              name={`shipper`}
-              label="Shipper "
-              fullWidth
-              autoComplete="given-name"
-              variant="standard"
-            />
+          <Grid container alignItems={"end"} spacing={3}>
+            <Grid item xs={4}>
+              <InputLabel htmlFor="date">Ngày nhập</InputLabel>
+              <TextField
+                type="date"
+                {...register("date", { required: true })}
+                id="date"
+                name="date"
+              />
+            </Grid>
+            <Grid mb={2} item xs={4}>
+              <TextField
+                {...register(`shipper`, { required: true })}
+                required
+                // id="bookName"
+                name={`shipper`}
+                label="Shipper "
+                fullWidth
+                autoComplete="given-name"
+                variant="standard"
+              />
+            </Grid>
           </Grid>
 
           <Grid container justifyContent={"space-between"} item xs={12}>

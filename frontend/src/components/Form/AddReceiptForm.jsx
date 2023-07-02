@@ -36,7 +36,7 @@ function AddReceiptForm({ handleClose }) {
     // console.log(data.date);
 
     const newReceipt = {
-      creationDate: "2023-06-28",
+      creationDate: data.date,
       totalCost: data.cost,
       customer: {
         fullName: data.userInfo.fullName,

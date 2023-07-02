@@ -18,16 +18,32 @@ import TodayIcon from "@mui/icons-material/Today";
 import WysiwygIcon from "@mui/icons-material/Wysiwyg";
 import TopBook from "../../components/TopBook";
 import BarChartIcon from "@mui/icons-material/BarChart";
-const DashboardCard = () => (
-  <Card sx={{ minWidth: 225 }}>
-    <CardContent>
-      <Typography>Hóa đơn thanh toán trong tuần</Typography>
-      <LineChart />
-    </CardContent>
-  </Card>
-);
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { invoiceActions } from "../../reducers/invoiceReducer";
+import { useEffect } from "react";
+import TodayCard2 from "../../components/TodayCard2";
+import { receiptActions } from "../../reducers/receiptReducer";
+const DashboardCard = ({ invoices }) => {
+  return (
+    <Card sx={{ minWidth: 225 }}>
+      <CardContent>
+        <Typography>Hóa đơn thanh toán trong năm</Typography>
+        <LineChart invoices={invoices} />
+      </CardContent>
+    </Card>
+  );
+};
 
 function DashboardPage() {
+  const dispatch = useDispatch();
+  const invoices = useSelector((state) => state.invoice.invoices);
+  const receipts = useSelector((state) => state.receipt.receipts);
+  useEffect(() => {
+    dispatch(invoiceActions.fetchAllInvoice());
+    dispatch(receiptActions.fetchAllReceipt());
+  }, [dispatch]);
+
   return (
     <div>
       <Grid
@@ -52,10 +68,11 @@ function DashboardPage() {
                 gap: "20px",
               }}
             >
-              <TodayCard color={green} />
-              <TodayCard color={yellow} />
+              <TodayCard invoices={invoices} color={green} />
+              {/* <TodayCard color={yellow} />
               <TodayCard color={red} />
-              <TodayCard color={purple} />
+              <TodayCard color={purple} /> */}
+              <TodayCard2 receipts={receipts} color={red} />
             </div>
           </Grid>
           <Grid item>
@@ -75,7 +92,7 @@ function DashboardPage() {
                 gap: "20px",
               }}
             >
-              <TopBook />
+              <TopBook invoices={invoices} />
             </div>
           </Grid>
         </Grid>
@@ -105,7 +122,7 @@ function DashboardPage() {
             sx={{ marginBottom: "10px" }}
           />
           <Grid container item>
-            <DashboardCard />
+            <DashboardCard invoices={invoices} />
           </Grid>
         </Grid>
       </Grid>
