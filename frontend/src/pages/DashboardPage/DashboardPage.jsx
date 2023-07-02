@@ -24,6 +24,8 @@ import { invoiceActions } from "../../reducers/invoiceReducer";
 import { useEffect } from "react";
 import TodayCard2 from "../../components/TodayCard2";
 import { receiptActions } from "../../reducers/receiptReducer";
+import { userActions } from "../../reducers/userReducer";
+
 const DashboardCard = ({ invoices }) => {
   return (
     <Card sx={{ minWidth: 225 }}>
@@ -39,11 +41,21 @@ function DashboardPage() {
   const dispatch = useDispatch();
   const invoices = useSelector((state) => state.invoice.invoices);
   const receipts = useSelector((state) => state.receipt.receipts);
+  const users = useSelector((state) => state.user.users);
+  console.log(invoices);
   useEffect(() => {
     dispatch(invoiceActions.fetchAllInvoice());
     dispatch(receiptActions.fetchAllReceipt());
+    dispatch(userActions.fetchAllUser());
   }, [dispatch]);
-
+  const totalCosts = invoices?.content?.map((invoice) => {
+    const { bookInvoices } = invoice;
+    const invoiceTotalCost = bookInvoices.reduce((total, bookInvoice) => {
+      const { quantity, unitPrice } = bookInvoice;
+      return total + quantity * unitPrice;
+    }, 0);
+    return invoiceTotalCost;
+  });
   return (
     <div>
       <Grid
@@ -102,16 +114,24 @@ function DashboardPage() {
         <Grid container alignItems="flex-start" xs={12} lg={4} item>
           <Chip
             icon={<WysiwygIcon />}
-            label="Tổng quan"
+            label="Kì vọng"
             size="large"
             color="primary"
           />
           <Grid sx={{ marginBottom: "55px" }} container item>
             <Grid xs={6} item>
-              <CircleChart />
+              <CircleChart
+                target={500000}
+                current={totalCosts?.reduce((acc, item) => acc + item, 0)}
+                type="Doanh thu"
+              />
             </Grid>
             <Grid xs={6} item>
-              <CircleChart />
+              <CircleChart
+                target={20}
+                current={users?.length}
+                type="Người dùng"
+              />
             </Grid>
           </Grid>
           <Chip
