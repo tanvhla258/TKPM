@@ -12,7 +12,6 @@ function createData(id, name, author, sell) {
 }
 
 export default function TopBook({ invoices }) {
-  console.log(invoices);
   const TopSellBook = [];
 
   invoices?.content?.forEach((invoice) => {
@@ -31,7 +30,6 @@ export default function TopBook({ invoices }) {
     });
   });
 
-  console.log(TopSellBook);
   const rows = TopSellBook?.sort((a, b) => b.quantity - a.quantity).map(
     (book, index) =>
       createData(index + 1, book.title, book.author, book.quantity)

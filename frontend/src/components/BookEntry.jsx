@@ -41,7 +41,6 @@ const onRemove = (bookEntry) => {
     axios
       .post(`http://localhost:8080/deliveries/remove/${bookEntry.id}`)
       .then((respone) => {
-        console.log(respone.data);
         Swal.fire("Xoá thành công", "OK").then((result) => {
           if (result.isConfirmed) {
             window.location.href = "/book-entries";
@@ -49,9 +48,7 @@ const onRemove = (bookEntry) => {
           }
         });
       });
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };
 function BookEntry({ bookEntry, handleOpenUpdate }) {
   const [expanded, setExpanded] = React.useState(false);

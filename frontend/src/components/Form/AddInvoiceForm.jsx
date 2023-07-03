@@ -50,7 +50,6 @@ function AddInvoiceForm({ handleClose }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Data from form:", data);
     const bookArray = [];
     for (let i = 0; i < AmountInput; i++) {
       let bookKey = `bookInfo${i}`;
@@ -66,7 +65,6 @@ function AddInvoiceForm({ handleClose }) {
       };
       bookArray.push(book);
     }
-    console.log("array", bookArray);
     const newInvoice = {
       bookInvoices: bookArray,
       customer: {
@@ -77,12 +75,10 @@ function AddInvoiceForm({ handleClose }) {
       },
       creationDate: data.date,
     };
-    console.log("send:", newInvoice);
     try {
       axios
         .post("http://localhost:8080/invoices/add", newInvoice)
         .then((respone) => {
-          console.log(respone.data);
           Swal.fire("Tạo hóa đơn thành công", "OK").then((result) => {
             if (result.isConfirmed) {
               window.location.href = "/invoices";
@@ -92,8 +88,6 @@ function AddInvoiceForm({ handleClose }) {
           handleClose(true);
         })
         .catch((e) => {
-          console.log("loi:", e);
-
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -104,7 +98,9 @@ function AddInvoiceForm({ handleClose }) {
             }
           });
         });
-    } catch (e) {}
+    } finally {
+      handleClose(true);
+    }
   };
 
   return (

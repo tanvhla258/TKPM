@@ -32,9 +32,6 @@ function AddReceiptForm({ handleClose }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    // console.log(data.date);
-
     const newReceipt = {
       creationDate: data.date,
       totalCost: data.cost,
@@ -46,12 +43,10 @@ function AddReceiptForm({ handleClose }) {
         id: data.userInfo.id,
       },
     };
-    console.log(newReceipt);
     try {
       axios
         .post("http://localhost:8080/receipts/add", newReceipt)
         .then((respone) => {
-          console.log(respone.data);
           Swal.fire("Tạo phiếu thu thành công", "OK").then((result) => {
             if (result.isConfirmed) {
               window.location.href = "/receipts";
@@ -60,8 +55,6 @@ function AddReceiptForm({ handleClose }) {
           });
         })
         .catch((e) => {
-          console.log("loi:", e);
-
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -83,7 +76,6 @@ function AddReceiptForm({ handleClose }) {
     dispatch(userActions.fetchAllUser());
   }, [dispatch]);
 
-  console.log(users);
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>

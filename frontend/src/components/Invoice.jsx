@@ -41,7 +41,6 @@ const ExpandMore = styled((props) => {
 }));
 function Invoice({ invoice, handleOpenUpdate }) {
   const [expanded, setExpanded] = React.useState(false);
-  console.log("invoice:", invoice);
   const rows = invoice.bookInvoices.map((item, index) => {
     return createData(
       index + 1,
@@ -63,7 +62,6 @@ function Invoice({ invoice, handleOpenUpdate }) {
       axios
         .put(`http://localhost:8080/invoices/remove/${invoice.id}`)
         .then((respone) => {
-          console.log(respone.data);
           Swal.fire("Xoá thành công", "OK").then((result) => {
             if (result.isConfirmed) {
               window.location.href = "/invoices";
@@ -71,9 +69,7 @@ function Invoice({ invoice, handleOpenUpdate }) {
             }
           });
         });
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
   return (
     <>

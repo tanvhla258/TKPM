@@ -22,7 +22,7 @@ function User({ key, name, address, email, phone }) {
           </Avatar>
         }
         title={name}
-        subheader=" Khach hang thuong"
+        subheader="Khách hàng thường"
       />
       <CardContent>
         <Typography

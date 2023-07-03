@@ -14,19 +14,15 @@ const onRemove = (receipt) => {
     axios
       .put(`http://localhost:8080/receipts/remove/${receipt.id}`)
       .then((respone) => {
-        console.log(respone.data);
         Swal.fire("Xoá thành công", "OK").then((result) => {
           if (result.isConfirmed) {
             window.location.href = "/receipts";
           }
         });
       });
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };
 function Receipt({ receipt, handleOpenUpdate }) {
-  console.log(receipt);
   return (
     <div>
       <Card sx={{ minWidth: 350 }}>

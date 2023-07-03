@@ -4,7 +4,6 @@ import { Button, Grid, Modal, Box, Typography, Icon } from "@mui/material";
 import Dropdown from "../components/Dropdown";
 import { boxstyle } from "../constants/boxstyle";
 import AddIcon from "../components/AddIcon";
-import PayUpForm from "../components/Form/PayUpForm";
 import AddReceiptForm from "../components/Form/AddReceiptForm";
 import UpdateReceiptForm from "../components/Form/UpdateReceiptForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,11 +28,19 @@ function ReceiptPage() {
     dispatch(receiptActions.fetchAllReceipt());
   }, [dispatch]);
 
-  console.log(receipts);
-
   return (
     <div style={{ position: "relative" }}>
       <Grid marginTop={2} container spacing={2}>
+        {receipts?.content?.length == 0 && (
+          <Typography
+            fontWeight={600}
+            sx={{ ml: 5.5 }}
+            variant="h5"
+            component="div"
+          >
+            Hiện tại chưa có phiếu thu tiền trong hệ thống
+          </Typography>
+        )}
         {receipts?.content?.map((receipt) => {
           return (
             <Grid item>

@@ -14,6 +14,8 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
 import { adminActions } from "../reducers/adminReducer";
+import { useNavigate } from "react-router-dom";
+
 function Copyright(props) {
   return (
     <Typography
@@ -36,6 +38,8 @@ const defaultTheme = createTheme();
 
 function LoginPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,19 +47,14 @@ function LoginPage() {
       email: data.get("email"),
       password: data.get("password"),
     };
-
+    console.log(credentials);
     dispatch(adminActions.loginAdmin(credentials));
+    navigate("/");
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid
-        container
-        zIndex={10}
-        position={"absolute"}
-        component="main"
-        sx={{ height: "100vh" }}
-      >
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
           item
@@ -125,7 +124,7 @@ function LoginPage() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={() => (window.location.href = "/")}
+                // onClick={() => (window.location.href = "/")}
               >
                 Sign In
               </Button>

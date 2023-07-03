@@ -29,7 +29,6 @@ function AddBookEntryForm({ handleClose }) {
   useEffect(() => {
     dispatch(bookActions.fetchAllCategories());
   }, [dispatch]);
-  console.log(categories);
 
   const handleAddInput = () => {
     SetAmountInput((AmountInput) => AmountInput + 1);
@@ -45,8 +44,6 @@ function AddBookEntryForm({ handleClose }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    // console.log(data.date);
     const deliveryNoteBooks = [];
     for (let i = 0; i < AmountInput; i++) {
       let bookNameKey = `bookname${i}`;
@@ -67,12 +64,12 @@ function AddBookEntryForm({ handleClose }) {
       shipperName: data.shipper,
       deliveryNoteBooks: deliveryNoteBooks,
     };
-    console.log(newBook);
+    newBook;
     try {
       axios
         .post("http://localhost:8080/deliveries/add", newBook)
         .then((respone) => {
-          console.log(respone.data);
+          respone.data;
           Swal.fire("Tạo sách thành công", "OK").then((result) => {
             if (result.isConfirmed) {
               window.location.href = "/book-entries";
@@ -82,7 +79,7 @@ function AddBookEntryForm({ handleClose }) {
           handleClose(true);
         })
         .catch((e) => {
-          console.log("loi:", e);
+          "loi:", e;
 
           Swal.fire({
             icon: "error",

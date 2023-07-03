@@ -9,12 +9,10 @@ import PaidIcon from "@mui/icons-material/Paid";
 import { blue, green, red, yellow } from "@mui/material/colors";
 
 function TodayCard2({ receipts, color }) {
-  console.log(receipts);
   const today = new Date().toISOString().slice(0, 10);
   const filteredreceipts = receipts?.content?.filter(
     (receipt) => receipt.creationDate === today
   );
-  console.log(filteredreceipts);
   const totalCost = filteredreceipts?.reduce(
     (acc, item) => acc + item.totalCost,
     0

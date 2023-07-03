@@ -107,7 +107,6 @@ const Drawer = styled(MuiDrawer, {
 export default function TopAndSide() {
   const admin = useSelector((state) => state.admin.admin);
 
-  console.log(admin);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -119,7 +118,7 @@ export default function TopAndSide() {
     setOpen(false);
   };
   const sideBarPages = [
-    { name: "Dashboard", link: "" },
+    { name: "Trang chủ", link: "" },
     { name: "Sản phẩm", link: "products" },
     { name: "Phiếu nhập sách", link: "book-entries" },
     { name: "Hóa đơn", link: "invoices" },
@@ -166,22 +165,14 @@ export default function TopAndSide() {
             Book management
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          {/* <Search>
-            <SearchIconWrapper>
-              <SearchIcon color="primary" />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search> */}
+
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="warning"
             >
-              <Badge badgeContent={17} color="error">
+              <Badge color="error">
                 <NotificationsNoneOutlinedIcon />
               </Badge>
             </IconButton>
@@ -189,9 +180,9 @@ export default function TopAndSide() {
               size="large"
               edge="end"
               aria-label="account of current user"
-              //   aria-controls={menuId}
+              // aria-controls={menuId}
               aria-haspopup="true"
-              //   onClick={handleProfileMenuOpen}
+              // onClick={handleProfileMenuOpen}
               color="inherit"
             >
               <Avatar

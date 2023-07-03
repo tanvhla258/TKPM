@@ -22,7 +22,6 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bookActions } from "../../reducers/bookReducer";
 function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
-  console.log("invoice", updateInvoice);
   const [AmountInput, SetAmountInput] = useState(1);
   const dispatch = useDispatch();
   const books = useSelector((state) => state.book.books);
@@ -40,7 +39,6 @@ function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Data from form:", data);
     const bookArray = [];
     for (let i = 0; i < AmountInput; i++) {
       let bookKey = `bookInfo${i}`;
@@ -68,7 +66,6 @@ function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
       id: updateInvoice.id,
       creationDate: data.date,
     };
-    console.log("send:", newInvoice);
     try {
       axios
         .post(
@@ -76,7 +73,6 @@ function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
           newInvoice
         )
         .then((respone) => {
-          console.log(respone.data);
           Swal.fire("Cập nhật thành công", "OK").then((result) => {
             if (result.isConfirmed) {
               window.location.href = "/invoices";
@@ -86,8 +82,6 @@ function UpdateInvoiceForm({ handleCloseUpdate, updateInvoice }) {
           handleCloseUpdate();
         })
         .catch((e) => {
-          console.log("loi:", e);
-
           Swal.fire({
             icon: "error",
             title: "Oops...",

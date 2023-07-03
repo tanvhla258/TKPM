@@ -48,9 +48,9 @@ const SettingCard = ({ regulation, handleOpenUpdate }) => {
         >
           Chỉnh sửa
         </Button>
-        <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
+        {/* <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
           Xóa
-        </Button>
+        </Button> */}
         {/* <CardActions sx={{ right: 2, position: "absolute" }}>
           <Switch
             onChange={() => {

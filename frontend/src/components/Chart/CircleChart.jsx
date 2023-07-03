@@ -4,7 +4,6 @@ import { Chart } from "react-apexcharts";
 import ReactApexChart from "react-apexcharts";
 
 function CircleChart({ type, target, current }) {
-  console.log(target, current);
   const state = {
     options: {
       chart: {

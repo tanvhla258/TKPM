@@ -12,7 +12,6 @@ function createData(id, name, begin, incurred, end) {
 }
 
 export default function Aging({ report }) {
-  console.log(report);
   if (!report || report.length == 0) return;
   const rows = report.map((rep, index) =>
     createData(

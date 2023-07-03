@@ -10,9 +10,22 @@ const initialState = {
 export const loginAdmin = createAsyncThunk(
   "admin/login",
   async (credentials, thunkAPI) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 500));
     // You can customize this payload as per your requirements
+    localStorage.setItem("currentUser", { ...credentials });
     return credentials;
+  }
+);
+
+export const getAdmin = createAsyncThunk(
+  "admin/getAdmin",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get("/api/admin"); // Replace "/api/admin" with your actual API endpoint for fetching admin data
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response.data.message);
+    }
   }
 );
 
@@ -33,6 +46,18 @@ const adminSlice = createSlice({
       .addCase(loginAdmin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      })
+      .addCase(getAdmin.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getAdmin.fulfilled, (state, action) => {
+        state.loading = false;
+        state.admin = action.payload;
+      })
+      .addCase(getAdmin.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
       });
   },
 });
@@ -40,6 +65,7 @@ const adminSlice = createSlice({
 export const adminActions = {
   ...adminSlice.actions,
   loginAdmin,
+  getAdmin,
 };
 
 export default adminSlice.reducer;

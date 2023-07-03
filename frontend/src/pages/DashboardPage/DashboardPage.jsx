@@ -42,7 +42,6 @@ function DashboardPage() {
   const invoices = useSelector((state) => state.invoice.invoices);
   const receipts = useSelector((state) => state.receipt.receipts);
   const users = useSelector((state) => state.user.users);
-  console.log(invoices);
   useEffect(() => {
     dispatch(invoiceActions.fetchAllInvoice());
     dispatch(receiptActions.fetchAllReceipt());

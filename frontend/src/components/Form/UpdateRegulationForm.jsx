@@ -29,19 +29,14 @@ function UpdateRegulationForm({
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    // console.log(data.date);
     const newRegulation = {};
-    console.log(
-      `http://localhost:8080/regulations/update?id=${updateRegulation.id}&value=${data.value}`
-    );
+
     try {
       axios
         .post(
           `http://localhost:8080/regulations/update?id=${updateRegulation.id}&value=${data.value}`
         )
         .then((respone) => {
-          console.log(respone.data);
           Swal.fire("Cập nhật quy định thành công", "OK").then((result) => {
             if (result.isConfirmed) {
               window.location.href = "/regulations";
@@ -50,8 +45,6 @@ function UpdateRegulationForm({
           });
         })
         .catch((e) => {
-          console.log("loi:", e);
-
           Swal.fire({
             icon: "error",
             title: "Oops...",

@@ -32,14 +32,16 @@ function InvoicePage() {
   return (
     <div style={{ position: "relative" }}>
       <Grid marginTop={2} container spacing={2}>
-        {/* <Grid item>
-          <Invoice
-            cost={200}
-            date={Date.now()}
-            user={{ name: "Tan" }}
-            handleOpenUpdate={handleOpenUpdate}
-          ></Invoice>
-        </Grid> */}
+        {invoices?.content?.length == 0 && (
+          <Typography
+            fontWeight={600}
+            sx={{ ml: 5.5 }}
+            variant="h5"
+            component="div"
+          >
+            Hiện tại chưa có hóa đơn trong hệ thống
+          </Typography>
+        )}
         {invoices?.content?.map((invoice) => {
           return (
             <Grid item>

@@ -33,7 +33,6 @@ function ProductsPage() {
     dispatch(bookActions.fetchAllBooks());
     dispatch(bookActions.fetchAllCategories());
   }, [dispatch]);
-  console.log(searchInfo);
   const bookRender = searchInfo.content ? searchInfo.content : books;
   const categoriesName = categories.map((cate) => cate.name);
 
@@ -43,7 +42,7 @@ function ProductsPage() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    if (!books) return;
     try {
       if (data.search != "")
         axios
@@ -51,7 +50,6 @@ function ProductsPage() {
             `http://localhost:8080/books/search?title=${data.search}&page=0&size=10`
           )
           .then((respone) => {
-            console.log(respone.data);
             setSearchInfo(respone.data);
           })
           .catch((e) => {
@@ -69,7 +67,6 @@ function ProductsPage() {
         axios
           .get(`http://localhost:8080/books/search?&page=0&size=10`)
           .then((respone) => {
-            console.log(respone.data);
             setSearchInfo(respone.data);
           })
           .catch((e) => {
@@ -84,9 +81,7 @@ function ProductsPage() {
             });
           });
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   return (
@@ -118,6 +113,16 @@ function ProductsPage() {
         <Dropdown label={"Thể loại"} inputArray={categoriesName} />
       </div>
       <Grid marginTop={2} container spacing={2}>
+        {books?.length == 0 && (
+          <Typography
+            fontWeight={600}
+            sx={{ ml: 5.5 }}
+            variant="h5"
+            component="div"
+          >
+            Hiện tại chưa có sách trong hệ thống
+          </Typography>
+        )}
         {bookRender?.map((book) => {
           return (
             <Grid item>

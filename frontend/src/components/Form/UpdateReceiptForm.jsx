@@ -22,7 +22,6 @@ function UpdateReceiptForm({
   handleCloseUpdate,
 }) {
   const [value, setValue] = useState(dayjs(Date.now()));
-  console.log(updateReceipt);
   const {
     register,
     handleSubmit,
@@ -30,9 +29,6 @@ function UpdateReceiptForm({
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    // console.log(data.date);
-
     const newReceipt = {
       creationDate: data.date,
       totalCost: data.cost,
@@ -45,7 +41,6 @@ function UpdateReceiptForm({
         id: updateReceipt.customer.id,
       },
     };
-    console.log(newReceipt);
     try {
       axios
         .post(
@@ -53,7 +48,6 @@ function UpdateReceiptForm({
           newReceipt
         )
         .then((respone) => {
-          console.log(respone.data);
           Swal.fire("Cập nhật phiếu thu thành công", "OK").then((result) => {
             if (result.isConfirmed) {
               window.location.href = "/receipts";
@@ -62,8 +56,6 @@ function UpdateReceiptForm({
           });
         })
         .catch((e) => {
-          console.log("loi:", e);
-
           Swal.fire({
             icon: "error",
             title: "Oops...",

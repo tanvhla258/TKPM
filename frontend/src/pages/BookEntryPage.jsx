@@ -33,10 +33,21 @@ function BookEntryPage() {
     setUpdateBookEntry(data);
   };
   const handleCloseUpdate = () => setOpenUpdate(false);
+
   return (
     <div style={{ position: "relative" }}>
       <Grid marginTop={2} container spacing={2}>
-        {bookEntries.content?.map((be) => {
+        {bookEntries?.content?.length == 0 && (
+          <Typography
+            fontWeight={600}
+            sx={{ ml: 5.5 }}
+            variant="h5"
+            component="div"
+          >
+            Hiện tại chưa có phiếu nhập sách trong hệ thống
+          </Typography>
+        )}
+        {bookEntries?.content?.map((be) => {
           return (
             <Grid item>
               <BookEntry

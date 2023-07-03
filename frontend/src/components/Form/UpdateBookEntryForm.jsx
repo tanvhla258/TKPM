@@ -35,8 +35,6 @@ function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
   }, [dispatch]);
 
   const onSubmit = (data) => {
-    console.log("formdata", data);
-    // console.log(data.date);
     const deliveryNoteBooks = [];
     for (let i = 0; i < updateBookEntry.deliveryNoteBooks.length; i++) {
       let bookNameKey = `bookname${i}`;
@@ -60,7 +58,6 @@ function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
       shipperName: "Nguyen Van A",
       deliveryNoteBooks: deliveryNoteBooks,
     };
-    console.log("send:", newBookEntry);
     try {
       axios
         .post(
@@ -68,7 +65,6 @@ function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
           newBookEntry
         )
         .then((respone) => {
-          console.log(respone.data);
           Swal.fire("Cập nhật thành công", "OK").then((result) => {
             if (result.isConfirmed) {
               window.location.href = "/book-entries";
@@ -78,8 +74,6 @@ function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
           handleCloseUpdate(true);
         })
         .catch((e) => {
-          console.log("loi:", e);
-
           Swal.fire({
             icon: "error",
             title: "Oops...",
