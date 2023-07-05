@@ -21,7 +21,7 @@ export const getAdmin = createAsyncThunk(
   "admin/getAdmin",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get("/api/admin"); // Replace "/api/admin" with your actual API endpoint for fetching admin data
+      // const response = await axios.get("/api/admin"); // Replace "/api/admin" with your actual API endpoint for fetching admin data
       return response.data;
     } catch (error) {
       throw new Error(error.response.data.message);

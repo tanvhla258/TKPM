@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   Grid,
-  Modal,
   Box,
   Typography,
   Icon,
@@ -14,16 +13,16 @@ import {
 } from "@mui/material";
 
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { bookActions } from "../../reducers/bookReducer";
-import Flash from "../Flash";
+import { bookEntryActions } from "../../reducers/bookEntryReducer";
 import Swal from "sweetalert2";
 
 function AddBookEntryForm({ handleClose }) {
   const [AmountInput, SetAmountInput] = useState(1);
   const dispatch = useDispatch();
+
   const categories = useSelector((state) => state.book.categories);
 
   useEffect(() => {
@@ -39,11 +38,32 @@ function AddBookEntryForm({ handleClose }) {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
+  // Handle success message
+  // useEffect(() => {
+  //   if (successMessage) {
+  //     console.log(successMessage);
+  //     Swal.fire(successMessage, "OK").then((result) => {
+  //       if (result.isConfirmed) {
+  //         // handleClose(true);
+  //       }
+  //       dispatch(bookEntryActions.clearMessages());
+  //     });
+  //   }
+  // }, [successMessage, handleClose, dispatch]);
+  // useEffect(() => {
+  //   if (errorMessage) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops...",
+  //       text: errorMessage,
+  //     });
+  //     dispatch(bookEntryActions.clearMessages());
+  //   }
+  // }, [errorMessage, dispatch]);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const deliveryNoteBooks = [];
     for (let i = 0; i < AmountInput; i++) {
       let bookNameKey = `bookname${i}`;
@@ -61,38 +81,29 @@ function AddBookEntryForm({ handleClose }) {
     }
     const newBook = {
       creationDate: data.date,
-      shipperName: data.shipper,
+      shipperName: data.shipperName,
       deliveryNoteBooks: deliveryNoteBooks,
     };
-    newBook;
+
     try {
-      axios
-        .post("http://localhost:8080/deliveries/add", newBook)
-        .then((respone) => {
-          respone.data;
+      dispatch(bookEntryActions.addBookEntry(newBook))
+        .unwrap()
+        .then(() => {
           Swal.fire("Tạo sách thành công", "OK").then((result) => {
             if (result.isConfirmed) {
-              window.location.href = "/book-entries";
-              // () => handleClose(true);
             }
           });
-          handleClose(true);
         })
-        .catch((e) => {
-          "loi:", e;
-
+        .catch((error) => {
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: e.response.data.message,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // window.location.href = "/book-entries";
-            }
+            text: error,
           });
         });
-    } catch (e) {}
-    handleClose(true);
+    } finally {
+      handleClose(true);
+    }
   };
   return (
     <Box>
@@ -105,7 +116,7 @@ function AddBookEntryForm({ handleClose }) {
           <List>
             {Array.from({ length: AmountInput }).map((_, index) => {
               return (
-                <ListItem>
+                <ListItem key={index}>
                   <Grid mb={1} item xs={1}>
                     <TextField
                       label={index + 1}
@@ -125,7 +136,6 @@ function AddBookEntryForm({ handleClose }) {
                       name={`bookname${index}`}
                       label="Tên sách "
                       fullWidth
-                      autoComplete="given-name"
                       variant="standard"
                     />
                   </Grid>
@@ -139,7 +149,6 @@ function AddBookEntryForm({ handleClose }) {
                       name={`author${index}`}
                       label="Tác giả"
                       fullWidth
-                      autoComplete="family-name"
                       variant="standard"
                     />
                   </Grid>
@@ -234,13 +243,12 @@ function AddBookEntryForm({ handleClose }) {
             </Grid>
             <Grid mb={2} item xs={4}>
               <TextField
-                {...register(`shipper`, { required: true })}
+                {...register(`shipperName`, { required: true })}
                 required
                 // id="bookName"
-                name={`shipper`}
-                label="Shipper "
+                name={`shipperName`}
+                label="Tên Shipper"
                 fullWidth
-                autoComplete="given-name"
                 variant="standard"
               />
             </Grid>

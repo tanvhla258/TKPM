@@ -8,7 +8,9 @@ import Typography from "@mui/material/Typography";
 import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import axios from "axios";
+
+import { removeBookEntry } from "../reducers/bookEntryReducer";
+
 import {
   Collapse,
   TableContainer,
@@ -22,6 +24,7 @@ import {
 import styled from "@emotion/styled";
 import EditIcon from "@mui/icons-material/Edit";
 import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
 function createData(id, title, author, quantity) {
   return { id, title, author, quantity };
 }
@@ -36,23 +39,10 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-const onRemove = (bookEntry) => {
-  try {
-    axios
-      .post(`http://localhost:8080/deliveries/remove/${bookEntry.id}`)
-      .then((respone) => {
-        Swal.fire("Xoá thành công", "OK").then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = "/book-entries";
-            // () => handleClose(true);
-          }
-        });
-      });
-  } catch (e) {}
-};
+
 function BookEntry({ bookEntry, handleOpenUpdate }) {
   const [expanded, setExpanded] = React.useState(false);
-
+  const dispatch = useDispatch();
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -65,6 +55,21 @@ function BookEntry({ bookEntry, handleOpenUpdate }) {
       item.quantity
     );
   });
+  const onRemove = () => {
+    Swal.fire({
+      title: "Xác nhận xóa",
+      text: "Bạn có chắc chắn muốn xóa?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Xóa",
+      cancelButtonText: "Hủy",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Xóa thành công", "OK");
+        dispatch(removeBookEntry(bookEntry.id)).then(() => {});
+      }
+    });
+  };
   return (
     <div>
       <Card

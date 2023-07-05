@@ -26,11 +26,7 @@ function AddInvoiceForm({ handleClose }) {
   const [AmountInput, SetAmountInput] = useState(1);
   const dispatch = useDispatch();
   const books = useSelector((state) => state.book.books);
-  // const [book, setBook] = React.useState("");
 
-  // const handleChange = (event) => {
-  //   setBook(event.target.value);
-  // };
   useEffect(() => {
     dispatch(bookActions.fetchAllBooks());
   }, [dispatch]);

@@ -21,7 +21,20 @@ export const fetchAllInvoice = createAsyncThunk(
     }
   }
 );
-
+export const addInvoice = createAsyncThunk(
+  "invoice/addInvoice",
+  async (newBook) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/invoices/add",
+        newBook
+      );
+      return response.data;
+    } catch (error) {
+      throw error.response.data;
+    }
+  }
+);
 const invoiceSlice = createSlice({
   name: "invoice",
   initialState,

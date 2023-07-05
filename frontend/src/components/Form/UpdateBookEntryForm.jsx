@@ -28,7 +28,7 @@ function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
   } = useForm();
 
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.book.categories);
+  // const categories = useSelector((state) => state.book.categories);
 
   useEffect(() => {
     dispatch(bookActions.fetchAllCategories());
@@ -52,10 +52,9 @@ function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
       };
       deliveryNoteBooks.push(deliveryNoteBook);
     }
-    console.log("deli", deliveryNoteBooks);
     const newBookEntry = {
       creationDate: data.date,
-      shipperName: "Nguyen Van A",
+      shipperName: updateBookEntry.shipperName,
       deliveryNoteBooks: deliveryNoteBooks,
     };
     try {
@@ -67,7 +66,7 @@ function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
         .then((respone) => {
           Swal.fire("Cập nhật thành công", "OK").then((result) => {
             if (result.isConfirmed) {
-              window.location.href = "/book-entries";
+              // window.location.href = "/book-entries";
               // () => handleClose(true);
             }
           });
