@@ -14,12 +14,14 @@ import {
 } from "@mui/material";
 
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { bookActions } from "../../reducers/bookReducer";
 import Swal from "sweetalert2";
+import { bookEntryActions } from "../../reducers/bookEntryReducer";
+
 function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
+  console.log(updateBookEntry);
   const {
     register,
     handleSubmit,
@@ -57,20 +59,22 @@ function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
       shipperName: updateBookEntry.shipperName,
       deliveryNoteBooks: deliveryNoteBooks,
     };
+    console.log(newBookEntry);
+    console.log(updateBookEntry.id);
     try {
-      axios
-        .post(
-          `http://localhost:8080/deliveries/update?id=${updateBookEntry.id}`,
-          newBookEntry
-        )
-        .then((respone) => {
-          Swal.fire("Cập nhật thành công", "OK").then((result) => {
+      dispatch(
+        bookEntryActions.updateBookEntry({
+          data: newBookEntry,
+          id: updateBookEntry.id,
+        })
+      )
+        .unwrap()
+        .then(() => {
+          Swal.fire("Cập nhật sách thành công", "OK").then((result) => {
             if (result.isConfirmed) {
-              // window.location.href = "/book-entries";
-              // () => handleClose(true);
+              window.location.href = "/book-entries";
             }
           });
-          handleCloseUpdate(true);
         })
         .catch((e) => {
           Swal.fire({
@@ -79,7 +83,7 @@ function UpdateBookEntryForm({ handleCloseUpdate, updateBookEntry }) {
             text: e.response.data.message,
           }).then((result) => {
             if (result.isConfirmed) {
-              // window.location.href = "/book-entries";
+              window.location.href = "/book-entries";
             }
           });
         });

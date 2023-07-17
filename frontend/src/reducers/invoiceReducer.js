@@ -23,13 +23,24 @@ export const fetchAllInvoice = createAsyncThunk(
 );
 export const addInvoice = createAsyncThunk(
   "invoice/addInvoice",
-  async (newBook) => {
+  async (newInvoice) => {
     try {
       const response = await axios.post(
         "http://localhost:8080/invoices/add",
-        newBook
+        newInvoice
       );
-      return response.data;
+      return newInvoice;
+    } catch (error) {
+      throw error.response.data;
+    }
+  }
+);
+export const removeInvoice = createAsyncThunk(
+  "invoice/removeInvoice",
+  async (invoiceId) => {
+    try {
+      await axios.post(`http://localhost:8080/deliveries/remove/${invoiceId}`);
+      return invoiceId;
     } catch (error) {
       throw error.response.data;
     }
@@ -53,12 +64,43 @@ const invoiceSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       });
+    builder
+      .addCase(addInvoice.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addInvoice.fulfilled, (state, action) => {
+        state.loading = false;
+        state.invoices.content.push(action.payload);
+      })
+      .addCase(addInvoice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+    builder
+      .addCase(removeInvoice.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(removeInvoice.fulfilled, (state, action) => {
+        state.loading = false;
+        const invoiceId = action.payload;
+        state.invoices.content = state.invoices.content.filter(
+          (entry) => entry.id !== invoiceId
+        );
+      })
+      .addCase(removeInvoice.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
   },
 });
 
 export const invoiceActions = {
   ...invoiceSlice.actions,
   fetchAllInvoice,
+  addInvoice,
+  removeInvoice,
 };
 
 export default invoiceSlice.reducer;

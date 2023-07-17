@@ -18,13 +18,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { bookActions } from "../../reducers/bookReducer";
 import { bookEntryActions } from "../../reducers/bookEntryReducer";
 import Swal from "sweetalert2";
+import { Navigate } from "react-router-dom";
 
 function AddBookEntryForm({ handleClose }) {
   const [AmountInput, SetAmountInput] = useState(1);
   const dispatch = useDispatch();
-
   const categories = useSelector((state) => state.book.categories);
-
   useEffect(() => {
     dispatch(bookActions.fetchAllCategories());
   }, [dispatch]);
@@ -40,28 +39,6 @@ function AddBookEntryForm({ handleClose }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  // Handle success message
-  // useEffect(() => {
-  //   if (successMessage) {
-  //     console.log(successMessage);
-  //     Swal.fire(successMessage, "OK").then((result) => {
-  //       if (result.isConfirmed) {
-  //         // handleClose(true);
-  //       }
-  //       dispatch(bookEntryActions.clearMessages());
-  //     });
-  //   }
-  // }, [successMessage, handleClose, dispatch]);
-  // useEffect(() => {
-  //   if (errorMessage) {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Oops...",
-  //       text: errorMessage,
-  //     });
-  //     dispatch(bookEntryActions.clearMessages());
-  //   }
-  // }, [errorMessage, dispatch]);
 
   const onSubmit = async (data) => {
     const deliveryNoteBooks = [];
@@ -84,13 +61,13 @@ function AddBookEntryForm({ handleClose }) {
       shipperName: data.shipperName,
       deliveryNoteBooks: deliveryNoteBooks,
     };
-
     try {
       dispatch(bookEntryActions.addBookEntry(newBook))
         .unwrap()
         .then(() => {
           Swal.fire("Tạo sách thành công", "OK").then((result) => {
             if (result.isConfirmed) {
+              <Navigate to="/book-entries" />;
             }
           });
         })

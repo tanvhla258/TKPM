@@ -47,7 +47,7 @@ function BookEntry({ bookEntry, handleOpenUpdate }) {
     setExpanded(!expanded);
   };
 
-  const rows = bookEntry.deliveryNoteBooks.map((item, index) => {
+  const rows = bookEntry?.deliveryNoteBooks?.map((item, index) => {
     return createData(
       index + 1,
       item.book.title,

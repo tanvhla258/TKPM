@@ -30,7 +30,22 @@ export const addBookEntry = createAsyncThunk(
         "http://localhost:8080/deliveries/add",
         newBook
       );
-      return newBook;
+      return { newBook: newBook, id: response.data.result.id };
+    } catch (error) {
+      throw error.response.data;
+    }
+  }
+);
+export const updateBookEntry = createAsyncThunk(
+  "bookEntry/updateBookEntry",
+  async ({ data, id }) => {
+    console.log(data, id);
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/deliveries/update?id=${id}`,
+        data
+      );
+      return { data: data, id: response.data.result.id };
     } catch (error) {
       throw error.response.data;
     }
@@ -86,9 +101,27 @@ const bookEntrySlice = createSlice({
       })
       .addCase(addBookEntry.fulfilled, (state, action) => {
         state.loading = false;
-        state.bookEntries.content.push(action.payload);
+        state.bookEntries = {
+          ...state.bookEntries,
+          content: [
+            ...state.bookEntries.content,
+            { ...action.payload.newBook, id: action.payload.id },
+          ],
+        };
       })
       .addCase(addBookEntry.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+    builder
+      .addCase(updateBookEntry.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateBookEntry.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(updateBookEntry.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
@@ -116,6 +149,7 @@ export const bookEntryActions = {
   fetchAllBookEntries,
   addBookEntry,
   removeBookEntry,
+  updateBookEntry,
 };
 
 export default bookEntrySlice.reducer;

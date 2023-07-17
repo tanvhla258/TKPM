@@ -16,7 +16,7 @@ function BookEntryPage() {
   useEffect(() => {
     dispatch(bookEntryActions.fetchAllBookEntries());
   }, [dispatch]);
-
+  console.log(bookEntriesFetch);
   const [open, setOpen] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [updateBookEntry, setUpdateBookEntry] = useState();
@@ -28,7 +28,6 @@ function BookEntryPage() {
     setUpdateBookEntry(data);
   };
   const handleCloseUpdate = () => setOpenUpdate(false);
-  console.log(bookEntriesFetch);
   return (
     <div style={{ position: "relative" }}>
       <Grid marginTop={2} container spacing={2}>
