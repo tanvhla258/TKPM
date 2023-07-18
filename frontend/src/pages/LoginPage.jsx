@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
 import { adminActions } from "../reducers/adminReducer";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Copyright(props) {
   return (
@@ -42,14 +43,30 @@ function LoginPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const credentials = {
-      email: data.get("email"),
-      password: data.get("password"),
-    };
-    console.log(credentials);
-    dispatch(adminActions.loginAdmin(credentials));
-    navigate("/");
+
+    try {
+      const data = new FormData(event.currentTarget);
+      const credentials = {
+        email: data.get("email"),
+        password: data.get("password"),
+      };
+      console.log(credentials.email, credentials.password);
+      if (credentials.email !== "admin" && credentials.email !== "123456")
+        throw new Error("Tên đăng nhập hoặc mật khẩu sai");
+
+      dispatch(adminActions.loginAdmin(credentials));
+      navigate("/");
+    } catch (e) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: e.message,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // window.location.href = "/book-entries";
+        }
+      });
+    }
   };
 
   return (

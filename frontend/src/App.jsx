@@ -11,6 +11,7 @@ import { Box } from "@mui/material";
 import InvoicePage from "./pages/InvoicePage";
 import RegulationPage from "./pages/RegulationPage";
 import StartPage from "./pages/StartPage";
+import AuthPage from "./pages/AuthPage";
 
 import SignUpPage from "./pages/SignupPage";
 import ReportPage from "./pages/ReportPage";
@@ -34,8 +35,8 @@ function App() {
               <Routes>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/" element={<StartPage />} />
-
                 <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/*" element={<AuthPage />} />
               </Routes>
             </Box>
           </Box>

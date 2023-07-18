@@ -24,17 +24,18 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { bookActions } from "../reducers/bookReducer";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 function ProductsPage() {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.book.books);
   const categories = useSelector((state) => state.book.categories);
   const [searchInfo, setSearchInfo] = useState([]);
+  const [dropDownData, setDropDownData] = useState();
   useEffect(() => {
     dispatch(bookActions.fetchAllBooks());
     dispatch(bookActions.fetchAllCategories());
   }, [dispatch]);
   const bookRender = searchInfo.content ? searchInfo.content : books;
-  const categoriesName = categories.map((cate) => cate.name);
 
   const {
     register,
@@ -43,11 +44,13 @@ function ProductsPage() {
   } = useForm();
   const onSubmit = (data) => {
     if (!books) return;
+    console.log(data);
+
     try {
       if (data.search != "")
         axios
           .get(
-            `http://localhost:8080/books/search?title=${data.search}&page=0&size=10`
+            `http://localhost:8080/books/search?title=${data.search}&category=${data.category}&page=0&size=10`
           )
           .then((respone) => {
             setSearchInfo(respone.data);
@@ -110,7 +113,11 @@ function ProductsPage() {
             fullWidth
           />
         </form>
-        <Dropdown label={"Thể loại"} inputArray={categoriesName} />
+        <Dropdown
+          register={register}
+          label={"Thể loại"}
+          inputArray={categories}
+        />
       </div>
       <Grid marginTop={2} container spacing={2}>
         {books?.length == 0 && (

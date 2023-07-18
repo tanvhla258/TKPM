@@ -28,15 +28,15 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import RequestPageIcon from "@mui/icons-material/RequestPage";
 import DescriptionIcon from "@mui/icons-material/Description";
 import AssessmentIcon from "@mui/icons-material/Assessment";
+import MenuItem from "@mui/material/MenuItem";
 import { Tooltip } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import girl from "../assets/girl.svg";
+
 import { useSelector } from "react-redux";
-import {
-  StyledInputBase,
-  SearchIconWrapper,
-  Search,
-} from "../constants/styleComponent.js";
+
+import Menu from "@mui/material/Menu";
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -106,10 +106,17 @@ const Drawer = styled(MuiDrawer, {
 
 export default function TopAndSide() {
   const admin = useSelector((state) => state.admin.admin);
-
+  const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const isMenuOpen = Boolean(anchorEl);
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -137,7 +144,30 @@ export default function TopAndSide() {
     <SettingsIcon />,
     <PersonIcon />,
   ];
-
+  const menuId = "primary-search-account-menu";
+  function Logout() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "/";
+  }
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={Logout}>Logout</MenuItem>
+    </Menu>
+  );
   return (
     <>
       <CssBaseline />
@@ -180,9 +210,9 @@ export default function TopAndSide() {
               size="large"
               edge="end"
               aria-label="account of current user"
-              // aria-controls={menuId}
+              aria-controls={menuId}
               aria-haspopup="true"
-              // onClick={handleProfileMenuOpen}
+              onClick={handleProfileMenuOpen}
               color="inherit"
             >
               <Avatar
@@ -247,6 +277,7 @@ export default function TopAndSide() {
           }}
           src={girl}
         ></Box>
+        {renderMenu}
       </Drawer>
     </>
   );
